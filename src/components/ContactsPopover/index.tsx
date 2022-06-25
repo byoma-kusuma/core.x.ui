@@ -10,6 +10,7 @@ export default function ContactsPopover() {
     setOpen(true);
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleClose = () => {
     setOpen(false);
   };
