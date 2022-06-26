@@ -198,6 +198,8 @@ export default function NotificationsPopover() {
   );
 }
 
+// until notification section is done
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function NotificationItem({ notification }: any) {
   const { avatar, title } = renderContent(notification);
 

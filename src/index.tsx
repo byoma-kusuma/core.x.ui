@@ -3,10 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import ThemeProvider from "./theme";
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById("root")!;
@@ -16,16 +14,12 @@ const queryClient = new QueryClient();
 
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      {/* <Provider store={store}> */}
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </QueryClientProvider>
-      {/* </Provider> */}
-    </BrowserRouter>
+    {/* <Provider store={store}> */}
+    <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
+      <App />
+    </QueryClientProvider>
+    {/* </Provider> */}
   </React.StrictMode>
 );
 

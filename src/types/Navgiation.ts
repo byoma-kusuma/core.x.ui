@@ -4,4 +4,5 @@ export interface NavigationItem {
   icon: JSX.Element;
   info?: string;
   children?: Array<NavigationItem>;
+  type?: "grouper";
 }

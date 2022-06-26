@@ -13,7 +13,8 @@ import {
   ListItemIcon,
   ListItemButton,
   Theme,
-  BoxProps
+  BoxProps,
+  Typography
 } from "@mui/material";
 import Iconify from "../Iconify";
 import { NavigationItem } from "../../types/Navgiation";
@@ -24,7 +25,7 @@ const ListItemStyles = (theme: Theme) => ({
   position: "relative",
   textTransform: "capitalize",
   color: theme.palette.text.secondary,
-  borderRadius: theme.shape.borderRadius
+  borderRadius: "8px"
 });
 
 const ListItemIconStyle = styled(ListItemIcon)({
@@ -170,9 +171,19 @@ export default function NavSection(props: NavSectionProps) {
 
   return (
     <Box {...other}>
-      <List disablePadding sx={{ p: 1 }}>
+      <List disablePadding sx={{ px: 2 }}>
         {navConfig.map((item) => (
-          <NavItem key={item.title} item={item} active={match} />
+          <Box key={item.title}>
+            {item.type === "grouper" ? (
+              <Box pt="16px" ml="20px" pb="4px">
+                <Typography variant="overline">{item.title}</Typography>
+              </Box>
+            ) : (
+              <Box py="4px">
+                <NavItem item={item} active={match} />
+              </Box>
+            )}
+          </Box>
         ))}
       </List>
     </Box>

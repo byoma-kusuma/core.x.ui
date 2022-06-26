@@ -16,7 +16,7 @@ const MENU_OPTIONS = [
   {
     label: "Home",
     icon: "eva:home-fill",
-    linkTo: "/"
+    linkTo: "/app/dashboard"
   },
   {
     label: "Profile",
@@ -26,7 +26,15 @@ const MENU_OPTIONS = [
   { label: "Settings", icon: "eva:settings-2-fill", linkTo: "#" }
 ];
 
-export default function AccountPopover() {
+interface AccountPopoverProps {
+  photoUrl: string;
+  user: string;
+  userName: string;
+}
+
+export default function AccountPopover(props: AccountPopoverProps) {
+  const { photoUrl, user, userName } = props;
+
   const [anchorEl, setAnchorlEl] =
     React.useState<HTMLButtonElement | null>(null);
 
@@ -62,10 +70,7 @@ export default function AccountPopover() {
             : {})
         }}
       >
-        <Avatar
-          src="/static/mock-images/avatars/avatar_default.jpg"
-          alt="photoURL"
-        />
+        <Avatar src={photoUrl} alt="photoURL" />
       </IconButton>
 
       <MenuPopover
@@ -84,10 +89,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            Amogh Rijal
+            {user}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            xamoghx@gmail.com
+            {userName}
           </Typography>
         </Box>
 

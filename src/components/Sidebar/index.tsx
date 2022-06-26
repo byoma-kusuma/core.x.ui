@@ -53,9 +53,11 @@ export default function Sidebar(props: SidebarProps) {
         }
       }}
     >
-      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>Admin</Box>
+      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
+        <img src="/static/bk_t.png" height="40px" width="40px" />
+      </Box>
 
-      <Box sx={{ mb: 5, mx: 2.5 }}>
+      <Box sx={{ mb: 4, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
             <Avatar

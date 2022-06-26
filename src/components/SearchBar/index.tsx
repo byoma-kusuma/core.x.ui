@@ -33,8 +33,15 @@ const SearchbarStyle = styled("div")(({ theme }) => ({
   }
 }));
 
-export default function Searchbar() {
+interface SearchbarProps {
+  onSearch: (s: string) => void;
+}
+
+export default function Searchbar(props: SearchbarProps) {
+  const { onSearch } = props;
+
   const [isOpen, setOpen] = React.useState(false);
+  const [searchString, setSearchString] = React.useState("");
 
   const handleOpen = () => {
     setOpen((prev) => !prev);
@@ -59,6 +66,8 @@ export default function Searchbar() {
               autoFocus
               fullWidth
               disableUnderline
+              value={searchString}
+              onChange={(e) => setSearchString(e.target.value)}
               placeholder="Search…"
               startAdornment={
                 <InputAdornment position="start">
@@ -70,7 +79,13 @@ export default function Searchbar() {
               }
               sx={{ mr: 1, fontWeight: "fontWeightBold" }}
             />
-            <Button variant="contained" onClick={handleClose}>
+            <Button
+              variant="contained"
+              onClick={() => {
+                onSearch(searchString);
+                handleClose();
+              }}
+            >
               Search
             </Button>
           </SearchbarStyle>

@@ -22,6 +22,8 @@ const themeOptions = {
   customShadows
 } as const;
 
+import type {} from "@mui/lab/themeAugmentation";
+
 declare module "@mui/material/styles" {
   interface Theme {
     palette: typeof palette;
