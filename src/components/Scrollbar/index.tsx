@@ -1,3 +1,4 @@
+import * as React from "react";
 import PropTypes from "prop-types";
 import SimpleBarReact from "simplebar-react";
 import { alpha, styled } from "@mui/material/styles";
@@ -61,8 +62,7 @@ export default function Scrollbar(props: ScrollbarProps) {
 
   return (
     <RootStyle>
-      {/* @ts-ignore */}
-      <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx} {...other}>
+      <SimpleBarStyle timeout={500} clickOnTrack={false} sx={sx}>
         {children}
       </SimpleBarStyle>
     </RootStyle>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import {
@@ -8,7 +8,7 @@ import {
   Stack,
   MenuItem,
   Avatar,
-  IconButton,
+  IconButton
 } from "@mui/material";
 import MenuPopover from "../../components/MenuPopover";
 
@@ -16,18 +16,19 @@ const MENU_OPTIONS = [
   {
     label: "Home",
     icon: "eva:home-fill",
-    linkTo: "/",
+    linkTo: "/"
   },
   {
     label: "Profile",
     icon: "eva:person-fill",
-    linkTo: "#",
+    linkTo: "#"
   },
-  { label: "Settings", icon: "eva:settings-2-fill", linkTo: "#" },
+  { label: "Settings", icon: "eva:settings-2-fill", linkTo: "#" }
 ];
 
 export default function AccountPopover() {
-  const [anchorEl, setAnchorlEl] = useState<HTMLButtonElement | null>(null);
+  const [anchorEl, setAnchorlEl] =
+    React.useState<HTMLButtonElement | null>(null);
 
   const open = Boolean(anchorEl);
 
@@ -54,10 +55,10 @@ export default function AccountPopover() {
                   height: "100%",
                   borderRadius: "50%",
                   position: "absolute",
-                  bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
-                },
+                  bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8)
+                }
               }
-            : {}),
+            : {})
         }}
       >
         <Avatar
@@ -76,8 +77,8 @@ export default function AccountPopover() {
           ml: 0.75,
           "& .MuiMenuItem-root": {
             typography: "body2",
-            borderRadius: 0.75,
-          },
+            borderRadius: 0.75
+          }
         }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>

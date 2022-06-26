@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import * as React from "react";
 import { alpha } from "@mui/material/styles";
 import { Box, MenuItem, Stack, IconButton } from "@mui/material";
 import MenuPopover from "../../components/MenuPopover";
@@ -22,8 +22,8 @@ const LANGS = [
 ];
 
 export default function LanguagePopover() {
-  const anchorRef = useRef(null);
-  const [open, setOpen] = useState(false);
+  const anchorRef = React.useRef(null);
+  const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen(true);

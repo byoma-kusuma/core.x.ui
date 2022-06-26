@@ -1,3 +1,4 @@
+import * as React from "react";
 import { CssBaseline } from "@mui/material";
 import {
   ThemeProvider as MUIThemeProvider,
@@ -29,11 +30,14 @@ declare module "@mui/material/styles" {
     customShadows: typeof customShadows;
   }
   interface ThemeOptions {
-    // @ts-ignore -- need a ts wizard to resolve this
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     palette?: typeof palette;
-    // @ts-ignore -- need a ts wizard to resolve this
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     typography?: typeof typography;
-    // @ts-ignore -- need a ts wizard to resolve this
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     shadows?: typeof shadows;
     customShadows?: typeof customShadows;
   }
@@ -42,7 +46,8 @@ declare module "@mui/material/styles" {
 export default function ThemeProvider(props: ThemeProviderProps) {
   const { children } = props;
 
-  // @ts-ignore -- need a ts wizard to resolve this
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const theme = createTheme(themeOptions);
   theme.components = componentsOverride(theme);
 
