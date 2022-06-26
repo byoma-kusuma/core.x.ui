@@ -1,4 +1,4 @@
-import { alpha, Theme } from '@mui/material/styles';
+import { alpha, Theme } from "@mui/material/styles";
 
 export default function Backdrop(theme: Theme) {
   const varLow = alpha(theme.palette.grey[900], 0.48);
@@ -9,13 +9,13 @@ export default function Backdrop(theme: Theme) {
       styleOverrides: {
         root: {
           background: [
-            `rgb(22,28,36)`,
+            "rgb(22,28,36)",
             `-moz-linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`,
             `-webkit-linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`,
             `linear-gradient(75deg, ${varLow} 0%, ${varHigh} 100%)`
           ],
-          '&.MuiBackdrop-invisible': {
-            background: 'transparent'
+          "&.MuiBackdrop-invisible": {
+            background: "transparent"
           }
         }
       }

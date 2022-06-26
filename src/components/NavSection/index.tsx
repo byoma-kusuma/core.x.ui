@@ -1,5 +1,4 @@
-import { useState } from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {
   NavLink as RouterLink,
   matchPath,
@@ -37,11 +36,6 @@ const ListItemIconStyle = styled(ListItemIcon)({
   justifyContent: "center"
 });
 
-NavItem.propTypes = {
-  item: PropTypes.object,
-  active: PropTypes.func
-};
-
 interface NavItemProps {
   item: NavigationItem;
   active: (path: string) => boolean;
@@ -55,7 +49,7 @@ function NavItem(props: NavItemProps) {
 
   const { title, path, icon, info, children } = item;
 
-  const [open, setOpen] = useState(isActiveRoot);
+  const [open, setOpen] = React.useState(isActiveRoot);
 
   const handleOpen = () => {
     setOpen((prev) => !prev);

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react";
 import { styled, alpha } from "@mui/material/styles";
 import {
   Input,
@@ -34,7 +34,7 @@ const SearchbarStyle = styled("div")(({ theme }) => ({
 }));
 
 export default function Searchbar() {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = React.useState(false);
 
   const handleOpen = () => {
     setOpen((prev) => !prev);

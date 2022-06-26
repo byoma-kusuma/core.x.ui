@@ -1,3 +1,4 @@
+import * as React from "react";
 import Iconify from "../components/Iconify";
 
 export const getIcon = (name: string) => (

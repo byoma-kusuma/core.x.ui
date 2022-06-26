@@ -1,4 +1,4 @@
-import { useState } from "react";
+import * as React from "react";
 import { Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import NavigationBar from "../../components/NavigationBar";
@@ -27,7 +27,7 @@ const MainStyle = styled("div")(({ theme }) => ({
 }));
 
 export default function DashboardLayout() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = React.useState(false);
 
   return (
     <RootStyle>

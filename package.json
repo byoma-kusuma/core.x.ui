@@ -38,7 +38,8 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "lint:fix": "eslint --fix --ext .js,.jsx,.ts,.tsx ."
   },
   "eslintConfig": {
     "extends": [

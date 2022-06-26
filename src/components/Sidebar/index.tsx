@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import * as React from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
@@ -36,11 +36,10 @@ export default function Sidebar(props: SidebarProps) {
 
   const isDesktop = useResponsive("up", "lg");
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isOpenSidebar) {
       onCloseSidebar();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   const renderContent = (
