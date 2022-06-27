@@ -1,46 +1,106 @@
-# Getting Started with Create React App
+# Instructions
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
+UI for BKBDS related projects.
 
-## Available Scripts
+## Features and major tools
+- Typescript
+- SPA approach with React
+- Client state management with Redux Toolkit & server state with React-Query
+- Graphql preferred
+- 🔐 JWT authentication, CASL
+- Storybook documentation of components
+- Component testing with Jest, E2E with cypress
+- Eslint and Prettier for code style guidelines
+- Mui as a component library, Formik & Yup for forms and validations
 
-In the project directory, you can run:
+## Overview
 
-### `npm start`
+- [Instructions](#instructions)
+  - [Features](#features-and-major-tools)
+  - [Overview](#overview)
+  - [Project Setup and Execution](#project-setup-and-execution)
+    - [1. Install Dependencies](#1-install-dependencies)
+    - [2. Environment Variables](#2-environment-variables)
+    - [3. Start and Build UI server](#3-start-and-build-ui-server)
+    - [4. Tests](#4-tests)
+    - [5. Linting](#5-linting)
+  - [GraphQL Playground](#graphql-playground)
+  - [Style and Structure Guidelines](#style-and-structure-guidelines)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Project Setup and Execution
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### 1. Install Dependencies
 
-### `npm test`
+Install latest stable nodejs & npm release and add to path.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Install the dependencies for the UI application:
 
-### `npm run build`
+```bash
+npm install
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### 2. Environment Variables
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Setup the environment variables properly in your project root directory.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 3. Start and Build UI server
 
-### `npm run eject`
+Run UI server in development mode (runs in localhost:3000 by default)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm run start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Build UI 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```bash
+npm run build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Run Storybook server in development mode (runs in localhost:6006 by default)
 
-## Learn More
+```bash
+npm run storybook
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Build Storybook
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm run build-storybook
+```
+
+### 4. Tests
+
+Run all tests
+
+```
+npm run test
+```
+
+> **Note**: Cypress testing to be added soon
+
+
+### 5. Linting
+
+Fix all auto-fixable eslint problems
+
+```
+npm run lint:fix
+```
+
+## GraphQL Playground
+
+Open up the [example GraphQL queries](graphql/auth.graphql) and copy them to the GraphQL Playground. Some queries and mutations are secured by an auth guard. You have to acquire a JWT token from `signup` or `login`. Add the `accessToken`as followed to **HTTP HEADERS** in the playground and replace `YOURTOKEN` here:
+
+```json
+{
+  "Authorization": "Bearer YOURTOKEN"
+}
+```
+
+## Style and Structure Guidelines
+- Typescript guideline https://google.github.io/styleguide/tsguide.html
+- Folder and files naming should be small unless they are a react component or an interface file.
+
+
+
