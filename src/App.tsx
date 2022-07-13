@@ -3,15 +3,14 @@ import AppRoutes from "./routes/AppRoutes";
 import "simplebar/dist/simplebar.min.css";
 import ThemeProvider from "./theme";
 import { BrowserRouter } from "react-router-dom";
+import Spinner from "./components/Spinner";
 
 function App() {
   return (
     <div className="App">
       <ThemeProvider>
         <BrowserRouter>
-          <React.Suspense fallback={<div>Loading...</div>}>
-            <AppRoutes />
-          </React.Suspense>
+          <AppRoutes />
         </BrowserRouter>
       </ThemeProvider>
     </div>

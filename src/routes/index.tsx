@@ -1,12 +1,12 @@
 import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
+import Login from "../pages/Login";
+import NotFound404 from "../pages/NotFound404";
 
-// lazy imports
+// use lazy imports for routes under app
 const AppLayout = React.lazy(() => import("../layouts/AppLayout"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard"));
-const Login = React.lazy(() => import("../pages/Login"));
-const NotFound404 = React.lazy(() => import("../pages/NotFound404"));
 const Member = React.lazy(() => import("../pages/Members"));
 
 export default [

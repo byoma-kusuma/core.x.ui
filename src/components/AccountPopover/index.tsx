@@ -30,10 +30,11 @@ interface AccountPopoverProps {
   photoUrl: string;
   user: string;
   userName: string;
+  onLogout: () => void;
 }
 
 export default function AccountPopover(props: AccountPopoverProps) {
-  const { photoUrl, user, userName } = props;
+  const { photoUrl, user, userName, onLogout } = props;
 
   const [anchorEl, setAnchorlEl] =
     React.useState<HTMLButtonElement | null>(null);
@@ -113,7 +114,13 @@ export default function AccountPopover(props: AccountPopoverProps) {
 
         <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            onLogout();
+          }}
+          sx={{ m: 1 }}
+        >
           Logout
         </MenuItem>
       </MenuPopover>

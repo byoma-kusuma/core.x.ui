@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import NavigationBarContainer from "./containers/NavigationBarContainer";
 import SidebarContainer from "./containers/SidebarContainer";
+import Spinner from "../../components/Spinner";
+import { Box } from "@mui/material";
 
 const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
@@ -18,7 +20,9 @@ const MainStyle = styled("div")(({ theme }) => ({
   overflow: "auto",
   minHeight: "100%",
   paddingTop: APP_BAR_MOBILE + 24,
-  paddingBottom: theme.spacing(10),
+  paddingBottom: theme.spacing(2),
+  paddingLeft: theme.spacing(1),
+  paddingRight: theme.spacing(1),
   [theme.breakpoints.up("lg")]: {
     paddingTop: APP_BAR_DESKTOP + 24,
     paddingLeft: theme.spacing(2),
@@ -36,7 +40,15 @@ export default function DashboardLayout() {
         onCloseSidebar={() => setOpen(false)}
       />
       <MainStyle>
-        <Outlet />
+        <React.Suspense
+          fallback={
+            <Box mt="25vh">
+              <Spinner isModuleLoader />
+            </Box>
+          }
+        >
+          <Outlet />
+        </React.Suspense>
       </MainStyle>
     </RootStyle>
   );
