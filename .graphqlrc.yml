@@ -1,0 +1,2 @@
+schema: http://localhost:7200/api/graphql/
+documents: "src/**/*.{graphql,js,ts,jsx,tsx}"

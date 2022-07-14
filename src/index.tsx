@@ -3,23 +3,21 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { createClient, Provider } from "urql";
+
+const client = createClient({
+  url: "http://localhost:7200/api/graphql"
+});
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById("root")!;
 const root = createRoot(container);
 
-const queryClient = new QueryClient();
-
 root.render(
   <React.StrictMode>
-    {/* <Provider store={store}> */}
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
+    <Provider value={client}>
       <App />
-    </QueryClientProvider>
-    {/* </Provider> */}
+    </Provider>
   </React.StrictMode>
 );
 

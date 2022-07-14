@@ -1,0 +1,14 @@
+query me {
+  me {
+    firstName
+    lastName
+    userName
+  }
+}
+
+mutation login($userName: String!, $password: String!) {
+  login(data: { userName: $userName, password: $password }) {
+    accessToken
+    refreshToken
+  }
+}
