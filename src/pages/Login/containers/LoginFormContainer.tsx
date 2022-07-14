@@ -16,6 +16,7 @@ import Iconify from "../../../components/Iconify";
 import useResponsive from "../../../hooks/useResponsive";
 import { useLoginMutation } from "../../../generated/graphql";
 import GqlErrHandler from "../../../services/gqlErrorHandler";
+import { setLocalToken, setRefreshToken } from "../../../services/auth";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -49,7 +50,9 @@ export default function LoginFormContainer() {
         .onError(({ notiErr }) => {
           notiErr();
         })
-        .onSuccess(() => {
+        .onSuccess(({ res }) => {
+          setLocalToken(res.data?.login.accessToken);
+          setRefreshToken(res.data?.login.refreshToken);
           navigate("/app/dashboard", { replace: true });
         });
     }

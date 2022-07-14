@@ -3,6 +3,7 @@ import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
 import Login from "../pages/Login";
 import NotFound404 from "../pages/NotFound404";
+import Private from "./Private";
 
 // use lazy imports for routes under app
 const AppLayout = React.lazy(() => import("../layouts/AppLayout"));
@@ -12,7 +13,11 @@ const Member = React.lazy(() => import("../pages/Members"));
 export default [
   {
     path: "/app",
-    element: <AppLayout />,
+    element: (
+      <Private>
+        <AppLayout />
+      </Private>
+    ),
     children: [
       { path: "/app", element: <Navigate to="/app/dashboard" replace /> },
       { path: "dashboard", element: <Dashboard /> },

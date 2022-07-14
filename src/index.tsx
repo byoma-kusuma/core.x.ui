@@ -3,11 +3,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import { createClient, Provider } from "urql";
-
-const client = createClient({
-  url: "http://localhost:7200/api/graphql"
-});
+import { Provider } from "urql";
+import { gqlClient } from "./services/auth";
 
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 const container = document.getElementById("root")!;
@@ -15,7 +12,7 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <Provider value={client}>
+    <Provider value={gqlClient}>
       <App />
     </Provider>
   </React.StrictMode>

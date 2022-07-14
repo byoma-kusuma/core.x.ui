@@ -5,6 +5,7 @@ import ContactsPopover from "../../../components/ContactsPopover";
 import LanguagePopover from "../../../components/LanguagePopover";
 import NavigationBar from "../../../components/NavigationBar";
 import NotificationsPopover from "../../../components/NotificationsPopover";
+import { hardLogout } from "../../../services/auth";
 
 interface NavigationBarContainerProps {
   onHamburgerClick: () => void;
@@ -30,7 +31,9 @@ export default function NavigationBarContainer(
               photoUrl="/static/mock-images/avatars/avatar_default.jpg"
               user="Amogh Rijal"
               userName="xamoghx@gmail.com"
-              onLogout={() => navigate("/login", { replace: true })}
+              onLogout={() => {
+                hardLogout();
+              }}
             />
           </>
         )}

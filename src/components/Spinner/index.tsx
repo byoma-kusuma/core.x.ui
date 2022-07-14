@@ -7,12 +7,17 @@ import {
 } from "@mui/material";
 
 interface SpinnerProps {
-  isModuleLoader: boolean;
+  isModuleLoader?: boolean;
   circularProgressProps?: CircularProgressProps;
+  optionalNode?: React.ReactNode;
 }
 
 export default function Spinner(props: SpinnerProps) {
-  const { isModuleLoader, circularProgressProps } = props;
+  const {
+    isModuleLoader = false,
+    circularProgressProps,
+    optionalNode = <></>
+  } = props;
   return (
     <Box
       height="100%"
@@ -36,6 +41,7 @@ export default function Spinner(props: SpinnerProps) {
           style={{ marginTop: "16px" }}
         />
       )}
+      {optionalNode}
     </Box>
   );
 }
