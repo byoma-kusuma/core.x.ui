@@ -14,6 +14,8 @@ import {
 import { LoadingButton } from "@mui/lab";
 import Iconify from "../../../components/Iconify";
 import useResponsive from "../../../hooks/useResponsive";
+import { useLoginMutation } from "../../../generated/graphql";
+import GqlErrHandler from "../../../services/gqlErrorHandler";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,6 +29,8 @@ export default function LoginFormContainer() {
 
   const [showPassword, setShowPassword] = useState(false);
 
+  const [, loginMut] = useLoginMutation();
+
   const smUp = useResponsive("up", "sm");
 
   const formik = useFormik({
@@ -35,8 +39,19 @@ export default function LoginFormContainer() {
       password: ""
     },
     validationSchema: LoginSchema,
-    onSubmit: () => {
-      navigate("/app/dashboard", { replace: true });
+    onSubmit: async (values) => {
+      new GqlErrHandler(
+        await loginMut({
+          userName: values.email,
+          password: values.password
+        })
+      )
+        .onError(({ notiErr }) => {
+          notiErr();
+        })
+        .onSuccess(() => {
+          navigate("/app/dashboard", { replace: true });
+        });
     }
   });
 
