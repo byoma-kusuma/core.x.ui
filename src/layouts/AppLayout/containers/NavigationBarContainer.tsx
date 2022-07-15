@@ -15,7 +15,6 @@ export default function NavigationBarContainer(
   props: NavigationBarContainerProps
 ) {
   const { onHamburgerClick } = props;
-  const navigate = useNavigate();
 
   return (
     <div>

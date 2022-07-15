@@ -45,6 +45,7 @@ export default class GqlErrHandler<
     }) => void
   ) {
     let errorString: string | null | undefined = "";
+
     if (this.res.error) {
       if (this.res.error.graphQLErrors.length) {
         errorString = this.getCombinedGQLError(this.res);
@@ -58,12 +59,11 @@ export default class GqlErrHandler<
         notiErr: () =>
           enqueueSnackbar(upperFirst(errorString as string), {
             variant: "error",
-            autoHideDuration: 2000,
-            persist: false,
-            anchorOrigin: { horizontal: "right", vertical: "bottom" }
+            persist: false
           })
       });
     }
+
     return this;
   }
 }

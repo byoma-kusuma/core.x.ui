@@ -1,8 +1,16 @@
-import { Box, Typography } from "@mui/material";
+import { Box, styled, Typography } from "@mui/material";
 import React from "react";
 import Spinner from "../components/Spinner";
 import { useMeQuery } from "../generated/graphql";
 import { hardLogout } from "../services/auth";
+
+const Errored = styled("div")(() => ({
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  height: "100vh",
+  width: "100%"
+}));
 
 export default function Private({ children }: { children: React.ReactNode }) {
   const [{ data, fetching, error }] = useMeQuery();
@@ -22,15 +30,9 @@ export default function Private({ children }: { children: React.ReactNode }) {
 
   if (error) {
     return (
-      <Box
-        display="flex"
-        height="100vh"
-        width="100%"
-        alignItems="center"
-        justifyContent="center"
-      >
+      <Errored>
         Something went wrong! Please contact system administrator!
-      </Box>
+      </Errored>
     );
   }
 
