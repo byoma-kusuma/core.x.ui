@@ -6,7 +6,8 @@ import {
   cacheExchange,
   createClient,
   dedupExchange,
-  fetchExchange
+  fetchExchange,
+  errorExchange
 } from "urql";
 import { history } from "../App";
 
@@ -26,8 +27,7 @@ export function hardLogout(
       {
         variant: "error",
         autoHideDuration: 5000,
-        persist: false,
-        anchorOrigin: { horizontal: "right", vertical: "bottom" }
+        preventDuplicate: true
       }
     );
   }
@@ -38,21 +38,21 @@ export function clearAuth(): void {
   localStorage.removeItem(REFRESH_TOKEN_KEY);
 }
 
-export function setLocalToken(token: string) {
+export function setLocalToken(token: string): string | null {
   localStorage.setItem(LOCAL_TOKEN_KEY, token);
   return localStorage.getItem(LOCAL_TOKEN_KEY);
 }
 
-export function setRefreshToken(token: string) {
+export function setRefreshToken(token: string): string | null {
   localStorage.setItem(REFRESH_TOKEN_KEY, token);
   return localStorage.getItem(REFRESH_TOKEN_KEY);
 }
 
-export function getLocalToken() {
+export function getLocalToken(): string | null {
   return localStorage.getItem(LOCAL_TOKEN_KEY);
 }
 
-export function getRefreshToken() {
+export function getRefreshToken(): string | null {
   return localStorage.getItem(REFRESH_TOKEN_KEY);
 }
 
@@ -68,11 +68,21 @@ export const REFRESH_TOKEN_MUTATION = gql`
 type AuthState = { refreshToken: string; token: string };
 
 export const gqlClient = createClient({
-  url: "http://localhost:7200/api/graphql",
+  url: process.env.REACT_APP_BASE_URL as string,
   exchanges: [
     devtoolsExchange,
     dedupExchange,
     cacheExchange,
+    errorExchange({
+      onError: (error) => {
+        const isAuthError = error.graphQLErrors.some(
+          (e) => e.extensions?.code === "UNAUTHENTICATED"
+        );
+        if (isAuthError) {
+          hardLogout(true);
+        }
+      }
+    }),
     authExchange({
       // get auth internal
       async getAuth({ authState, mutate }) {

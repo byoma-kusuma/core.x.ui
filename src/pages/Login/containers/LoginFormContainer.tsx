@@ -22,7 +22,9 @@ const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email("Email must be a valid email address")
     .required("Email is required"),
-  password: Yup.string().required("Password is required")
+  password: Yup.string()
+    .required("Password is required")
+    .min(8, "Password should be minimum of 8 characters")
 });
 
 export default function LoginFormContainer() {
