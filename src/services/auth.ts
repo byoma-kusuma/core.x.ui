@@ -1,18 +1,13 @@
 import { makeOperation, gql } from "@urql/core";
-import { devtoolsExchange } from "@urql/devtools";
 import { authExchange } from "@urql/exchange-auth";
 import { enqueueSnackbar } from "notistack";
-import {
-  cacheExchange,
-  createClient,
-  dedupExchange,
-  fetchExchange,
-  errorExchange
-} from "urql";
+import { errorExchange } from "urql";
 import { history } from "../App";
 
 const LOCAL_TOKEN_KEY = "token";
 const REFRESH_TOKEN_KEY = "refreshToken";
+
+const NO_AUTH_CODE = "UNAUTHENTICATED";
 
 export function hardLogout(
   showReloginMessage?: boolean,
@@ -67,82 +62,72 @@ export const REFRESH_TOKEN_MUTATION = gql`
 
 type AuthState = { refreshToken: string; token: string };
 
-export const gqlClient = createClient({
-  url: process.env.REACT_APP_BASE_URL as string,
-  exchanges: [
-    devtoolsExchange,
-    dedupExchange,
-    cacheExchange,
-    errorExchange({
-      onError: (error) => {
-        const isAuthError = error.graphQLErrors.some(
-          (e) => e.extensions?.code === "UNAUTHENTICATED"
-        );
-        if (isAuthError) {
-          hardLogout(true);
+export const errorExcConfig = errorExchange({
+  onError: (error) => {
+    const isAuthError = error.graphQLErrors.some(
+      (e) => e.extensions?.code === NO_AUTH_CODE
+    );
+    if (isAuthError) {
+      hardLogout(true);
+    }
+  }
+});
+
+export const authExcConfig = authExchange({
+  // get auth internal
+  async getAuth({ authState, mutate }) {
+    if (!authState) {
+      const token = getLocalToken();
+      const refreshToken = getRefreshToken();
+      if (token && refreshToken) {
+        return { token, refreshToken };
+      }
+      return null;
+    }
+
+    const result = await mutate(REFRESH_TOKEN_MUTATION, {
+      refreshToken: (authState as AuthState).refreshToken
+    });
+
+    if (result.data?.refreshToken) {
+      setLocalToken(result.data.refreshToken.accessToken);
+      setRefreshToken(result.data.refreshToken.refreshToken);
+      return {
+        token: result.data.refreshToken.accessToken,
+        refreshToken: result.data.refreshToken.refreshToken
+      };
+    }
+
+    hardLogout(true);
+
+    return null;
+  },
+
+  // add auth to requests
+  addAuthToOperation({ authState, operation }) {
+    if (!authState || !(authState as AuthState).token) {
+      return operation;
+    }
+
+    const fetchOptions =
+      typeof operation.context.fetchOptions === "function"
+        ? operation.context.fetchOptions()
+        : operation.context.fetchOptions || {};
+
+    return makeOperation(operation.kind, operation, {
+      ...operation.context,
+      fetchOptions: {
+        ...fetchOptions,
+        headers: {
+          ...fetchOptions.headers,
+          Authorization: `Bearer ${(authState as AuthState).token}`
         }
       }
-    }),
-    authExchange({
-      // get auth internal
-      async getAuth({ authState, mutate }) {
-        if (!authState) {
-          const token = getLocalToken();
-          const refreshToken = getRefreshToken();
-          if (token && refreshToken) {
-            return { token, refreshToken };
-          }
-          return null;
-        }
+    });
+  },
 
-        const result = await mutate(REFRESH_TOKEN_MUTATION, {
-          refreshToken: (authState as AuthState).refreshToken
-        });
-
-        if (result.data?.refreshToken) {
-          setLocalToken(result.data.refreshToken.accessToken);
-          setRefreshToken(result.data.refreshToken.refreshToken);
-          return {
-            token: result.data.refreshToken.accessToken,
-            refreshToken: result.data.refreshToken.refreshToken
-          };
-        }
-
-        hardLogout(true);
-
-        return null;
-      },
-
-      // add auth to requests
-      addAuthToOperation({ authState, operation }) {
-        if (!authState || !(authState as AuthState).token) {
-          return operation;
-        }
-
-        const fetchOptions =
-          typeof operation.context.fetchOptions === "function"
-            ? operation.context.fetchOptions()
-            : operation.context.fetchOptions || {};
-
-        return makeOperation(operation.kind, operation, {
-          ...operation.context,
-          fetchOptions: {
-            ...fetchOptions,
-            headers: {
-              ...fetchOptions.headers,
-              Authorization: `Bearer ${(authState as AuthState).token}`
-            }
-          }
-        });
-      },
-
-      // condition on which token expiry error occurs
-      didAuthError({ error }) {
-        return error.graphQLErrors.some(
-          (e) => e.extensions?.code === "UNAUTHENTICATED"
-        );
-      }
-    }),
-    fetchExchange
-  ]
+  // condition on which token expiry error occurs
+  didAuthError({ error }) {
+    return error.graphQLErrors.some((e) => e.extensions?.code === NO_AUTH_CODE);
+  }
 });

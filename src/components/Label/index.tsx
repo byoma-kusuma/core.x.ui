@@ -1,8 +1,10 @@
 import { Chip, ChipProps } from "@mui/material";
+import { omit } from "lodash";
 import * as React from "react";
 
 interface Labelprops extends ChipProps {
   type: "rounded" | "squared" | "semi-rounded";
+  vivid?: boolean;
 }
 
 function getBorderRadiusFromType(type: Labelprops["type"]) {
@@ -10,14 +12,31 @@ function getBorderRadiusFromType(type: Labelprops["type"]) {
     return "16px";
   }
   if (type === "semi-rounded") {
-    return "8px";
+    return "6px";
   }
   return "2px";
 }
 
+function interceptColor(color: ChipProps["color"], vivid: boolean) {
+  return {
+    bgcolor: vivid ? `${color}.light` : `${color}.lighter`,
+    color: `${color}.darker`
+  };
+}
+
 export default function Label(props: Labelprops) {
-  const { type, ...chipProps } = props;
+  const { type, vivid = false, ...chipProps } = props;
   return (
-    <Chip {...chipProps} sx={{ borderRadius: getBorderRadiusFromType(type) }} />
+    <Chip
+      {...omit(chipProps, ["color", "sx"])}
+      sx={{
+        borderRadius: getBorderRadiusFromType(type),
+        fontWeight: 800,
+        fontSize: "0.75rem",
+        ...interceptColor(chipProps.color, vivid),
+        ...chipProps.sx
+      }}
+      size="small"
+    />
   );
 }

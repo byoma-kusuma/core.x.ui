@@ -1,13 +1,15 @@
 import * as React from "react";
-import CoolListA from "../../components/CoolList/abc";
+import CoolTable from "../../components/CoolTable";
 import { faker } from "@faker-js/faker";
-import { sample } from "lodash";
+import { sample, startCase } from "lodash";
+import { Avatar, Stack, Typography } from "@mui/material";
+import Label from "../../components/Label";
 
-const users = [...Array(24)].map((_, index) => ({
+const users = [...Array(20)].map((_, index) => ({
   id: faker.datatype.uuid(),
-  avatarUrl: `/static/mock-images/avatars/avatar_${index + 1}.jpg`,
-  name: faker.name.findName(),
-  company: `${faker.company.companyName()} awerawfawefawa awe rawe awerawer`,
+  avatarUrl: "/static/mock-images/avatars/avatar_default.jpg",
+  name: `${faker.name.findName()} awer aweraweraw era werawer awer`,
+  company: `${faker.company.companyName()}`,
   isVerified: faker.datatype.boolean(),
   status: sample(["active", "banned"]),
   role: sample([
@@ -27,28 +29,62 @@ const users = [...Array(24)].map((_, index) => ({
 export default function Dashboard() {
   return (
     <div>
-      <CoolListA
-        headers={[
-          {
-            id: "name",
-            label: "Name",
-            alignRight: false
-          },
-          { id: "company", label: "Company", alignRight: false },
-          {
-            id: "role",
-            label: "Role",
-            alignRight: false
-          },
-          { id: "isVerified", label: "Verified", alignRight: false },
-          { id: "status", label: "Status", alignRight: false },
-          { id: "" }
-        ]}
+      <CoolTable
+        loading={false}
         defaultOrderKey="name"
         defaultOrderDirection="asc"
-        onRequestSort={() => ({})}
-        data={users}
-        onRequestSelection={() => ({})}
+        data={users.map((x) => ({ ...x, z: { y: "hello" } }))}
+        dataSchema={[
+          { id: "z", headerLabel: "ZError" },
+          {
+            id: "id",
+            headerLabel: "ID"
+          },
+          {
+            id: "name",
+            headerLabel: "Name",
+            formatter: ({ avatarUrl, name }) => (
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Avatar src={avatarUrl} />
+                <Typography variant="subtitle2">{name}</Typography>
+              </Stack>
+            )
+          },
+          {
+            id: "company",
+            headerLabel: "Company"
+          },
+          {
+            id: "isVerified",
+            headerLabel: "Verified",
+            formatter: ({ isVerified }) => (
+              <Label
+                label={startCase(isVerified.toString())}
+                type="semi-rounded"
+                color={isVerified ? "success" : "error"}
+                sx={{ minWidth: "60px" }}
+              />
+            )
+          },
+          { id: "role", headerLabel: "Role" },
+          {
+            id: "status",
+            headerLabel: "Status",
+            formatter: ({ status }) => (
+              <Label
+                label={startCase(status)}
+                type="semi-rounded"
+                color={status === "active" ? "success" : "error"}
+              />
+            )
+          }
+        ]}
+        onRequestSelection={(e, selectedIds) => {
+          console.log("fromabove", selectedIds);
+        }}
+        onRequestSort={(e, prop, dir) => {
+          console.log(prop, dir);
+        }}
       />
     </div>
   );
