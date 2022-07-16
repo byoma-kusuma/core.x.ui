@@ -15,8 +15,8 @@ import { LoadingButton } from "@mui/lab";
 import Iconify from "../../../components/Iconify";
 import useResponsive from "../../../hooks/useResponsive";
 import { useLoginMutation } from "../../../generated/graphql";
-import GqlErrHandler from "../../../services/gqlErrorHandler";
 import { setLocalToken, setRefreshToken } from "../../../services/auth";
+import GqlApiHandler from "../../../services/GqlApiHandler";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -43,7 +43,7 @@ export default function LoginFormContainer() {
     },
     validationSchema: LoginSchema,
     onSubmit: async (values) => {
-      new GqlErrHandler(
+      new GqlApiHandler(
         await loginMut({
           userName: values.email,
           password: values.password

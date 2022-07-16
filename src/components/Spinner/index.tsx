@@ -10,13 +10,15 @@ interface SpinnerProps {
   isModuleLoader?: boolean;
   circularProgressProps?: CircularProgressProps;
   optionalNode?: React.ReactNode;
+  moduleText?: string | JSX.Element;
 }
 
 export default function Spinner(props: SpinnerProps) {
   const {
     isModuleLoader = false,
     circularProgressProps,
-    optionalNode = <></>
+    optionalNode = <></>,
+    moduleText
   } = props;
   return (
     <Box
@@ -28,11 +30,12 @@ export default function Spinner(props: SpinnerProps) {
       flexDirection="column"
     >
       <CircularProgress {...circularProgressProps} />
-      {isModuleLoader && (
-        <Typography sx={{ mt: "32px" }}>
-          This section is being generated! Please wait!
-        </Typography>
-      )}
+      {isModuleLoader &&
+        (moduleText || (
+          <Typography sx={{ mt: "32px" }}>
+            This section is being generated! Please wait!
+          </Typography>
+        ))}
       {isModuleLoader && (
         <img
           src="/static/bk.png"
@@ -41,7 +44,7 @@ export default function Spinner(props: SpinnerProps) {
           style={{ marginTop: "16px" }}
         />
       )}
-      {optionalNode}
+      <Box mt="8px">{optionalNode}</Box>
     </Box>
   );
 }

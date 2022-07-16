@@ -2,7 +2,10 @@ import { upperFirst } from "lodash";
 import { enqueueSnackbar } from "notistack";
 import { CombinedError } from "urql";
 
-export default class GqlErrHandler<
+// this service exposes graphql errors and network errors
+// and provides an easy way to handle those errors
+// typically you use this service whenever a graphql mutation is called and in other cases depending on the use case
+export default class GqlApiHandler<
   T extends { error?: CombinedError; data?: unknown }
 > {
   public res: T;
