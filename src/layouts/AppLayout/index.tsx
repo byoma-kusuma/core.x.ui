@@ -5,9 +5,7 @@ import NavigationBarContainer from "./containers/NavigationBarContainer";
 import SidebarContainer from "./containers/SidebarContainer";
 import Spinner from "../../components/Spinner";
 import { Box } from "@mui/material";
-
-const APP_BAR_MOBILE = 64;
-const APP_BAR_DESKTOP = 92;
+import { APPBAR_DESKTOP, APPBAR_MOBILE } from "../../components/NavigationBar";
 
 const RootStyle = styled("div")({
   display: "flex",
@@ -19,14 +17,9 @@ const MainStyle = styled("div")(({ theme }) => ({
   flexGrow: 1,
   overflow: "auto",
   minHeight: "100%",
-  paddingTop: APP_BAR_MOBILE + 24,
-  paddingBottom: theme.spacing(2),
-  paddingLeft: theme.spacing(1),
-  paddingRight: theme.spacing(1),
+  paddingTop: APPBAR_MOBILE + 24,
   [theme.breakpoints.up("lg")]: {
-    paddingTop: APP_BAR_DESKTOP + 24,
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2)
+    paddingTop: APPBAR_DESKTOP + 24
   }
 }));
 
