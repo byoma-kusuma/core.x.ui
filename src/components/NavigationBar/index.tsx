@@ -5,9 +5,8 @@ import Iconify from "../../components/Iconify";
 import Searchbar from "../SearchBar";
 
 const DRAWER_WIDTH = 280;
-const APPBAR_MOBILE = 64;
-const APPBAR_DESKTOP = 92;
-const APPBAR_DESKTOP_SCROLL = 64;
+export const APPBAR_MOBILE = 64;
+export const APPBAR_DESKTOP = 72;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",

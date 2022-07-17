@@ -7,20 +7,27 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
-  TableSortLabel,
-  Typography
+  TableSortLabel
 } from "@mui/material";
 import Scrollbar from "../Scrollbar";
-import { isPlainObject, pick } from "lodash";
-import DataNotFound from "../DataNotFound";
-import Spinner from "../Spinner";
+import { pick, update } from "lodash";
+import DataNotFound from "../CoolTableNoData";
+import CoolTableToolbar from "../CoolTableToolbar";
+import CoolTableFns from "./CoolTableFns";
 
-interface DataSchema<T> {
+export interface DataSchema<T> {
   id: keyof T | "opt1" | "opt2";
   headerLabel: string | JSX.Element;
   alignRight?: boolean;
   formatter?: (r: T) => React.ReactNode;
+}
+
+export interface FilterSchema<T> {
+  id: number;
+  label: string | JSX.Element;
+  filterFn: (data: Array<T>) => Array<T>;
 }
 
 interface CoolTableProps<T> {
@@ -29,78 +36,57 @@ interface CoolTableProps<T> {
   defaultOrderKey: keyof T;
   loading: boolean;
   defaultOrderDirection: "asc" | "desc";
-  onRequestSort: (
+  filterSchema?: Array<FilterSchema<T>>;
+  onRequestSort?: (
     e: React.MouseEvent<HTMLSpanElement, MouseEvent>,
     prop: keyof T,
     dir: "asc" | "desc"
   ) => void;
-  onRequestSelection: (
+  onRequestSelection?: (
     e: React.ChangeEvent<HTMLInputElement>,
     selectedIds: Array<string>
   ) => void;
-}
-
-function getHeaderCells<T>(
-  dataSchema: Array<DataSchema<T>>
-): Array<Omit<DataSchema<T>, "formatter">> {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  return dataSchema.map(({ formatter, ...rest }) => rest);
-}
-
-function getRowCellContent<T>(
-  dataSchema: Array<DataSchema<T>>,
-  key: keyof T | "opt1" | "opt2",
-  row: T,
-  filteredDataRow: Partial<T>
-) {
-  // in case where formatter is given through dataSchema
-  const contentFormatterContainer = dataSchema.find(
-    (schemaItem) => schemaItem.id === key
-  );
-  if (contentFormatterContainer?.formatter) {
-    try {
-      return contentFormatterContainer.formatter(row);
-    } catch (e) {
-      return `Invalid formatter for ${key as string}`;
-    }
-  }
-  // in case where formatter is not provided
-  const content = filteredDataRow[key as keyof Partial<T>] as
-    | null
-    | Record<string, unknown>
-    | undefined;
-  if (!React.isValidElement(content) && isPlainObject(content)) {
-    console.error(content);
-    return (
-      <>
-        Invalid content detected for key -<b>{key as string}</b>. Received type
-        object.
-      </>
-    );
-  }
-  return content as React.ReactNode;
+  onSelectActionButtonClick: (selectedDataIds: Array<string>) => void;
+  onRequestSearch?: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    v: string
+  ) => void;
+  tableHeight?: string;
 }
 
 export default function CoolTable<T extends { id: string }>(
   props: CoolTableProps<T>
 ) {
   const {
-    onRequestSort,
-    onRequestSelection,
+    onRequestSort = () => undefined,
+    onRequestSelection = () => undefined,
+    onRequestSearch = () => undefined,
+    onSelectActionButtonClick,
     defaultOrderDirection,
     defaultOrderKey,
     loading,
+    filterSchema,
     data,
-    dataSchema
+    dataSchema,
+    tableHeight
   } = props;
 
-  const headers = React.useMemo(() => getHeaderCells(dataSchema), [dataSchema]);
+  const headers = React.useMemo(
+    () => CoolTableFns.getHeaderCells(dataSchema),
+    [dataSchema]
+  );
 
   const [orderBy, setOrderBy] = React.useState<keyof T>(defaultOrderKey);
   const [order, setOrder] = React.useState<"asc" | "desc">(
     defaultOrderDirection
   );
+  const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedRows, setSelectedRows] = React.useState<Array<string>>([]);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  const [page, setPage] = React.useState(0);
+  const [filterTab, setFilterTab] = React.useState<number | null>(
+    (filterSchema || []).length ? 0 : null
+  );
 
   const createSortHandler =
     (property: keyof T | "opt1" | "opt2") =>
@@ -115,36 +101,101 @@ export default function CoolTable<T extends { id: string }>(
     };
 
   const createSelectionHandler =
-    (id: string | "_all") => (event: React.ChangeEvent<HTMLInputElement>) => {
-      // executes when header checkbox is changed
-      if (id === "_all") {
+    (
+      id: string | "_all" | "_allFiltered",
+      currentTableData: Array<T>,
+      unpaginatedTableData: Array<T>
+    ) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const handleUpdate = (updatedSelection: Array<string>) => {
+        setSelectedRows(updatedSelection);
+        onRequestSelection(event, updatedSelection);
+      };
+      // when select everything is checked
+      if (id === "_allFiltered") {
         if (event.target.checked) {
-          const updatedSelection = data.map((datum) => datum.id);
-          setSelectedRows(updatedSelection);
-          onRequestSelection(event, updatedSelection);
+          handleUpdate(unpaginatedTableData.map((datum) => datum.id));
         } else {
-          setSelectedRows([]);
-          onRequestSelection(event, []);
+          handleUpdate([]);
+        }
+        return;
+      }
+      // executes when table header checkbox is changed
+      if (id === "_all") {
+        if (currentTableData.some((datum) => selectedRows.includes(datum.id))) {
+          handleUpdate(
+            selectedRows.filter(
+              (row) => !currentTableData.find((datum) => datum.id === row)
+            )
+          );
+        } else {
+          handleUpdate([
+            ...selectedRows,
+            ...currentTableData.map((datum) => datum.id)
+          ]);
         }
         return;
       }
       // executes when other checkboxes are changed
-      const isCurrentlySelected = selectedRows.includes(id);
-      if (isCurrentlySelected) {
-        const updatedSelection = selectedRows.filter((row) => row !== id);
-        setSelectedRows(updatedSelection);
-        onRequestSelection(event, updatedSelection);
+      if (selectedRows.includes(id)) {
+        handleUpdate(selectedRows.filter((row) => row !== id));
       } else {
-        const updatedSelection = [...selectedRows, id];
-        setSelectedRows(updatedSelection);
-        onRequestSelection(event, updatedSelection);
+        handleUpdate([...selectedRows, id]);
       }
     };
 
+  const unpaginatedTableData = React.useMemo(
+    () =>
+      CoolTableFns.applySort(
+        CoolTableFns.applySearch(
+          CoolTableFns.applyFilter(data, filterSchema, filterTab),
+          dataSchema,
+          searchQuery
+        ),
+        orderBy,
+        order
+      ),
+    [data, dataSchema, searchQuery, order, orderBy, filterSchema, filterTab]
+  );
+
+  const tableData = React.useMemo(
+    () => CoolTableFns.applyPagination(unpaginatedTableData, page, rowsPerPage),
+    [unpaginatedTableData, page, rowsPerPage]
+  );
+
   return (
-    <Card>
+    <Card
+      sx={(theme) => ({
+        border: `1px solid ${theme.palette.grey[500_16]}`
+      })}
+    >
+      <CoolTableToolbar<T>
+        selectedCount={selectedRows.length}
+        totalCount={data.length}
+        onSelectActionButtonClick={() =>
+          onSelectActionButtonClick(selectedRows)
+        }
+        searchQuery={searchQuery}
+        onSearch={(e, v) => {
+          setSearchQuery(v);
+          setPage(0);
+          onRequestSearch(e, v);
+        }}
+        onSelectToggle={createSelectionHandler(
+          "_allFiltered",
+          tableData,
+          unpaginatedTableData
+        )}
+        filterSchema={{
+          onTabChange: (v) => setFilterTab(v),
+          tab: filterTab,
+          schema: filterSchema
+        }}
+      />
       <Scrollbar>
-        <TableContainer sx={{ minWidth: 800, maxHeight: "400px" }}>
+        <TableContainer
+          sx={{ minWidth: 800, maxHeight: tableHeight || "360px" }}
+        >
           <Table stickyHeader>
             {/* header section */}
             <TableHead>
@@ -153,20 +204,26 @@ export default function CoolTable<T extends { id: string }>(
                   <Checkbox
                     indeterminate={
                       selectedRows.length > 0 &&
-                      selectedRows.length < data.length
+                      selectedRows.length < data.length &&
+                      tableData.some((datum) => selectedRows.includes(datum.id))
                     }
                     checked={
                       selectedRows.length > 0 &&
                       selectedRows.length === data.length
                     }
-                    onChange={createSelectionHandler("_all")}
+                    onChange={createSelectionHandler(
+                      "_all",
+                      tableData,
+                      unpaginatedTableData
+                    )}
                   />
                 </TableCell>
                 {headers.map((headerCell) => (
                   <TableCell
-                    key={headerCell.id as string}
+                    key={headerCell.id.toString()}
                     align={headerCell.alignRight ? "right" : "left"}
                     sortDirection={orderBy === headerCell.id ? order : false}
+                    sx={(theme) => ({ padding: theme.spacing(1) })}
                   >
                     <TableSortLabel
                       hideSortIcon
@@ -182,23 +239,9 @@ export default function CoolTable<T extends { id: string }>(
             </TableHead>
 
             {/* body section */}
-            {loading ? (
+            {!loading && (
               <TableBody>
-                <TableRow>
-                  <TableCell align="center" colSpan={12} sx={{ py: 3 }}>
-                    <Spinner
-                      optionalNode={
-                        <Typography variant="body2">
-                          Data is being fetched from the server! Please wait!
-                        </Typography>
-                      }
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            ) : (
-              <TableBody>
-                {data.map((row) => {
+                {tableData.map((row) => {
                   const { id } = row;
                   const isItemSelected = selectedRows.includes(id);
                   const headerKeysToRenderInOrder = headers.map(
@@ -217,18 +260,27 @@ export default function CoolTable<T extends { id: string }>(
                       <TableCell padding="checkbox">
                         <Checkbox
                           checked={isItemSelected}
-                          onChange={createSelectionHandler(id)}
+                          onChange={createSelectionHandler(
+                            id,
+                            tableData,
+                            unpaginatedTableData
+                          )}
                         />
                       </TableCell>
                       {headerKeysToRenderInOrder.map((key) => {
-                        const content = getRowCellContent<T>(
+                        const content = CoolTableFns.getRowCellContent<T>(
                           dataSchema,
                           key,
                           row,
                           filteredDataRow
                         );
                         return (
-                          <TableCell key={key as string}>{content}</TableCell>
+                          <TableCell
+                            key={key.toString()}
+                            sx={(theme) => ({ padding: theme.spacing(1) })}
+                          >
+                            {content}
+                          </TableCell>
                         );
                       })}
                     </TableRow>
@@ -238,18 +290,27 @@ export default function CoolTable<T extends { id: string }>(
             )}
 
             {/* utilities section */}
-            {!loading && data.length === 0 && (
-              <TableBody>
-                <TableRow>
-                  <TableCell align="center" colSpan={12} sx={{ py: 3 }}>
-                    <DataNotFound />
-                  </TableCell>
-                </TableRow>
-              </TableBody>
-            )}
+            <DataNotFound
+              searchQuery={searchQuery}
+              noData={data.length === 0}
+              noSearchData={tableData.length === 0}
+              loading={loading}
+            />
           </Table>
         </TableContainer>
       </Scrollbar>
+      <TablePagination
+        rowsPerPageOptions={[5, 25, 50]}
+        component="div"
+        count={unpaginatedTableData.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={(e, v) => setPage(v)}
+        onRowsPerPageChange={(e) => {
+          setRowsPerPage(parseInt(e.target.value, 10));
+          setPage(0);
+        }}
+      />
     </Card>
   );
 }
