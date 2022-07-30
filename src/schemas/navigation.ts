@@ -1,5 +1,5 @@
+import { getIcon } from "../components/Iconify";
 import { NavigationItem } from "../types/Navgiation";
-import { getIcon } from "./../utils/icon";
 
 const navConfig = [
   { title: "General", path: "", icon: "", type: "grouper" },

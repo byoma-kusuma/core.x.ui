@@ -6,7 +6,7 @@ import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
 import Label from "../../components/Label";
 import PageWidthHeader from "../../components/PageWithHeader";
 
-const users = [...Array(100000)].map((_, index) => ({
+const users = [...Array(10000)].map((_, index) => ({
   id: faker.datatype.uuid(),
   avatarUrl: "/static/mock-images/avatars/avatar_default.jpg",
   name: `${faker.name.findName()}`,
@@ -113,13 +113,8 @@ export default function Members() {
           },
           {
             id: "opt1",
-            headerLabel: "Option1",
-            formatter: () => "option1"
-          },
-          {
-            id: "opt2",
-            headerLabel: "Option2",
-            formatter: () => "option2"
+            headerLabel: "",
+            formatter: () => "X"
           }
         ]}
         onRequestSelection={(e, selectedIds) => {
