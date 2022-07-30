@@ -50,7 +50,7 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "prepare": "husky install",
-    "esfix": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx .",
     "generate": "graphql-codegen --config codegen.yml"
   },
   "eslintConfig": {

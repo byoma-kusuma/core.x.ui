@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import symbols from "../../utils/symbols";
 
 const RootStyle = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 5, 1, 5),
@@ -49,8 +50,10 @@ export default function PageWidthHeader(props: PageWidthHeaderProps) {
             )}
             {crumbs && (
               <Box sx={(theme) => ({ paddingBottom: theme.spacing(1) })}>
-                {/* &bull; is used for vertically middle aligned dot */}
-                <Breadcrumbs aria-label="breadcrumb" separator={<>&bull;</>}>
+                <Breadcrumbs
+                  aria-label="breadcrumb"
+                  separator={symbols.verticallyCenteredDot}
+                >
                   {crumbs.map(({ label, route, key }, i) => (
                     <Link
                       onClick={() => {

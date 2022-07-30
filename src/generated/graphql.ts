@@ -40,6 +40,11 @@ export type ChangePasswordInput = {
   oldPassword: Scalars["String"];
 };
 
+export type CreateMemberInput = {
+  /** Example field (placeholder) */
+  exampleField: Scalars["Int"];
+};
+
 export type CreateRoleInput = {
   name: Scalars["String"];
 };
@@ -53,6 +58,13 @@ export type DateTimeFilter = {
   lte?: InputMaybe<Scalars["DateTime"]>;
   not?: InputMaybe<DateTimeFilter>;
   notIn?: InputMaybe<Array<Scalars["DateTime"]>>;
+};
+
+export type EnumGenderTypeFilter = {
+  equals?: InputMaybe<GenderType>;
+  in?: InputMaybe<Array<GenderType>>;
+  not?: InputMaybe<EnumGenderTypeFilter>;
+  notIn?: InputMaybe<Array<GenderType>>;
 };
 
 export type EnumTypeFilter = {
@@ -69,25 +81,119 @@ export type EnumUserStatusFilter = {
   notIn?: InputMaybe<Array<UserStatus>>;
 };
 
+export enum GenderType {
+  Female = "FEMALE",
+  Male = "MALE",
+  Other = "OTHER",
+  PreferNotToSay = "PREFER_NOT_TO_SAY"
+}
+
+/** Types of gender */
+export enum GenderTypes {
+  Female = "FEMALE",
+  Male = "MALE",
+  Other = "OTHER",
+  PreferNotToSay = "PREFER_NOT_TO_SAY"
+}
+
 export type LoginInput = {
   password: Scalars["String"];
   userName: Scalars["String"];
 };
 
+export type Member = {
+  __typename?: "Member";
+  active: Scalars["Boolean"];
+  centerAffiliation: Scalars["String"];
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  currentAddress?: Maybe<Scalars["String"]>;
+  dob?: Maybe<Scalars["DateTime"]>;
+  email?: Maybe<Scalars["String"]>;
+  firstName: Scalars["String"];
+  gender?: Maybe<GenderTypes>;
+  id: Scalars["ID"];
+  insta?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  isDeleted: Scalars["Boolean"];
+  isMember: Scalars["Boolean"];
+  lastName: Scalars["String"];
+  membershipType?: Maybe<Scalars["String"]>;
+  messenger?: Maybe<Scalars["String"]>;
+  middleName?: Maybe<Scalars["String"]>;
+  permanentAddress?: Maybe<Scalars["String"]>;
+  phonePrimary?: Maybe<Scalars["String"]>;
+  phoneSecondary?: Maybe<Scalars["String"]>;
+  photo?: Maybe<Scalars["String"]>;
+  refugeName?: Maybe<Scalars["String"]>;
+  sanghaJoinDate?: Maybe<Scalars["DateTime"]>;
+  title?: Maybe<Scalars["String"]>;
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+  viber?: Maybe<Scalars["String"]>;
+};
+
+export type MemberRelationFilter = {
+  is?: InputMaybe<MemberWhereInput>;
+  isNot?: InputMaybe<MemberWhereInput>;
+};
+
+export type MemberWhereInput = {
+  AND?: InputMaybe<Array<MemberWhereInput>>;
+  NOT?: InputMaybe<Array<MemberWhereInput>>;
+  OR?: InputMaybe<Array<MemberWhereInput>>;
+  active?: InputMaybe<BoolFilter>;
+  centerAffiliation?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  currentAddress?: InputMaybe<StringFilter>;
+  dob?: InputMaybe<DateTimeFilter>;
+  email?: InputMaybe<StringFilter>;
+  firstName?: InputMaybe<StringFilter>;
+  gender?: InputMaybe<EnumGenderTypeFilter>;
+  id?: InputMaybe<StringFilter>;
+  insta?: InputMaybe<StringFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
+  isMember?: InputMaybe<BoolFilter>;
+  lastName?: InputMaybe<StringFilter>;
+  membershipType?: InputMaybe<StringFilter>;
+  messenger?: InputMaybe<StringFilter>;
+  middleName?: InputMaybe<StringFilter>;
+  permanentAddress?: InputMaybe<StringFilter>;
+  phonePrimary?: InputMaybe<StringFilter>;
+  phoneSecondary?: InputMaybe<StringFilter>;
+  photo?: InputMaybe<StringFilter>;
+  refugeName?: InputMaybe<StringFilter>;
+  sanghaJoinDate?: InputMaybe<DateTimeFilter>;
+  title?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+  user?: InputMaybe<UserRelationFilter>;
+  viber?: InputMaybe<StringFilter>;
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   changePassword: User;
+  createMember: Member;
   createRole: Role;
   login: Auth;
   refreshToken: Token;
+  removeMember: Member;
   removeRole: Role;
-  signup: Auth;
+  updateMember: Member;
   updateRole: Role;
-  updateUser: User;
 };
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+export type MutationCreateMemberArgs = {
+  createMemberInput: CreateMemberInput;
 };
 
 export type MutationCreateRoleArgs = {
@@ -102,20 +208,20 @@ export type MutationRefreshTokenArgs = {
   token: Scalars["JWT"];
 };
 
+export type MutationRemoveMemberArgs = {
+  id: Scalars["Int"];
+};
+
 export type MutationRemoveRoleArgs = {
   id: Scalars["Int"];
 };
 
-export type MutationSignupArgs = {
-  data: SignupInput;
+export type MutationUpdateMemberArgs = {
+  updateMemberInput: UpdateMemberInput;
 };
 
 export type MutationUpdateRoleArgs = {
   updateRoleInput: UpdateRoleInput;
-};
-
-export type MutationUpdateUserArgs = {
-  data: UpdateUserInput;
 };
 
 export type PasswordHistoryRelationFilter = {
@@ -144,12 +250,18 @@ export type Query = {
   hello: Scalars["String"];
   helloWorld: Scalars["String"];
   me: User;
+  member: Member;
+  members: Array<Member>;
   role: Role;
   roles: Array<Role>;
 };
 
 export type QueryHelloArgs = {
   name: Scalars["String"];
+};
+
+export type QueryMemberArgs = {
+  id: Scalars["Int"];
 };
 
 export type QueryRoleArgs = {
@@ -203,13 +315,6 @@ export enum Role_Type {
   System = "SYSTEM"
 }
 
-export type SignupInput = {
-  firstName?: InputMaybe<Scalars["String"]>;
-  lastName?: InputMaybe<Scalars["String"]>;
-  password: Scalars["String"];
-  userName: Scalars["String"];
-};
-
 /** Current status of the user within the system */
 export enum Status {
   Validated = "VALIDATED",
@@ -243,27 +348,24 @@ export enum Type {
   System = "SYSTEM"
 }
 
+export type UpdateMemberInput = {
+  /** Example field (placeholder) */
+  exampleField?: InputMaybe<Scalars["Int"]>;
+  id: Scalars["Int"];
+};
+
 export type UpdateRoleInput = {
   id: Scalars["String"];
   name?: InputMaybe<Scalars["String"]>;
-};
-
-export type UpdateUserInput = {
-  firstName?: InputMaybe<Scalars["String"]>;
-  lastName?: InputMaybe<Scalars["String"]>;
-  roleName?: InputMaybe<Scalars["String"]>;
 };
 
 export type User = {
   __typename?: "User";
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
-  email?: Maybe<Scalars["String"]>;
-  firstName?: Maybe<Scalars["String"]>;
   id: Scalars["ID"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
-  lastName?: Maybe<Scalars["String"]>;
   role: Role;
   status: Status;
   /** Unique key associated with the object. */
@@ -271,37 +373,6 @@ export type User = {
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars["DateTime"];
   userName: Scalars["String"];
-};
-
-export type UserDetailRelationFilter = {
-  is?: InputMaybe<UserDetailWhereInput>;
-  isNot?: InputMaybe<UserDetailWhereInput>;
-};
-
-export type UserDetailWhereInput = {
-  AND?: InputMaybe<Array<UserDetailWhereInput>>;
-  NOT?: InputMaybe<Array<UserDetailWhereInput>>;
-  OR?: InputMaybe<Array<UserDetailWhereInput>>;
-  avatar?: InputMaybe<StringFilter>;
-  birthday?: InputMaybe<StringFilter>;
-  company?: InputMaybe<StringFilter>;
-  country?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdBy?: InputMaybe<StringFilter>;
-  id?: InputMaybe<StringFilter>;
-  isDeleted?: InputMaybe<BoolFilter>;
-  notes?: InputMaybe<StringFilter>;
-  phoneNumber?: InputMaybe<StringFilter>;
-  secondaryEmail?: InputMaybe<StringFilter>;
-  steetAddress2?: InputMaybe<StringFilter>;
-  streetAddress?: InputMaybe<StringFilter>;
-  title?: InputMaybe<StringFilter>;
-  uniqueKey?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedBy?: InputMaybe<StringFilter>;
-  user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
-  zip?: InputMaybe<StringFilter>;
 };
 
 export type UserListRelationFilter = {
@@ -324,14 +395,13 @@ export type UserWhereInput = {
   AND?: InputMaybe<Array<UserWhereInput>>;
   NOT?: InputMaybe<Array<UserWhereInput>>;
   OR?: InputMaybe<Array<UserWhereInput>>;
+  avatar?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
-  detail?: InputMaybe<UserDetailRelationFilter>;
-  email?: InputMaybe<StringFilter>;
-  firstName?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
-  lastName?: InputMaybe<StringFilter>;
+  member?: InputMaybe<MemberRelationFilter>;
+  memberId?: InputMaybe<StringFilter>;
   password?: InputMaybe<StringFilter>;
   passwordHistory?: InputMaybe<PasswordHistoryRelationFilter>;
   role?: InputMaybe<RoleRelationFilter>;
@@ -347,12 +417,7 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
   __typename?: "Query";
-  me: {
-    __typename?: "User";
-    firstName?: string | null;
-    lastName?: string | null;
-    userName: string;
-  };
+  me: { __typename?: "User"; userName: string };
 };
 
 export type LoginMutationVariables = Exact<{
@@ -419,6 +484,248 @@ export default {
       },
       {
         kind: "OBJECT",
+        name: "Member",
+        fields: [
+          {
+            name: "active",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "centerAffiliation",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "currentAddress",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "dob",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "email",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "firstName",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "gender",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "insta",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "isDeleted",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "isMember",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "lastName",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "membershipType",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "messenger",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "middleName",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "permanentAddress",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "phonePrimary",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "phoneSecondary",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "photo",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "refugeName",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "sanghaJoinDate",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "title",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "viber",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
         name: "Mutation",
         fields: [
           {
@@ -434,6 +741,29 @@ export default {
             args: [
               {
                 name: "data",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "createMember",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createMemberInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -514,6 +844,29 @@ export default {
             ]
           },
           {
+            name: "removeMember",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "removeRole",
             type: {
               kind: "NON_NULL",
@@ -537,18 +890,18 @@ export default {
             ]
           },
           {
-            name: "signup",
+            name: "updateMember",
             type: {
               kind: "NON_NULL",
               ofType: {
                 kind: "OBJECT",
-                name: "Auth",
+                name: "Member",
                 ofType: null
               }
             },
             args: [
               {
-                name: "data",
+                name: "updateMemberInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -572,29 +925,6 @@ export default {
             args: [
               {
                 name: "updateRoleInput",
-                type: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "SCALAR",
-                    name: "Any"
-                  }
-                }
-              }
-            ]
-          },
-          {
-            name: "updateUser",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "OBJECT",
-                name: "User",
-                ofType: null
-              }
-            },
-            args: [
-              {
-                name: "data",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -653,6 +983,47 @@ export default {
                 kind: "OBJECT",
                 name: "User",
                 ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "member",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "members",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Member",
+                    ofType: null
+                  }
+                }
               }
             },
             args: []
@@ -850,22 +1221,6 @@ export default {
             args: []
           },
           {
-            name: "email",
-            type: {
-              kind: "SCALAR",
-              name: "Any"
-            },
-            args: []
-          },
-          {
-            name: "firstName",
-            type: {
-              kind: "SCALAR",
-              name: "Any"
-            },
-            args: []
-          },
-          {
             name: "id",
             type: {
               kind: "NON_NULL",
@@ -884,14 +1239,6 @@ export default {
                 kind: "SCALAR",
                 name: "Any"
               }
-            },
-            args: []
-          },
-          {
-            name: "lastName",
-            type: {
-              kind: "SCALAR",
-              name: "Any"
             },
             args: []
           },
@@ -963,8 +1310,6 @@ export default {
 export const MeDocument = gql`
   query me {
     me {
-      firstName
-      lastName
       userName
     }
   }
