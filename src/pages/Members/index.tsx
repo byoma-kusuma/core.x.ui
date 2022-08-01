@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import CoolTable from "../../components/CoolTable";
 import { faker } from "@faker-js/faker";
 import { sample, startCase } from "lodash";
-import { Avatar, Box, Button, Stack, Typography } from "@mui/material";
+import { Avatar, Button, Stack, Typography } from "@mui/material";
 import Label from "../../components/Label";
 import PageWidthHeader from "../../components/PageWithHeader";
 
