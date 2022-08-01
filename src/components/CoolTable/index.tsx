@@ -12,7 +12,7 @@ import {
   TableSortLabel
 } from "@mui/material";
 import Scrollbar from "../Scrollbar";
-import { pick, update } from "lodash";
+import { pick } from "lodash";
 import DataNotFound from "../CoolTableNoData";
 import CoolTableToolbar from "../CoolTableToolbar";
 import CoolTableFns from "./CoolTableFns";
