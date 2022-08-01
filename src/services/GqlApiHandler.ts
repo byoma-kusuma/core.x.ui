@@ -18,7 +18,8 @@ export default class GqlApiHandler<
   private getCombinedGQLError(res: T): string {
     try {
       return (
-        res.error?.graphQLErrors.reduce((acc, cur) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        res.error?.graphQLErrors.reduce((acc: string, cur: any) => {
           return (acc += `${
             (cur.extensions.response as { message: Array<string> }).message
           }\n`);
