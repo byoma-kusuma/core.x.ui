@@ -15,24 +15,41 @@ export default class GqlApiHandler<
     return this;
   }
 
+  public static getErrorMessage(error?: CombinedError) {
+    if (!error) return "";
+    return (
+      error?.graphQLErrors.reduce((acc, cur) => {
+        return (acc += `${cur.message}\n`);
+      }, "") || ""
+    );
+  }
+
   private getCombinedGQLError(res: T): string {
     try {
-      return (
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        res.error?.graphQLErrors.reduce((acc: string, cur: any) => {
-          return (acc += `${
-            (cur.extensions.response as { message: Array<string> }).message
-          }\n`);
-        }, "") || ""
-      );
+      return GqlApiHandler.getErrorMessage(res.error);
     } catch (e) {
       return "Some error occured! Please contact system administrator!";
     }
   }
 
-  public onSuccess(successFn: ({ res }: { res: T }) => void) {
+  public onSuccess(
+    successFn: ({
+      res,
+      notiSuccess
+    }: {
+      res: T;
+      notiSuccess: (msg: string) => void;
+    }) => void
+  ) {
     if (this.res.data) {
-      successFn({ res: this.res });
+      successFn({
+        res: this.res,
+        notiSuccess: (msg) =>
+          enqueueSnackbar(msg, {
+            variant: "success",
+            persist: false
+          })
+      });
     }
     return this;
   }
@@ -45,7 +62,7 @@ export default class GqlApiHandler<
     }: {
       res: T;
       combinedError?: null | string;
-      notiErr: () => void;
+      notiErr: (msg?: string) => void;
     }) => void
   ) {
     let errorString: string | null | undefined = "";
@@ -60,8 +77,8 @@ export default class GqlApiHandler<
       errFn({
         res: this.res,
         combinedError: errorString,
-        notiErr: () =>
-          enqueueSnackbar(upperFirst(errorString as string), {
+        notiErr: (msg?) =>
+          enqueueSnackbar(msg || upperFirst(errorString as string), {
             variant: "error",
             persist: false
           })

@@ -35,14 +35,56 @@ export type BoolFilter = {
   not?: InputMaybe<BoolFilter>;
 };
 
+export enum CentreAffiliationType {
+  Australia = "Australia",
+  Hetauda = "Hetauda",
+  MahendraNagar = "MahendraNagar",
+  Nepal = "Nepal",
+  None = "None",
+  Thailand = "Thailand",
+  Uk = "UK",
+  Usa = "USA"
+}
+
+/** Types of centre affiliation */
+export enum CentreAffiliation_Type {
+  Australia = "Australia",
+  Hetauda = "Hetauda",
+  MahendraNagar = "MahendraNagar",
+  Nepal = "Nepal",
+  None = "None",
+  Thailand = "Thailand",
+  Uk = "UK",
+  Usa = "USA"
+}
+
 export type ChangePasswordInput = {
   newPassword: Scalars["String"];
   oldPassword: Scalars["String"];
 };
 
 export type CreateMemberInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars["Int"];
+  active: Scalars["Boolean"];
+  centerAffiliation: Scalars["String"];
+  currentAddress?: InputMaybe<Scalars["String"]>;
+  dob?: InputMaybe<Scalars["DateTime"]>;
+  email?: InputMaybe<Scalars["String"]>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<Scalars["String"]>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isMember: Scalars["Boolean"];
+  lastName: Scalars["String"];
+  membershipType?: InputMaybe<Scalars["String"]>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  permanentAddress?: InputMaybe<Scalars["String"]>;
+  phonePrimary?: InputMaybe<Scalars["String"]>;
+  phoneSecondary?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  viber?: InputMaybe<Scalars["String"]>;
 };
 
 export type CreateRoleInput = {
@@ -60,11 +102,25 @@ export type DateTimeFilter = {
   notIn?: InputMaybe<Array<Scalars["DateTime"]>>;
 };
 
+export type EnumCentreAffiliationTypeFilter = {
+  equals?: InputMaybe<CentreAffiliationType>;
+  in?: InputMaybe<Array<CentreAffiliationType>>;
+  not?: InputMaybe<EnumCentreAffiliationTypeFilter>;
+  notIn?: InputMaybe<Array<CentreAffiliationType>>;
+};
+
 export type EnumGenderTypeFilter = {
   equals?: InputMaybe<GenderType>;
   in?: InputMaybe<Array<GenderType>>;
   not?: InputMaybe<EnumGenderTypeFilter>;
   notIn?: InputMaybe<Array<GenderType>>;
+};
+
+export type EnumMembershipTypeFilter = {
+  equals?: InputMaybe<MembershipType>;
+  in?: InputMaybe<Array<MembershipType>>;
+  not?: InputMaybe<EnumMembershipTypeFilter>;
+  notIn?: InputMaybe<Array<MembershipType>>;
 };
 
 export type EnumTypeFilter = {
@@ -89,7 +145,7 @@ export enum GenderType {
 }
 
 /** Types of gender */
-export enum GenderTypes {
+export enum Gender_Type {
   Female = "FEMALE",
   Male = "MALE",
   Other = "OTHER",
@@ -104,21 +160,21 @@ export type LoginInput = {
 export type Member = {
   __typename?: "Member";
   active: Scalars["Boolean"];
-  centerAffiliation: Scalars["String"];
+  centerAffiliation: CentreAffiliation_Type;
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
   currentAddress?: Maybe<Scalars["String"]>;
   dob?: Maybe<Scalars["DateTime"]>;
   email?: Maybe<Scalars["String"]>;
   firstName: Scalars["String"];
-  gender?: Maybe<GenderTypes>;
-  id: Scalars["ID"];
+  gender?: Maybe<Gender_Type>;
+  id: Scalars["String"];
   insta?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
-  membershipType?: Maybe<Scalars["String"]>;
+  membershipType?: Maybe<Membership_Type>;
   messenger?: Maybe<Scalars["String"]>;
   middleName?: Maybe<Scalars["String"]>;
   permanentAddress?: Maybe<Scalars["String"]>;
@@ -132,6 +188,7 @@ export type Member = {
   uniqueKey?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars["DateTime"];
+  user?: Maybe<User>;
   viber?: Maybe<Scalars["String"]>;
 };
 
@@ -145,7 +202,7 @@ export type MemberWhereInput = {
   NOT?: InputMaybe<Array<MemberWhereInput>>;
   OR?: InputMaybe<Array<MemberWhereInput>>;
   active?: InputMaybe<BoolFilter>;
-  centerAffiliation?: InputMaybe<StringFilter>;
+  centerAffiliation?: InputMaybe<EnumCentreAffiliationTypeFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
   currentAddress?: InputMaybe<StringFilter>;
@@ -158,7 +215,7 @@ export type MemberWhereInput = {
   isDeleted?: InputMaybe<BoolFilter>;
   isMember?: InputMaybe<BoolFilter>;
   lastName?: InputMaybe<StringFilter>;
-  membershipType?: InputMaybe<StringFilter>;
+  membershipType?: InputMaybe<EnumMembershipTypeFilter>;
   messenger?: InputMaybe<StringFilter>;
   middleName?: InputMaybe<StringFilter>;
   permanentAddress?: InputMaybe<StringFilter>;
@@ -174,6 +231,21 @@ export type MemberWhereInput = {
   user?: InputMaybe<UserRelationFilter>;
   viber?: InputMaybe<StringFilter>;
 };
+
+export enum MembershipType {
+  BoardMember = "BoardMember",
+  GeneralMember = "GeneralMember",
+  HonoraryMember = "HonoraryMember",
+  LifeMember = "LifeMember"
+}
+
+/** Types of membership */
+export enum Membership_Type {
+  BoardMember = "BoardMember",
+  GeneralMember = "GeneralMember",
+  HonoraryMember = "HonoraryMember",
+  LifeMember = "LifeMember"
+}
 
 export type Mutation = {
   __typename?: "Mutation";
@@ -209,7 +281,7 @@ export type MutationRefreshTokenArgs = {
 };
 
 export type MutationRemoveMemberArgs = {
-  id: Scalars["Int"];
+  id: Scalars["String"];
 };
 
 export type MutationRemoveRoleArgs = {
@@ -261,7 +333,7 @@ export type QueryHelloArgs = {
 };
 
 export type QueryMemberArgs = {
-  id: Scalars["Int"];
+  id: Scalars["String"];
 };
 
 export type QueryRoleArgs = {
@@ -349,9 +421,28 @@ export enum Type {
 }
 
 export type UpdateMemberInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars["Int"]>;
-  id: Scalars["Int"];
+  active: Scalars["Boolean"];
+  centerAffiliation: Scalars["String"];
+  currentAddress?: InputMaybe<Scalars["String"]>;
+  dob?: InputMaybe<Scalars["DateTime"]>;
+  email?: InputMaybe<Scalars["String"]>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<Scalars["String"]>;
+  id: Scalars["String"];
+  insta?: InputMaybe<Scalars["String"]>;
+  isMember: Scalars["Boolean"];
+  lastName: Scalars["String"];
+  membershipType?: InputMaybe<Scalars["String"]>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  permanentAddress?: InputMaybe<Scalars["String"]>;
+  phonePrimary?: InputMaybe<Scalars["String"]>;
+  phoneSecondary?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  viber?: InputMaybe<Scalars["String"]>;
 };
 
 export type UpdateRoleInput = {
@@ -361,11 +452,15 @@ export type UpdateRoleInput = {
 
 export type User = {
   __typename?: "User";
+  avatar: Scalars["String"];
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
-  id: Scalars["ID"];
+  email: Scalars["String"];
+  id: Scalars["String"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
+  member: Member;
+  memberId: Scalars["String"];
   role: Role;
   status: Status;
   /** Unique key associated with the object. */
@@ -398,6 +493,7 @@ export type UserWhereInput = {
   avatar?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
+  email?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
   member?: InputMaybe<MemberRelationFilter>;
@@ -417,7 +513,12 @@ export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
   __typename?: "Query";
-  me: { __typename?: "User"; userName: string };
+  me: {
+    __typename?: "User";
+    userName: string;
+    avatar: string;
+    member: { __typename?: "Member"; firstName: string; lastName: string };
+  };
 };
 
 export type LoginMutationVariables = Exact<{
@@ -428,6 +529,95 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = {
   __typename?: "Mutation";
   login: { __typename?: "Auth"; accessToken: any; refreshToken: any };
+};
+
+export type MembersQueryVariables = Exact<{ [key: string]: never }>;
+
+export type MembersQuery = {
+  __typename?: "Query";
+  members: Array<{
+    __typename?: "Member";
+    id: string;
+    firstName: string;
+    lastName: string;
+    middleName?: string | null;
+    centerAffiliation: CentreAffiliation_Type;
+    currentAddress?: string | null;
+    dob?: any | null;
+    email?: string | null;
+    gender?: Gender_Type | null;
+    insta?: string | null;
+    isMember: boolean;
+    active: boolean;
+    membershipType?: Membership_Type | null;
+    messenger?: string | null;
+    permanentAddress?: string | null;
+    phonePrimary?: string | null;
+    phoneSecondary?: string | null;
+    photo?: string | null;
+    refugeName?: string | null;
+    sanghaJoinDate?: any | null;
+    title?: string | null;
+    viber?: string | null;
+    user?: { __typename?: "User"; userName: string; status: Status } | null;
+  }>;
+};
+
+export type MemberQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type MemberQuery = {
+  __typename?: "Query";
+  member: {
+    __typename?: "Member";
+    id: string;
+    firstName: string;
+    lastName: string;
+    middleName?: string | null;
+    centerAffiliation: CentreAffiliation_Type;
+    currentAddress?: string | null;
+    dob?: any | null;
+    email?: string | null;
+    gender?: Gender_Type | null;
+    insta?: string | null;
+    isMember: boolean;
+    active: boolean;
+    membershipType?: Membership_Type | null;
+    messenger?: string | null;
+    permanentAddress?: string | null;
+    phonePrimary?: string | null;
+    phoneSecondary?: string | null;
+    photo?: string | null;
+    refugeName?: string | null;
+    sanghaJoinDate?: any | null;
+    title?: string | null;
+    viber?: string | null;
+    user?: { __typename?: "User"; userName: string; status: Status } | null;
+  };
+};
+
+export type CreateMemberMutationVariables = Exact<{
+  createMemberInput: CreateMemberInput;
+}>;
+
+export type CreateMemberMutation = {
+  __typename?: "Mutation";
+  createMember: {
+    __typename?: "Member";
+    id: string;
+    firstName: string;
+    lastName: string;
+  };
+};
+
+export type DeleteMemberMutationVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type DeleteMemberMutation = {
+  __typename?: "Mutation";
+  removeMember: { __typename?: "Member"; id: string };
 };
 
 import { IntrospectionQuery } from "graphql";
@@ -710,6 +900,15 @@ export default {
                 kind: "SCALAR",
                 name: "Any"
               }
+            },
+            args: []
+          },
+          {
+            name: "user",
+            type: {
+              kind: "OBJECT",
+              name: "User",
+              ofType: null
             },
             args: []
           },
@@ -1210,7 +1409,29 @@ export default {
         name: "User",
         fields: [
           {
+            name: "avatar",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
             name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "email",
             type: {
               kind: "NON_NULL",
               ofType: {
@@ -1233,6 +1454,29 @@ export default {
           },
           {
             name: "isDeleted",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "member",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
             type: {
               kind: "NON_NULL",
               ofType: {
@@ -1311,6 +1555,11 @@ export const MeDocument = gql`
   query me {
     me {
       userName
+      avatar
+      member {
+        firstName
+        lastName
+      }
     }
   }
 `;
@@ -1331,4 +1580,112 @@ export const LoginDocument = gql`
 
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
+}
+export const MembersDocument = gql`
+  query members {
+    members {
+      id
+      firstName
+      lastName
+      middleName
+      centerAffiliation
+      currentAddress
+      dob
+      email
+      firstName
+      gender
+      insta
+      isMember
+      active
+      membershipType
+      messenger
+      permanentAddress
+      currentAddress
+      phonePrimary
+      phoneSecondary
+      photo
+      refugeName
+      sanghaJoinDate
+      title
+      viber
+      user {
+        userName
+        status
+      }
+    }
+  }
+`;
+
+export function useMembersQuery(
+  options?: Omit<Urql.UseQueryArgs<MembersQueryVariables>, "query">
+) {
+  return Urql.useQuery<MembersQuery>({ query: MembersDocument, ...options });
+}
+export const MemberDocument = gql`
+  query member($id: String!) {
+    member(id: $id) {
+      id
+      firstName
+      lastName
+      middleName
+      centerAffiliation
+      currentAddress
+      dob
+      email
+      firstName
+      gender
+      insta
+      isMember
+      active
+      membershipType
+      messenger
+      permanentAddress
+      currentAddress
+      phonePrimary
+      phoneSecondary
+      photo
+      refugeName
+      sanghaJoinDate
+      title
+      viber
+      user {
+        userName
+        status
+      }
+    }
+  }
+`;
+
+export function useMemberQuery(
+  options: Omit<Urql.UseQueryArgs<MemberQueryVariables>, "query">
+) {
+  return Urql.useQuery<MemberQuery>({ query: MemberDocument, ...options });
+}
+export const CreateMemberDocument = gql`
+  mutation createMember($createMemberInput: CreateMemberInput!) {
+    createMember(createMemberInput: $createMemberInput) {
+      id
+      firstName
+      lastName
+    }
+  }
+`;
+
+export function useCreateMemberMutation() {
+  return Urql.useMutation<CreateMemberMutation, CreateMemberMutationVariables>(
+    CreateMemberDocument
+  );
+}
+export const DeleteMemberDocument = gql`
+  mutation deleteMember($id: String!) {
+    removeMember(id: $id) {
+      id
+    }
+  }
+`;
+
+export function useDeleteMemberMutation() {
+  return Urql.useMutation<DeleteMemberMutation, DeleteMemberMutationVariables>(
+    DeleteMemberDocument
+  );
 }

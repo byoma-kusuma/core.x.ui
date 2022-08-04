@@ -1,0 +1,79 @@
+query members {
+  members {
+    id
+    firstName
+    lastName
+    middleName
+    centerAffiliation
+    currentAddress
+    dob
+    email
+    firstName
+    gender
+    insta
+    isMember
+    active
+    membershipType
+    messenger
+    permanentAddress
+    currentAddress
+    phonePrimary
+    phoneSecondary
+    photo
+    refugeName
+    sanghaJoinDate
+    title
+    viber
+    user {
+      userName
+      status
+    }
+  }
+}
+
+query member($id: String!) {
+  member(id: $id) {
+    id
+    firstName
+    lastName
+    middleName
+    centerAffiliation
+    currentAddress
+    dob
+    email
+    firstName
+    gender
+    insta
+    isMember
+    active
+    membershipType
+    messenger
+    permanentAddress
+    currentAddress
+    phonePrimary
+    phoneSecondary
+    photo
+    refugeName
+    sanghaJoinDate
+    title
+    viber
+    user {
+      userName
+      status
+    }
+  }
+}
+
+mutation createMember($createMemberInput: CreateMemberInput!) {
+  createMember(createMemberInput: $createMemberInput) {
+    id
+    firstName
+    lastName
+  }
+}
+
+mutation deleteMember($id: String!) {
+  removeMember(id: $id) {
+    id
+  }
+}

@@ -22,6 +22,7 @@ export interface DataSchema<T> {
   headerLabel: string | JSX.Element;
   alignRight?: boolean;
   formatter?: (r: T) => React.ReactNode;
+  placeholder?: string | JSX.Element;
 }
 
 export interface FilterSchema<T> {
@@ -35,6 +36,7 @@ interface CoolTableProps<T> {
   dataSchema: Array<DataSchema<T>>;
   defaultOrderKey: keyof T;
   loading: boolean;
+  error: string;
   defaultOrderDirection: "asc" | "desc";
   filterSchema?: Array<FilterSchema<T>>;
   onRequestSort?: (
@@ -65,6 +67,7 @@ export default function CoolTable<T extends { id: string }>(
     defaultOrderDirection,
     defaultOrderKey,
     loading,
+    error,
     filterSchema,
     data,
     dataSchema,
@@ -268,16 +271,20 @@ export default function CoolTable<T extends { id: string }>(
                         />
                       </TableCell>
                       {headerKeysToRenderInOrder.map((key) => {
-                        const content = CoolTableFns.getRowCellContent<T>(
-                          dataSchema,
-                          key,
-                          row,
-                          filteredDataRow
-                        );
+                        const { content, align } =
+                          CoolTableFns.getRowCellContent<T>(
+                            dataSchema,
+                            key,
+                            row,
+                            filteredDataRow
+                          );
                         return (
                           <TableCell
                             key={key.toString()}
-                            sx={(theme) => ({ padding: theme.spacing(1) })}
+                            sx={(theme) => ({
+                              padding: theme.spacing(1)
+                            })}
+                            align={align}
                           >
                             {content}
                           </TableCell>
@@ -295,6 +302,7 @@ export default function CoolTable<T extends { id: string }>(
               noData={data.length === 0}
               noSearchData={tableData.length === 0}
               loading={loading}
+              error={error}
             />
           </Table>
         </TableContainer>

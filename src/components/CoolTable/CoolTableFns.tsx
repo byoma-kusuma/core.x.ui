@@ -1,3 +1,4 @@
+import { TableCellProps } from "@mui/material";
 import { isObject, isPlainObject } from "lodash";
 import React from "react";
 import { DataSchema, FilterSchema } from ".";
@@ -105,16 +106,25 @@ export default class CoolTableFns {
     filteredDataRow: Partial<T>
   ) {
     // in case where formatter is given through dataSchema
-    const contentFormatterContainer = dataSchema.find(
+    const contentContainer = dataSchema.find(
       (schemaItem) => schemaItem.id === key
     );
-    if (contentFormatterContainer?.formatter) {
+
+    const align: TableCellProps["align"] = contentContainer?.alignRight
+      ? "right"
+      : "left";
+
+    if (contentContainer?.formatter) {
       try {
-        return contentFormatterContainer.formatter(row);
+        return { content: contentContainer.formatter(row), align };
       } catch (e) {
-        return `Invalid formatter for ${key.toString()}`;
+        return {
+          content: `Invalid formatter for ${key.toString()}`,
+          align
+        };
       }
     }
+
     // in case where formatter is not provided
     const content = filteredDataRow[key as keyof Partial<T>] as
       | null
@@ -124,14 +134,23 @@ export default class CoolTableFns {
       console.error(`Cool table error on key ${key.toString()}`, {
         [key]: content
       });
-      return (
-        <>
-          Invalid content detected for key -<b>{key.toString()}</b>. Received
-          type
-          {` ${typeof content}`}
-        </>
-      );
+      return {
+        content: (
+          <>
+            Invalid content detected for key -<b>{key.toString()}</b>. Received
+            type
+            {` ${typeof content}`}
+          </>
+        ),
+        align
+      };
     }
-    return content as React.ReactNode;
+
+    return {
+      content: (content ||
+        contentContainer?.placeholder ||
+        null) as React.ReactNode,
+      align
+    };
   }
 }

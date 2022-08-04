@@ -6,6 +6,7 @@ import { closeSnackbar, SnackbarProvider } from "notistack";
 import { createBrowserHistory } from "history";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { Button } from "@mui/material";
+import { ConfirmProvider } from "material-ui-confirm";
 
 // browserhistory shared accross the whole app
 export const history = createBrowserHistory();
@@ -31,7 +32,9 @@ function App() {
               </Button>
             )}
           >
-            <AppRoutes />
+            <ConfirmProvider>
+              <AppRoutes />
+            </ConfirmProvider>
           </SnackbarProvider>
         </HistoryRouter>
       </ThemeProvider>
