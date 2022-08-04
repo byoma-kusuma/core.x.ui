@@ -1,5 +1,5 @@
-import { Grid, Typography } from "@mui/material";
 import * as React from "react";
+import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import PageWidthHeader from "../../components/PageWithHeader";
 import MemberFormContainer from "./containers/MemberFormContainer";
