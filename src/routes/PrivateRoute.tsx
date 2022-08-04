@@ -13,7 +13,9 @@ const Errored = styled("div")(() => ({
 }));
 
 export default function Private({ children }: { children: React.ReactNode }) {
-  const [{ data, fetching, error }] = useMeQuery();
+  const [{ data, fetching, error }] = useMeQuery({
+    requestPolicy: "network-only"
+  });
 
   if (fetching)
     return (

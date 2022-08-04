@@ -1,3 +1,4 @@
+import { exact } from "prop-types";
 import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
@@ -8,7 +9,8 @@ import Private from "./PrivateRoute";
 // use lazy imports for routes under app
 const AppLayout = React.lazy(() => import("../layouts/AppLayout"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard"));
-const Member = React.lazy(() => import("../pages/Members"));
+const Members = React.lazy(() => import("../pages/Members"));
+const Member = React.lazy(() => import("../pages/Members/Member"));
 
 export default [
   {
@@ -21,7 +23,9 @@ export default [
     children: [
       { path: "/app", element: <Navigate to="/app/dashboard" replace /> },
       { path: "dashboard", element: <Dashboard /> },
-      { path: "members", element: <Member /> }
+      { path: "members", element: <Members />, exact },
+      { path: "members/:id", element: <Member />, exact },
+      { path: "members/new", element: <Member />, exact }
     ]
   },
   {

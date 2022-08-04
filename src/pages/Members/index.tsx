@@ -1,37 +1,90 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import CoolTable from "../../components/CoolTable";
-import { faker } from "@faker-js/faker";
-import { sample, startCase } from "lodash";
-import { Avatar, Button, Stack, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography
+} from "@mui/material";
 import Label from "../../components/Label";
 import PageWidthHeader from "../../components/PageWithHeader";
+import {
+  MembersQuery,
+  Status,
+  useDeleteMemberMutation,
+  useMembersQuery
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
+import Iconify from "../../components/Iconify";
+import { useConfirm } from "material-ui-confirm";
+import { useNavigate } from "react-router-dom";
+import { getMemberFullName } from "../../utils/formatString";
 
-const users = [...Array(10000)].map((_, index) => ({
-  id: faker.datatype.uuid(),
-  avatarUrl: "/static/mock-images/avatars/avatar_default.jpg",
-  name: `${faker.name.findName()}`,
-  company: `${faker.company.companyName()}`,
-  isVerified: faker.datatype.boolean(),
-  status: sample(["active", "banned"]),
-  role: sample([
-    "Leader",
-    "Hr Manager",
-    "UI Designer",
-    "UX Designer",
-    "UI/UX Designer",
-    "Project Manager",
-    "Backend Developer",
-    "Full Stack Designer",
-    "Front End Developer",
-    "Full Stack Developer"
-  ])
-}));
+function format(data: MembersQuery | undefined) {
+  if (!data) return [];
+  return data.members.map((r) => ({
+    ...r,
+    fullName: getMemberFullName(r),
+    combinedPhone:
+      r.phonePrimary && r.phoneSecondary
+        ? `${r.phonePrimary}, ${r.phoneSecondary}`
+        : r.phonePrimary || r.phoneSecondary,
+    userName: r.user?.userName,
+    userStatus: r.user?.status
+  }));
+}
 
 export default function Members() {
+  const [{ data, fetching, error }] = useMembersQuery();
+
+  const [, deleteMemberMut] = useDeleteMemberMutation();
+
+  const confirm = useConfirm();
+  const navigate = useNavigate();
+
+  const handleMemberDelete = (id: string, name: string) => {
+    confirm({
+      description: (
+        <>
+          <Typography>
+            Are you sure you want to remove <b>{name}</b> from member?
+          </Typography>
+          <Typography variant="subtitle2" sx={{ mt: "16px" }}>
+            Note: Confirming this action will remove the user associated with
+            this member as well.
+          </Typography>
+        </>
+      ),
+      title: "Delete Confirmation",
+      confirmationButtonProps: {
+        color: "primary",
+        variant: "contained"
+      },
+      confirmationText: "Confirm"
+    }).then(async () => {
+      new GqlApiHandler(
+        await deleteMemberMut({
+          id
+        })
+      )
+        .onSuccess((res) => console.log(res))
+        .onError(({ notiErr }) => {
+          notiErr();
+        });
+    });
+  };
+
+  const handleMemberEdit = (id: string) => {
+    navigate(`/app/members/${id}`);
+  };
+
   return (
     <PageWidthHeader
-      header="Members"
+      header="Members List"
       crumbs={[
         { label: "Members", route: "/app/members", key: "1" },
         { label: "List", route: "/", key: "2" }
@@ -39,91 +92,113 @@ export default function Members() {
       actionButton={
         <Button
           variant="contained"
-          //   color="success"
-          sx={() => ({ color: "white", backgroundColor: "success.dark" })}
-          size="medium"
+          color="primary"
+          onClick={() => navigate("/app/members/new")}
         >
           New Member
         </Button>
       }
     >
       <CoolTable
-        loading={false}
+        error={GqlApiHandler.getErrorMessage(error)}
+        loading={fetching}
         tableHeight="calc(100vh - 400px)"
-        defaultOrderKey="name"
+        defaultOrderKey="firstName"
         defaultOrderDirection="asc"
         onSelectActionButtonClick={(data) => console.log(data)}
-        data={users}
-        filterSchema={[
-          { id: 1, label: "All", filterFn: (data) => data },
-          {
-            id: 2,
-            label: "Verified",
-            filterFn: (data) => data.filter((datum) => datum.isVerified)
-          },
-          {
-            id: 3,
-            label: "Not Verified",
-            filterFn: (data) => data.filter((datum) => !datum.isVerified)
-          },
-          {
-            id: 4,
-            label: "Banned",
-            filterFn: (data) =>
-              data.filter((datum) => datum.status === "banned")
-          }
-        ]}
+        data={format(data)}
+        filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
         dataSchema={[
           {
-            id: "name",
-            headerLabel: "Name",
-            formatter: ({ avatarUrl, name }) => (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Avatar src={avatarUrl} />
-                <Typography variant="subtitle2">{name}</Typography>
-              </Stack>
-            )
+            id: "fullName",
+            headerLabel: "Full Name",
+            formatter({ fullName, photo }) {
+              return (
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <Avatar src={photo || ""} />
+                  <Typography variant="subtitle2">{fullName}</Typography>
+                </Stack>
+              );
+            }
           },
           {
-            id: "company",
-            headerLabel: "Company"
+            id: "userName",
+            headerLabel: "Username",
+            formatter({ userName, userStatus }) {
+              if (!userName) return "-";
+              return (
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <Typography variant="body2">{userName}</Typography>
+                  <Tooltip title={"This user is validated"} placement="top">
+                    <Iconify
+                      icon={
+                        userStatus === Status.Validated
+                          ? "eva:checkmark-circle-2-fill"
+                          : "eva:close-circle-fill"
+                      }
+                      sx={{ color: "success.dark", width: 20, height: 20 }}
+                    />
+                  </Tooltip>
+                </Stack>
+              );
+            }
+          },
+          { id: "email", headerLabel: "Email", placeholder: "-" },
+          {
+            id: "centerAffiliation",
+            headerLabel: "Centre",
+            placeholder: "-"
           },
           {
-            id: "isVerified",
-            headerLabel: "Verified",
-            formatter: ({ isVerified }) => (
-              <Label
-                label={startCase(isVerified.toString())}
-                type="semi-rounded"
-                color={isVerified ? "success" : "error"}
-                sx={{ minWidth: "60px" }}
-              />
-            )
+            id: "combinedPhone",
+            headerLabel: "Phone",
+            placeholder: "-"
           },
-          { id: "role", headerLabel: "Role" },
           {
-            id: "status",
+            id: "active",
             headerLabel: "Status",
-            formatter: ({ status }) => (
-              <Label
-                label={startCase(status)}
-                type="semi-rounded"
-                color={status === "active" ? "success" : "error"}
-              />
-            )
+            formatter({ active }) {
+              return (
+                <Label
+                  label={active ? "Active" : "Inactive"}
+                  type="semi-rounded"
+                  color={active ? "success" : "error"}
+                  sx={{ minWidth: "60px" }}
+                />
+              );
+            }
+          },
+          {
+            id: "currentAddress",
+            headerLabel: "Current Address",
+            placeholder: "-"
           },
           {
             id: "opt1",
             headerLabel: "",
-            formatter: () => "X"
+            formatter(r) {
+              return (
+                <Box display="flex" justifyContent="flex-end">
+                  <IconButton>
+                    <Iconify
+                      icon="eva:edit-2-outline"
+                      sx={{ color: "text.disabled", width: 20, height: 20 }}
+                      onClick={() => handleMemberEdit(r.id)}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleMemberDelete(r.id, r.fullName)}
+                  >
+                    <Iconify
+                      icon="eva:trash-2-outline"
+                      sx={{ color: "text.disabled", width: 20, height: 20 }}
+                    />
+                  </IconButton>
+                </Box>
+              );
+            }
           }
         ]}
-        onRequestSelection={(e, selectedIds) => {
-          console.log("fromabove", null);
-        }}
-        onRequestSort={(e, prop, dir) => {
-          console.log(prop, dir);
-        }}
       />
     </PageWidthHeader>
   );

@@ -13,10 +13,11 @@ interface DataNotFoundProps {
   noData: boolean;
   noSearchData: boolean;
   loading: boolean;
+  error: string;
 }
 
 export default function DataNotFound(props: DataNotFoundProps) {
-  const { searchQuery, noData, noSearchData, loading } = props;
+  const { searchQuery, noData, noSearchData, loading, error } = props;
   if (!noData && !noSearchData && !loading) return null;
   return (
     <TableBody>
@@ -30,6 +31,15 @@ export default function DataNotFound(props: DataNotFoundProps) {
                 </Typography>
               }
             />
+          ) : error ? (
+            <Paper>
+              <Typography gutterBottom align="center" variant="subtitle1">
+                Failed to fetch data. Please contact site administrator.
+              </Typography>
+              <Typography variant="subtitle2" align="center">
+                {error}
+              </Typography>
+            </Paper>
           ) : (
             <Paper>
               <Typography gutterBottom align="center" variant="subtitle1">
