@@ -95,7 +95,7 @@ export default class CoolTableFns {
   public static getHeaderCells<T>(
     dataSchema: Array<DataSchema<T>>
   ): Array<Omit<DataSchema<T>, "formatter">> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line unused-imports/no-unused-vars
     return dataSchema.map(({ formatter, ...rest }) => rest);
   }
 

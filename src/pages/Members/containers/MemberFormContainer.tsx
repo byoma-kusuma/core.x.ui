@@ -1,5 +1,5 @@
 import { LoadingButton } from "@mui/lab";
-import { Box, Button, Grid, Paper, TextField } from "@mui/material";
+import { Box, Grid, Paper, TextField } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as React from "react";
@@ -38,7 +38,7 @@ export default function MemberFormContainer(props: Props) {
   const navigate = useNavigate();
   const [{ fetching: creating }, createMemberMut] = useCreateMemberMutation();
 
-  const [{ data }, reExec] = useQuery<MemberQuery>({
+  const [{ data }] = useQuery<MemberQuery>({
     query: MemberDocument,
     pause: !id,
     variables: { id }
