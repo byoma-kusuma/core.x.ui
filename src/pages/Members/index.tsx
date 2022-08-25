@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as React from "react";
 import CoolTable from "../../components/CoolTable";
 import {
@@ -11,7 +10,7 @@ import {
   Typography
 } from "@mui/material";
 import Label from "../../components/Label";
-import PageWidthHeader from "../../components/PageWithHeader";
+import PageWithHeader from "../../components/PageWithHeader";
 import {
   MembersQuery,
   Status,
@@ -83,7 +82,7 @@ export default function Members() {
   };
 
   return (
-    <PageWidthHeader
+    <PageWithHeader
       header="Members List"
       crumbs={[
         { label: "Members", route: "/app/members", key: "1" },
@@ -103,7 +102,7 @@ export default function Members() {
         error={GqlApiHandler.getErrorMessage(error)}
         loading={fetching}
         tableHeight="calc(100vh - 400px)"
-        defaultOrderKey="firstName"
+        defaultOrderKey="fullName"
         defaultOrderDirection="asc"
         onSelectActionButtonClick={(data) => console.log(data)}
         data={format(data)}
@@ -111,7 +110,7 @@ export default function Members() {
         dataSchema={[
           {
             id: "fullName",
-            headerLabel: "Full Name",
+            headerLabel: "Name",
             formatter({ fullName, photo }) {
               return (
                 <Stack direction="row" alignItems="center" spacing={2}>
@@ -130,14 +129,16 @@ export default function Members() {
                 <Stack direction="row" alignItems="center" spacing={2}>
                   <Typography variant="body2">{userName}</Typography>
                   <Tooltip title={"This user is validated"} placement="top">
-                    <Iconify
-                      icon={
-                        userStatus === Status.Validated
-                          ? "eva:checkmark-circle-2-fill"
-                          : "eva:close-circle-fill"
-                      }
-                      sx={{ color: "success.dark", width: 20, height: 20 }}
-                    />
+                    <div>
+                      <Iconify
+                        icon={
+                          userStatus === Status.Validated
+                            ? "eva:checkmark-circle-2-fill"
+                            : "eva:close-circle-fill"
+                        }
+                        sx={{ color: "success.dark", width: 20, height: 20 }}
+                      />
+                    </div>
                   </Tooltip>
                 </Stack>
               );
@@ -179,11 +180,10 @@ export default function Members() {
             formatter(r) {
               return (
                 <Box display="flex" justifyContent="flex-end">
-                  <IconButton>
+                  <IconButton onClick={() => handleMemberEdit(r.id)}>
                     <Iconify
                       icon="eva:edit-2-outline"
                       sx={{ color: "text.disabled", width: 20, height: 20 }}
-                      onClick={() => handleMemberEdit(r.id)}
                     />
                   </IconButton>
                   <IconButton
@@ -200,6 +200,6 @@ export default function Members() {
           }
         ]}
       />
-    </PageWidthHeader>
+    </PageWithHeader>
   );
 }

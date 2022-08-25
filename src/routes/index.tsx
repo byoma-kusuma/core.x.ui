@@ -4,6 +4,10 @@ import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
 import Login from "../pages/Login";
 import NotFound404 from "../pages/NotFound404";
+import ResetPassword from "../pages/ResetPassword";
+import RequestResetPassword from "../pages/ResetPassword/RequestResetPassword";
+import Users from "../pages/Users";
+import User from "../pages/Users/User";
 import Private from "./PrivateRoute";
 
 // use lazy imports for routes under app
@@ -23,9 +27,15 @@ export default [
     children: [
       { path: "/app", element: <Navigate to="/app/dashboard" replace /> },
       { path: "dashboard", element: <Dashboard /> },
+
+      // members routes
       { path: "members", element: <Members />, exact },
       { path: "members/:id", element: <Member />, exact },
-      { path: "members/new", element: <Member />, exact }
+      { path: "members/new", element: <Member />, exact },
+
+      // users routes
+      { path: "users", element: <Users />, exact },
+      { path: "users/:id", element: <User />, exact }
     ]
   },
   {
@@ -34,6 +44,8 @@ export default [
     children: [
       { path: "/", element: <Navigate to="/app/dashboard" replace /> },
       { path: "login", element: <Login /> },
+      { path: "password-reset/request", element: <RequestResetPassword /> },
+      { path: "password-reset/verify", element: <ResetPassword /> },
       { path: "404", element: <NotFound404 /> }
     ]
   },

@@ -1,0 +1,56 @@
+query users {
+  users {
+    id
+    userName
+    avatar
+    status
+    role {
+      name
+    } 
+    member {
+      id
+      firstName
+      middleName
+      lastName
+      email
+    }
+  }
+}
+
+query user($id: String!) {
+  user(id: $id) {
+    id
+    userName
+    avatar
+    role {
+      name
+    }
+    member {
+      id
+      firstName
+      middleName
+      lastName
+    }
+  }
+}
+
+mutation createUser($createUserInput: CreateUserInput!) {
+  createUser(createUserInput: $createUserInput) {
+    id
+    userName
+    role {
+      id
+      name
+    }
+    member {
+      id
+    }
+  }
+}
+
+
+mutation deleteUser($id: String!) {
+  removeUser(id: $id) {
+    id
+  }
+}

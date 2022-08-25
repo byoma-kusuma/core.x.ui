@@ -1,16 +1,13 @@
 import * as React from "react";
-import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
-import MemberFormContainer from "./containers/MemberFormContainer";
-
-const PAGE_ELEMENTS_HEIGHT = 520;
+import UserFormContainer from "./containers/UserFormContainer";
 
 export default function Member() {
   const { id } = useParams();
 
   const isEditMode = Boolean(id);
-  const pageTitle = isEditMode ? "Edit Member" : "Create new Member";
+  const pageTitle = isEditMode ? "Edit User" : "Create new User";
   const crumbTitle = isEditMode ? "Edit" : "Create new";
 
   return (
@@ -21,9 +18,7 @@ export default function Member() {
         { label: crumbTitle, route: "/", key: "2" }
       ]}
     >
-      <Grid container spacing={2}>
-        <MemberFormContainer height={PAGE_ELEMENTS_HEIGHT} id={id} />
-      </Grid>
+      <UserFormContainer id={id} />
     </PageWithHeader>
   );
 }

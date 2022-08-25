@@ -13,6 +13,11 @@ const navConfig = [
     path: "/app/members",
     icon: getIcon("eva:people-fill")
   },
+  {
+    title: "users",
+    path: "/app/users",
+    icon: getIcon("eva:person-add-fill")
+  },
   { title: "New Section", path: "", icon: "", type: "grouper" },
   {
     title: "New Page",
