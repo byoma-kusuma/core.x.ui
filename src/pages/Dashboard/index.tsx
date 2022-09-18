@@ -1,9 +1,9 @@
 import * as React from "react";
-import PageWidthHeader from "../../components/PageWithHeader";
+import PageWithHeader from "../../components/PageWithHeader";
 
 export default function Dashboard() {
   return (
-    <PageWidthHeader header="Dashboard">
+    <PageWithHeader header="Dashboard">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veniam
       itaque distinctio aperiam, commodi ipsum unde porro perspiciatis nam nihil
       magnam. Dolor aut nostrum molestiae mollitia quos minima quis repudiandae?
@@ -52,6 +52,6 @@ export default function Dashboard() {
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis veniam
       itaque distinctio aperiam, commodi ipsum unde porro perspiciatis nam nihil
       magnam. Dolor aut nostrum molestiae mollitia quos minima quis repudiandae?
-    </PageWidthHeader>
+    </PageWithHeader>
   );
 }

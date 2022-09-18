@@ -9,6 +9,7 @@ query members {
     dob
     email
     firstName
+    createdAt
     gender
     insta
     isMember
@@ -25,8 +26,12 @@ query members {
     title
     viber
     user {
+      id
       userName
       status
+      role {
+        name
+      }
     }
   }
 }
@@ -58,8 +63,13 @@ query member($id: String!) {
     title
     viber
     user {
+      id
       userName
       status
+      role {
+        id
+        name
+      }
     }
   }
 }
@@ -69,6 +79,12 @@ mutation createMember($createMemberInput: CreateMemberInput!) {
     id
     firstName
     lastName
+  }
+}
+
+mutation updateMember($updateMemberInput: UpdateMemberInput!) {
+  updateMember(updateMemberInput: $updateMemberInput) {
+    id
   }
 }
 

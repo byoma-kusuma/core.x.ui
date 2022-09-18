@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import symbols from "../../utils/symbols";
 
 const RootStyle = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 5, 1, 5),
+  padding: theme.spacing(0, 2, 1, 2),
   [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(1)
   }
@@ -25,14 +25,14 @@ interface Crumb {
   key: string;
 }
 
-interface PageWidthHeaderProps {
+interface PageWithHeaderProps {
   children: React.ReactNode;
   header?: string;
   crumbs?: Array<Crumb>;
   actionButton?: JSX.Element;
 }
 
-export default function PageWidthHeader(props: PageWidthHeaderProps) {
+export default function PageWithHeader(props: PageWithHeaderProps) {
   const { children, header, crumbs, actionButton = <div /> } = props;
   const navigate = useNavigate();
   return (

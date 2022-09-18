@@ -1,4 +1,4 @@
-import { upperFirst } from "lodash";
+import { startCase, upperFirst } from "lodash";
 import { enqueueSnackbar } from "notistack";
 import { CombinedError } from "urql";
 
@@ -19,6 +19,13 @@ export default class GqlApiHandler<
     if (!error) return "";
     return (
       error?.graphQLErrors.reduce((acc, cur) => {
+        if (cur.extensions.code === "BAD_USER_INPUT") {
+          return (acc += `${(
+            cur.extensions.response as { message: Array<string> }
+          ).message
+            .map((msg) => startCase(msg))
+            .join(", ")}`);
+        }
         return (acc += `${cur.message}\n`);
       }, "") || ""
     );

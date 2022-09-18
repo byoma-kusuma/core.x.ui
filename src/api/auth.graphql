@@ -15,3 +15,17 @@ mutation login($userName: String!, $password: String!) {
     refreshToken
   }
 }
+
+mutation requestPasswordReset($userName: String!) {
+  initiateResetPassword(resetPasswordInitiateInput: { userName: $userName }) {
+    status
+  }
+}
+
+mutation resetPassword($userId: String!, $token: String!, $password: String!) {
+  resetPassword(
+    resetPasswordInput: { userId: $userId, token: $token, password: $password }
+  ) {
+    status
+  }
+}

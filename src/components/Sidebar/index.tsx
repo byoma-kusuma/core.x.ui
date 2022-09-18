@@ -5,7 +5,7 @@ import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
 import useResponsive from "../../hooks/useResponsive";
 import Scrollbar from "../../components/Scrollbar";
 import NavSection from "../NavSection";
-import NavigationSchema from "../../schemas/navigation";
+import { NavigationItem } from "../../types/Navgiation";
 
 const DRAWER_WIDTH = 280;
 
@@ -27,10 +27,19 @@ const AccountStyle = styled("div")(({ theme }) => ({
 interface SidebarProps {
   isOpenSidebar: boolean;
   onCloseSidebar: () => void;
+  navigationSchema: Array<NavigationItem>;
+  currentUser: { fullName: string; role: string; link: string; avatar: string };
+  menuLogoUrl: string;
 }
 
 export default function Sidebar(props: SidebarProps) {
-  const { isOpenSidebar, onCloseSidebar } = props;
+  const {
+    isOpenSidebar,
+    onCloseSidebar,
+    navigationSchema,
+    currentUser,
+    menuLogoUrl
+  } = props;
 
   const { pathname } = useLocation();
 
@@ -54,29 +63,26 @@ export default function Sidebar(props: SidebarProps) {
       }}
     >
       <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
-        <img src="/static/bk_t.png" height="40px" width="40px" />
+        <img src={menuLogoUrl} height="40px" width="40px" />
       </Box>
 
       <Box sx={{ mb: 4, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
-            <Avatar
-              src="/static/mock-images/avatars/avatar_default.jpg"
-              alt="photoURL"
-            />
+            <Avatar src={currentUser.avatar} alt="photoURL" />
             <Box sx={{ ml: 2 }}>
               <Typography variant="subtitle2" sx={{ color: "text.primary" }}>
-                Amogh Rijal
+                {currentUser.fullName}
               </Typography>
               <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                Admin
+                {currentUser.role}
               </Typography>
             </Box>
           </AccountStyle>
         </Link>
       </Box>
 
-      <NavSection navConfig={NavigationSchema} />
+      <NavSection navConfig={navigationSchema} />
     </Scrollbar>
   );
 

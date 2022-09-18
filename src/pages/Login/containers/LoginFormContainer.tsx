@@ -19,9 +19,7 @@ import { setLocalToken, setRefreshToken } from "../../../services/auth";
 import GqlApiHandler from "../../../services/GqlApiHandler";
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Email must be a valid email address")
-    .required("Email is required"),
+  email: Yup.string().required("Username is required"),
   password: Yup.string()
     .required("Password is required")
     .min(8, "Password should be minimum of 8 characters")
@@ -122,7 +120,7 @@ export default function LoginFormContainer() {
             <Link
               component={RouterLink}
               variant="subtitle2"
-              to="#"
+              to="/password-reset/request"
               underline="hover"
             >
               Forgot password?

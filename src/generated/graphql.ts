@@ -91,6 +91,10 @@ export type CreateRoleInput = {
   name: Scalars["String"];
 };
 
+export type CreateUserInput = {
+  memberId: Scalars["String"];
+};
+
 export type DateTimeFilter = {
   equals?: InputMaybe<Scalars["DateTime"]>;
   gt?: InputMaybe<Scalars["DateTime"]>;
@@ -252,10 +256,14 @@ export type Mutation = {
   changePassword: User;
   createMember: Member;
   createRole: Role;
+  createUser: User;
+  initiateResetPassword: ResponseStatus;
   login: Auth;
   refreshToken: Token;
   removeMember: Member;
   removeRole: Role;
+  removeUser: User;
+  resetPassword: ResponseStatus;
   updateMember: Member;
   updateRole: Role;
 };
@@ -272,6 +280,14 @@ export type MutationCreateRoleArgs = {
   createRoleInput: CreateRoleInput;
 };
 
+export type MutationCreateUserArgs = {
+  createUserInput: CreateUserInput;
+};
+
+export type MutationInitiateResetPasswordArgs = {
+  resetPasswordInitiateInput: ResetPasswordInitiateInput;
+};
+
 export type MutationLoginArgs = {
   data: LoginInput;
 };
@@ -286,6 +302,14 @@ export type MutationRemoveMemberArgs = {
 
 export type MutationRemoveRoleArgs = {
   id: Scalars["Int"];
+};
+
+export type MutationRemoveUserArgs = {
+  id: Scalars["String"];
+};
+
+export type MutationResetPasswordArgs = {
+  resetPasswordInput: ResetPasswordInput;
 };
 
 export type MutationUpdateMemberArgs = {
@@ -317,6 +341,23 @@ export type PasswordHistoryWhereInput = {
   userId?: InputMaybe<StringFilter>;
 };
 
+export type PasswordTokenRelationFilter = {
+  is?: InputMaybe<PasswordTokenWhereInput>;
+  isNot?: InputMaybe<PasswordTokenWhereInput>;
+};
+
+export type PasswordTokenWhereInput = {
+  AND?: InputMaybe<Array<PasswordTokenWhereInput>>;
+  NOT?: InputMaybe<Array<PasswordTokenWhereInput>>;
+  OR?: InputMaybe<Array<PasswordTokenWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  id?: InputMaybe<StringFilter>;
+  token?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  user?: InputMaybe<UserRelationFilter>;
+  userId?: InputMaybe<StringFilter>;
+};
+
 export type Query = {
   __typename?: "Query";
   hello: Scalars["String"];
@@ -326,6 +367,8 @@ export type Query = {
   members: Array<Member>;
   role: Role;
   roles: Array<Role>;
+  user: User;
+  users: Array<User>;
 };
 
 export type QueryHelloArgs = {
@@ -342,6 +385,25 @@ export type QueryRoleArgs = {
 
 export type QueryRolesArgs = {
   where?: InputMaybe<RoleWhereInput>;
+};
+
+export type QueryUserArgs = {
+  id: Scalars["String"];
+};
+
+export type ResetPasswordInitiateInput = {
+  userName: Scalars["String"];
+};
+
+export type ResetPasswordInput = {
+  password: Scalars["String"];
+  token: Scalars["String"];
+  userId: Scalars["String"];
+};
+
+export type ResponseStatus = {
+  __typename?: "ResponseStatus";
+  status: Scalars["String"];
 };
 
 export type Role = {
@@ -455,7 +517,6 @@ export type User = {
   avatar: Scalars["String"];
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
-  email: Scalars["String"];
   id: Scalars["String"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
@@ -493,13 +554,13 @@ export type UserWhereInput = {
   avatar?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
-  email?: InputMaybe<StringFilter>;
   id?: InputMaybe<StringFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
   member?: InputMaybe<MemberRelationFilter>;
   memberId?: InputMaybe<StringFilter>;
   password?: InputMaybe<StringFilter>;
   passwordHistory?: InputMaybe<PasswordHistoryRelationFilter>;
+  passwordToken?: InputMaybe<PasswordTokenRelationFilter>;
   role?: InputMaybe<RoleRelationFilter>;
   roleId?: InputMaybe<StringFilter>;
   status?: InputMaybe<EnumUserStatusFilter>;
@@ -531,6 +592,26 @@ export type LoginMutation = {
   login: { __typename?: "Auth"; accessToken: any; refreshToken: any };
 };
 
+export type RequestPasswordResetMutationVariables = Exact<{
+  userName: Scalars["String"];
+}>;
+
+export type RequestPasswordResetMutation = {
+  __typename?: "Mutation";
+  initiateResetPassword: { __typename?: "ResponseStatus"; status: string };
+};
+
+export type ResetPasswordMutationVariables = Exact<{
+  userId: Scalars["String"];
+  token: Scalars["String"];
+  password: Scalars["String"];
+}>;
+
+export type ResetPasswordMutation = {
+  __typename?: "Mutation";
+  resetPassword: { __typename?: "ResponseStatus"; status: string };
+};
+
 export type MembersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MembersQuery = {
@@ -545,6 +626,7 @@ export type MembersQuery = {
     currentAddress?: string | null;
     dob?: any | null;
     email?: string | null;
+    createdAt: any;
     gender?: Gender_Type | null;
     insta?: string | null;
     isMember: boolean;
@@ -559,7 +641,13 @@ export type MembersQuery = {
     sanghaJoinDate?: any | null;
     title?: string | null;
     viber?: string | null;
-    user?: { __typename?: "User"; userName: string; status: Status } | null;
+    user?: {
+      __typename?: "User";
+      id: string;
+      userName: string;
+      status: Status;
+      role: { __typename?: "Role"; name: string };
+    } | null;
   }>;
 };
 
@@ -593,7 +681,13 @@ export type MemberQuery = {
     sanghaJoinDate?: any | null;
     title?: string | null;
     viber?: string | null;
-    user?: { __typename?: "User"; userName: string; status: Status } | null;
+    user?: {
+      __typename?: "User";
+      id: string;
+      userName: string;
+      status: Status;
+      role: { __typename?: "Role"; id: string; name: string };
+    } | null;
   };
 };
 
@@ -611,6 +705,15 @@ export type CreateMemberMutation = {
   };
 };
 
+export type UpdateMemberMutationVariables = Exact<{
+  updateMemberInput: UpdateMemberInput;
+}>;
+
+export type UpdateMemberMutation = {
+  __typename?: "Mutation";
+  updateMember: { __typename?: "Member"; id: string };
+};
+
 export type DeleteMemberMutationVariables = Exact<{
   id: Scalars["String"];
 }>;
@@ -618,6 +721,74 @@ export type DeleteMemberMutationVariables = Exact<{
 export type DeleteMemberMutation = {
   __typename?: "Mutation";
   removeMember: { __typename?: "Member"; id: string };
+};
+
+export type UsersQueryVariables = Exact<{ [key: string]: never }>;
+
+export type UsersQuery = {
+  __typename?: "Query";
+  users: Array<{
+    __typename?: "User";
+    id: string;
+    userName: string;
+    avatar: string;
+    status: Status;
+    role: { __typename?: "Role"; name: string };
+    member: {
+      __typename?: "Member";
+      id: string;
+      firstName: string;
+      middleName?: string | null;
+      lastName: string;
+      email?: string | null;
+    };
+  }>;
+};
+
+export type UserQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type UserQuery = {
+  __typename?: "Query";
+  user: {
+    __typename?: "User";
+    id: string;
+    userName: string;
+    avatar: string;
+    role: { __typename?: "Role"; name: string };
+    member: {
+      __typename?: "Member";
+      id: string;
+      firstName: string;
+      middleName?: string | null;
+      lastName: string;
+    };
+  };
+};
+
+export type CreateUserMutationVariables = Exact<{
+  createUserInput: CreateUserInput;
+}>;
+
+export type CreateUserMutation = {
+  __typename?: "Mutation";
+  createUser: {
+    __typename?: "User";
+    id: string;
+    userName: string;
+    role: { __typename?: "Role"; id: string; name: string };
+    member: { __typename?: "Member"; id: string };
+  };
+};
+
+export type DeleteUserMutationVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type DeleteUserMutation = {
+  __typename?: "Mutation";
+  removeUser: { __typename?: "User"; id: string };
 };
 
 import { IntrospectionQuery } from "graphql";
@@ -997,6 +1168,52 @@ export default {
             ]
           },
           {
+            name: "createUser",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "User",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createUserInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "initiateResetPassword",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "ResponseStatus",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "resetPasswordInitiateInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "login",
             type: {
               kind: "NON_NULL",
@@ -1078,6 +1295,52 @@ export default {
             args: [
               {
                 name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "removeUser",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "User",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "resetPassword",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "ResponseStatus",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "resetPasswordInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -1272,6 +1535,65 @@ export default {
                 }
               }
             ]
+          },
+          {
+            name: "user",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "User",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "users",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "User",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "ResponseStatus",
+        fields: [
+          {
+            name: "status",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
           }
         ],
         interfaces: []
@@ -1431,17 +1753,6 @@ export default {
             args: []
           },
           {
-            name: "email",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any"
-              }
-            },
-            args: []
-          },
-          {
             name: "id",
             type: {
               kind: "NON_NULL",
@@ -1581,6 +1892,44 @@ export const LoginDocument = gql`
 export function useLoginMutation() {
   return Urql.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument);
 }
+export const RequestPasswordResetDocument = gql`
+  mutation requestPasswordReset($userName: String!) {
+    initiateResetPassword(resetPasswordInitiateInput: { userName: $userName }) {
+      status
+    }
+  }
+`;
+
+export function useRequestPasswordResetMutation() {
+  return Urql.useMutation<
+    RequestPasswordResetMutation,
+    RequestPasswordResetMutationVariables
+  >(RequestPasswordResetDocument);
+}
+export const ResetPasswordDocument = gql`
+  mutation resetPassword(
+    $userId: String!
+    $token: String!
+    $password: String!
+  ) {
+    resetPassword(
+      resetPasswordInput: {
+        userId: $userId
+        token: $token
+        password: $password
+      }
+    ) {
+      status
+    }
+  }
+`;
+
+export function useResetPasswordMutation() {
+  return Urql.useMutation<
+    ResetPasswordMutation,
+    ResetPasswordMutationVariables
+  >(ResetPasswordDocument);
+}
 export const MembersDocument = gql`
   query members {
     members {
@@ -1593,6 +1942,7 @@ export const MembersDocument = gql`
       dob
       email
       firstName
+      createdAt
       gender
       insta
       isMember
@@ -1609,8 +1959,12 @@ export const MembersDocument = gql`
       title
       viber
       user {
+        id
         userName
         status
+        role {
+          name
+        }
       }
     }
   }
@@ -1649,8 +2003,13 @@ export const MemberDocument = gql`
       title
       viber
       user {
+        id
         userName
         status
+        role {
+          id
+          name
+        }
       }
     }
   }
@@ -1676,6 +2035,19 @@ export function useCreateMemberMutation() {
     CreateMemberDocument
   );
 }
+export const UpdateMemberDocument = gql`
+  mutation updateMember($updateMemberInput: UpdateMemberInput!) {
+    updateMember(updateMemberInput: $updateMemberInput) {
+      id
+    }
+  }
+`;
+
+export function useUpdateMemberMutation() {
+  return Urql.useMutation<UpdateMemberMutation, UpdateMemberMutationVariables>(
+    UpdateMemberDocument
+  );
+}
 export const DeleteMemberDocument = gql`
   mutation deleteMember($id: String!) {
     removeMember(id: $id) {
@@ -1687,5 +2059,89 @@ export const DeleteMemberDocument = gql`
 export function useDeleteMemberMutation() {
   return Urql.useMutation<DeleteMemberMutation, DeleteMemberMutationVariables>(
     DeleteMemberDocument
+  );
+}
+export const UsersDocument = gql`
+  query users {
+    users {
+      id
+      userName
+      avatar
+      status
+      role {
+        name
+      }
+      member {
+        id
+        firstName
+        middleName
+        lastName
+        email
+      }
+    }
+  }
+`;
+
+export function useUsersQuery(
+  options?: Omit<Urql.UseQueryArgs<UsersQueryVariables>, "query">
+) {
+  return Urql.useQuery<UsersQuery>({ query: UsersDocument, ...options });
+}
+export const UserDocument = gql`
+  query user($id: String!) {
+    user(id: $id) {
+      id
+      userName
+      avatar
+      role {
+        name
+      }
+      member {
+        id
+        firstName
+        middleName
+        lastName
+      }
+    }
+  }
+`;
+
+export function useUserQuery(
+  options: Omit<Urql.UseQueryArgs<UserQueryVariables>, "query">
+) {
+  return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
+}
+export const CreateUserDocument = gql`
+  mutation createUser($createUserInput: CreateUserInput!) {
+    createUser(createUserInput: $createUserInput) {
+      id
+      userName
+      role {
+        id
+        name
+      }
+      member {
+        id
+      }
+    }
+  }
+`;
+
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument
+  );
+}
+export const DeleteUserDocument = gql`
+  mutation deleteUser($id: String!) {
+    removeUser(id: $id) {
+      id
+    }
+  }
+`;
+
+export function useDeleteUserMutation() {
+  return Urql.useMutation<DeleteUserMutation, DeleteUserMutationVariables>(
+    DeleteUserDocument
   );
 }
