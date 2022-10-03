@@ -1,0 +1,6 @@
+query centres {
+  centres {
+    id
+    displayText
+  }
+}

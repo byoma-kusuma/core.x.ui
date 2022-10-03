@@ -35,6 +35,24 @@ export type BoolFilter = {
   not?: InputMaybe<BoolFilter>;
 };
 
+export type Centre = {
+  __typename?: "Centre";
+  city?: Maybe<Scalars["String"]>;
+  country?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  displaySequence: Scalars["Int"];
+  displayText?: Maybe<Scalars["String"]>;
+  id: Scalars["Int"];
+  name?: Maybe<Scalars["String"]>;
+  stateProvince?: Maybe<Scalars["String"]>;
+  streetAddress?: Maybe<Scalars["String"]>;
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+};
+
 export enum CentreAffiliationType {
   Australia = "Australia",
   Hetauda = "Hetauda",
@@ -58,14 +76,45 @@ export enum CentreAffiliation_Type {
   Usa = "USA"
 }
 
+export type CentreRelationFilter = {
+  is?: InputMaybe<CentreWhereInput>;
+  isNot?: InputMaybe<CentreWhereInput>;
+};
+
+export type CentreWhereInput = {
+  AND?: InputMaybe<Array<CentreWhereInput>>;
+  NOT?: InputMaybe<Array<CentreWhereInput>>;
+  OR?: InputMaybe<Array<CentreWhereInput>>;
+  city?: InputMaybe<StringFilter>;
+  country?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  displaySequence?: InputMaybe<IntFilter>;
+  displayText?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
+  name?: InputMaybe<StringFilter>;
+  stateProvince?: InputMaybe<StringFilter>;
+  streetAddress?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+  users?: InputMaybe<MemberListRelationFilter>;
+};
+
 export type ChangePasswordInput = {
   newPassword: Scalars["String"];
   oldPassword: Scalars["String"];
 };
 
+export type CreateCentreInput = {
+  /** Example field (placeholder) */
+  exampleField: Scalars["Int"];
+};
+
 export type CreateMemberInput = {
   active: Scalars["Boolean"];
   centerAffiliation: Scalars["String"];
+  centreId?: InputMaybe<Scalars["Int"]>;
   currentAddress?: InputMaybe<Scalars["String"]>;
   dob?: InputMaybe<Scalars["DateTime"]>;
   email?: InputMaybe<Scalars["String"]>;
@@ -156,6 +205,17 @@ export enum Gender_Type {
   PreferNotToSay = "PREFER_NOT_TO_SAY"
 }
 
+export type IntFilter = {
+  equals?: InputMaybe<Scalars["Int"]>;
+  gt?: InputMaybe<Scalars["Int"]>;
+  gte?: InputMaybe<Scalars["Int"]>;
+  in?: InputMaybe<Array<Scalars["Int"]>>;
+  lt?: InputMaybe<Scalars["Int"]>;
+  lte?: InputMaybe<Scalars["Int"]>;
+  not?: InputMaybe<IntFilter>;
+  notIn?: InputMaybe<Array<Scalars["Int"]>>;
+};
+
 export type LoginInput = {
   password: Scalars["String"];
   userName: Scalars["String"];
@@ -165,6 +225,8 @@ export type Member = {
   __typename?: "Member";
   active: Scalars["Boolean"];
   centerAffiliation: CentreAffiliation_Type;
+  centre?: Maybe<Centre>;
+  centreId?: Maybe<Scalars["Int"]>;
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
   currentAddress?: Maybe<Scalars["String"]>;
@@ -196,6 +258,12 @@ export type Member = {
   viber?: Maybe<Scalars["String"]>;
 };
 
+export type MemberListRelationFilter = {
+  every?: InputMaybe<MemberWhereInput>;
+  none?: InputMaybe<MemberWhereInput>;
+  some?: InputMaybe<MemberWhereInput>;
+};
+
 export type MemberRelationFilter = {
   is?: InputMaybe<MemberWhereInput>;
   isNot?: InputMaybe<MemberWhereInput>;
@@ -207,6 +275,8 @@ export type MemberWhereInput = {
   OR?: InputMaybe<Array<MemberWhereInput>>;
   active?: InputMaybe<BoolFilter>;
   centerAffiliation?: InputMaybe<EnumCentreAffiliationTypeFilter>;
+  centre?: InputMaybe<CentreRelationFilter>;
+  centreId?: InputMaybe<IntFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
   currentAddress?: InputMaybe<StringFilter>;
@@ -254,22 +324,29 @@ export enum Membership_Type {
 export type Mutation = {
   __typename?: "Mutation";
   changePassword: User;
+  createCentre: Centre;
   createMember: Member;
   createRole: Role;
   createUser: User;
   initiateResetPassword: ResponseStatus;
   login: Auth;
   refreshToken: Token;
+  removeCentre: Centre;
   removeMember: Member;
   removeRole: Role;
   removeUser: User;
   resetPassword: ResponseStatus;
+  updateCentre: Centre;
   updateMember: Member;
   updateRole: Role;
 };
 
 export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
+};
+
+export type MutationCreateCentreArgs = {
+  createCentreInput: CreateCentreInput;
 };
 
 export type MutationCreateMemberArgs = {
@@ -296,6 +373,10 @@ export type MutationRefreshTokenArgs = {
   token: Scalars["JWT"];
 };
 
+export type MutationRemoveCentreArgs = {
+  id: Scalars["Int"];
+};
+
 export type MutationRemoveMemberArgs = {
   id: Scalars["String"];
 };
@@ -310,6 +391,10 @@ export type MutationRemoveUserArgs = {
 
 export type MutationResetPasswordArgs = {
   resetPasswordInput: ResetPasswordInput;
+};
+
+export type MutationUpdateCentreArgs = {
+  updateCentreInput: UpdateCentreInput;
 };
 
 export type MutationUpdateMemberArgs = {
@@ -360,6 +445,8 @@ export type PasswordTokenWhereInput = {
 
 export type Query = {
   __typename?: "Query";
+  centre: Centre;
+  centres: Array<Centre>;
   hello: Scalars["String"];
   helloWorld: Scalars["String"];
   me: User;
@@ -369,6 +456,10 @@ export type Query = {
   roles: Array<Role>;
   user: User;
   users: Array<User>;
+};
+
+export type QueryCentreArgs = {
+  id: Scalars["Int"];
 };
 
 export type QueryHelloArgs = {
@@ -481,6 +572,12 @@ export enum Type {
   Default = "DEFAULT",
   System = "SYSTEM"
 }
+
+export type UpdateCentreInput = {
+  /** Example field (placeholder) */
+  exampleField?: InputMaybe<Scalars["Int"]>;
+  id: Scalars["Int"];
+};
 
 export type UpdateMemberInput = {
   active: Scalars["Boolean"];
@@ -612,6 +709,17 @@ export type ResetPasswordMutation = {
   resetPassword: { __typename?: "ResponseStatus"; status: string };
 };
 
+export type CentresQueryVariables = Exact<{ [key: string]: never }>;
+
+export type CentresQuery = {
+  __typename?: "Query";
+  centres: Array<{
+    __typename?: "Centre";
+    id: number;
+    displayText?: string | null;
+  }>;
+};
+
 export type MembersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MembersQuery = {
@@ -648,6 +756,11 @@ export type MembersQuery = {
       status: Status;
       role: { __typename?: "Role"; name: string };
     } | null;
+    centre?: {
+      __typename?: "Centre";
+      id: number;
+      displayText?: string | null;
+    } | null;
   }>;
 };
 
@@ -664,6 +777,7 @@ export type MemberQuery = {
     lastName: string;
     middleName?: string | null;
     centerAffiliation: CentreAffiliation_Type;
+    centreId?: number | null;
     currentAddress?: string | null;
     dob?: any | null;
     email?: string | null;
@@ -688,6 +802,11 @@ export type MemberQuery = {
       status: Status;
       role: { __typename?: "Role"; id: string; name: string };
     } | null;
+    centre?: {
+      __typename?: "Centre";
+      id: number;
+      displayText?: string | null;
+    } | null;
   };
 };
 
@@ -702,6 +821,7 @@ export type CreateMemberMutation = {
     id: string;
     firstName: string;
     lastName: string;
+    centreId?: number | null;
   };
 };
 
@@ -845,6 +965,113 @@ export default {
       },
       {
         kind: "OBJECT",
+        name: "Centre",
+        fields: [
+          {
+            name: "city",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "country",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "displaySequence",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "displayText",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "name",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "stateProvince",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "streetAddress",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
         name: "Member",
         fields: [
           {
@@ -866,6 +1093,23 @@ export default {
                 kind: "SCALAR",
                 name: "Any"
               }
+            },
+            args: []
+          },
+          {
+            name: "centre",
+            type: {
+              kind: "OBJECT",
+              name: "Centre",
+              ofType: null
+            },
+            args: []
+          },
+          {
+            name: "centreId",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
             },
             args: []
           },
@@ -1122,6 +1366,29 @@ export default {
             ]
           },
           {
+            name: "createCentre",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Centre",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createCentreInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "createMember",
             type: {
               kind: "NON_NULL",
@@ -1260,6 +1527,29 @@ export default {
             ]
           },
           {
+            name: "removeCentre",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Centre",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "removeMember",
             type: {
               kind: "NON_NULL",
@@ -1352,6 +1642,29 @@ export default {
             ]
           },
           {
+            name: "updateCentre",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Centre",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "updateCentreInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "updateMember",
             type: {
               kind: "NON_NULL",
@@ -1404,6 +1717,47 @@ export default {
         kind: "OBJECT",
         name: "Query",
         fields: [
+          {
+            name: "centre",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Centre",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "centres",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Centre",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
           {
             name: "hello",
             type: {
@@ -1930,6 +2284,20 @@ export function useResetPasswordMutation() {
     ResetPasswordMutationVariables
   >(ResetPasswordDocument);
 }
+export const CentresDocument = gql`
+  query centres {
+    centres {
+      id
+      displayText
+    }
+  }
+`;
+
+export function useCentresQuery(
+  options?: Omit<Urql.UseQueryArgs<CentresQueryVariables>, "query">
+) {
+  return Urql.useQuery<CentresQuery>({ query: CentresDocument, ...options });
+}
 export const MembersDocument = gql`
   query members {
     members {
@@ -1966,6 +2334,10 @@ export const MembersDocument = gql`
           name
         }
       }
+      centre {
+        id
+        displayText
+      }
     }
   }
 `;
@@ -1983,6 +2355,7 @@ export const MemberDocument = gql`
       lastName
       middleName
       centerAffiliation
+      centreId
       currentAddress
       dob
       email
@@ -2011,6 +2384,10 @@ export const MemberDocument = gql`
           name
         }
       }
+      centre {
+        id
+        displayText
+      }
     }
   }
 `;
@@ -2026,6 +2403,7 @@ export const CreateMemberDocument = gql`
       id
       firstName
       lastName
+      centreId
     }
   }
 `;

@@ -33,6 +33,10 @@ query members {
         name
       }
     }
+    centre {
+      id
+      displayText
+    }
   }
 }
 
@@ -43,6 +47,7 @@ query member($id: String!) {
     lastName
     middleName
     centerAffiliation
+    centreId
     currentAddress
     dob
     email
@@ -71,6 +76,10 @@ query member($id: String!) {
         name
       }
     }
+    centre {
+      id
+      displayText
+    }
   }
 }
 
@@ -79,6 +88,7 @@ mutation createMember($createMemberInput: CreateMemberInput!) {
     id
     firstName
     lastName
+    centreId
   }
 }
 
