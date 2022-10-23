@@ -146,9 +146,18 @@ export default function Members() {
           },
           { id: "email", headerLabel: "Email", placeholder: "-" },
           {
-            id: "centerAffiliation",
+            id: "centre",
             headerLabel: "Centre",
-            placeholder: "-"
+            placeholder: "-",
+            formatter({ centre }) {
+              return (
+                <Label
+                  label={centre?.displayText}
+                  type="semi-rounded"
+                  sx={{ minWidth: "60px" }}
+                />
+              );
+            }
           },
           {
             id: "combinedPhone",

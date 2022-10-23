@@ -45,6 +45,7 @@ const UserInfoItemStyle = styled("div")(() => ({
 }));
 
 const initialValues: CreateMemberInput = {
+  title: "",
   firstName: "",
   lastName: "",
   active: true,
