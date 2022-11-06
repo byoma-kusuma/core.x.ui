@@ -45,7 +45,7 @@ export default function Members() {
   const confirm = useConfirm();
   const navigate = useNavigate();
 
-  const handleMemberDelete = (id: string, name: string) => {
+  const handleMemberDelete = (id: number, name: string) => {
     confirm({
       description: (
         <>
@@ -77,7 +77,7 @@ export default function Members() {
     });
   };
 
-  const handleMemberEdit = (id: string) => {
+  const handleMemberEdit = (id: number) => {
     navigate(`/app/members/${id}`);
   };
 

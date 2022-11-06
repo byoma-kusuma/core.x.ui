@@ -31,7 +31,7 @@ export interface FilterSchema<T> {
   filterFn: (data: Array<T>) => Array<T>;
 }
 
-interface CoolTableProps<T> {
+interface CoolTableProps<T, K> {
   data: Array<T>;
   dataSchema: Array<DataSchema<T>>;
   defaultOrderKey: keyof T;
@@ -46,9 +46,9 @@ interface CoolTableProps<T> {
   ) => void;
   onRequestSelection?: (
     e: React.ChangeEvent<HTMLInputElement>,
-    selectedIds: Array<string>
+    selectedIds: Array<K>
   ) => void;
-  onSelectActionButtonClick: (selectedDataIds: Array<string>) => void;
+  onSelectActionButtonClick: (selectedDataIds: Array<K>) => void;
   onRequestSearch?: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     v: string
@@ -56,9 +56,10 @@ interface CoolTableProps<T> {
   tableHeight?: string;
 }
 
-export default function CoolTable<T extends { id: string }>(
-  props: CoolTableProps<T>
-) {
+export default function CoolTable<
+  T extends { id: K },
+  K extends number | string = number
+>(props: CoolTableProps<T, K>) {
   const {
     onRequestSort = () => undefined,
     onRequestSelection = () => undefined,
@@ -84,7 +85,7 @@ export default function CoolTable<T extends { id: string }>(
     defaultOrderDirection
   );
   const [searchQuery, setSearchQuery] = React.useState("");
-  const [selectedRows, setSelectedRows] = React.useState<Array<string>>([]);
+  const [selectedRows, setSelectedRows] = React.useState<Array<K>>([]);
   const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [page, setPage] = React.useState(0);
   const [filterTab, setFilterTab] = React.useState<number | null>(
@@ -105,12 +106,12 @@ export default function CoolTable<T extends { id: string }>(
 
   const createSelectionHandler =
     (
-      id: string | "_all" | "_allFiltered",
+      id: K | "_all" | "_allFiltered",
       currentTableData: Array<T>,
       unpaginatedTableData: Array<T>
     ) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      const handleUpdate = (updatedSelection: Array<string>) => {
+      const handleUpdate = (updatedSelection: Array<K>) => {
         setSelectedRows(updatedSelection);
         onRequestSelection(event, updatedSelection);
       };
@@ -313,7 +314,7 @@ export default function CoolTable<T extends { id: string }>(
         count={unpaginatedTableData.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onPageChange={(e, v) => setPage(v)}
+        onPageChange={(_, v) => setPage(v)}
         onRowsPerPageChange={(e) => {
           setRowsPerPage(parseInt(e.target.value, 10));
           setPage(0);

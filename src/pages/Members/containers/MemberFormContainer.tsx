@@ -27,6 +27,7 @@ import {
   CreateMemberInput,
   MemberDocument,
   MemberQuery,
+  UpdateMemberInput,
   useCreateMemberMutation,
   useCreateUserMutation,
   useUpdateMemberMutation
@@ -44,7 +45,7 @@ const UserInfoItemStyle = styled("div")(() => ({
   width: "100%"
 }));
 
-const initialValues: CreateMemberInput = {
+const initialValues: CreateMemberInput | UpdateMemberInput = {
   title: "",
   firstName: "",
   lastName: "",
@@ -55,7 +56,7 @@ const initialValues: CreateMemberInput = {
 
 interface Props {
   height: number;
-  id?: string;
+  id?: number;
 }
 
 export default function MemberFormContainer(props: Props) {
@@ -74,7 +75,7 @@ export default function MemberFormContainer(props: Props) {
     variables: { id }
   });
 
-  const formik = useFormik({
+  const formik = useFormik<CreateMemberInput | UpdateMemberInput>({
     validationSchema: MemberFormValidator,
     initialValues: data
       ? omit(data?.member, ["user", "__typename"])
@@ -108,7 +109,7 @@ export default function MemberFormContainer(props: Props) {
   const thisMemberName = data ? getMemberFullName(data?.member) : null;
   const thisMemberUserRoleName = data?.member.user?.role.name;
 
-  const handleUserCreate = (memberId: string, memberName: string) => {
+  const handleUserCreate = (memberId: number, memberName: string) => {
     confirm({
       description: (
         <Typography>
