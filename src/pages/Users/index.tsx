@@ -31,7 +31,7 @@ export default function Users() {
   const confirm = useConfirm();
   const navigate = useNavigate();
 
-  const handleUserDelete = (id: string, name: string) => {
+  const handleUserDelete = (id: number, name: string) => {
     confirm({
       description: (
         <Typography>
@@ -57,7 +57,7 @@ export default function Users() {
     });
   };
 
-  const handleUserEdit = (id: string) => {
+  const handleUserEdit = (id: number) => {
     navigate(`/app/users/${id}`);
   };
 

@@ -34,7 +34,7 @@ export default function ResetPassword() {
     e.preventDefault();
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token") || "";
-    const userId = params.get("userId") || "";
+    const userId = Number(params.get("userId") || "");
     new GqlApiHandler(
       await resetPasswordMut({
         userId,

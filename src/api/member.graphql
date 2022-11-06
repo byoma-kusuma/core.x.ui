@@ -40,7 +40,7 @@ query members {
   }
 }
 
-query member($id: String!) {
+query member($id: Int!) {
   member(id: $id) {
     id
     firstName
@@ -98,7 +98,7 @@ mutation updateMember($updateMemberInput: UpdateMemberInput!) {
   }
 }
 
-mutation deleteMember($id: String!) {
+mutation deleteMember($id: Int!) {
   removeMember(id: $id) {
     id
   }

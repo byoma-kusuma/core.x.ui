@@ -87,18 +87,13 @@ export type CentreWhereInput = {
   OR?: InputMaybe<Array<CentreWhereInput>>;
   city?: InputMaybe<StringFilter>;
   country?: InputMaybe<StringFilter>;
-  createdAt?: InputMaybe<DateTimeFilter>;
-  createdBy?: InputMaybe<StringFilter>;
   displaySequence?: InputMaybe<IntFilter>;
   displayText?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
+  members?: InputMaybe<MemberListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   stateProvince?: InputMaybe<StringFilter>;
   streetAddress?: InputMaybe<StringFilter>;
-  uniqueKey?: InputMaybe<StringFilter>;
-  updatedAt?: InputMaybe<DateTimeFilter>;
-  updatedBy?: InputMaybe<StringFilter>;
-  users?: InputMaybe<MemberListRelationFilter>;
 };
 
 export type ChangePasswordInput = {
@@ -107,8 +102,20 @@ export type ChangePasswordInput = {
 };
 
 export type CreateCentreInput = {
-  /** Example field (placeholder) */
-  exampleField: Scalars["Int"];
+  city?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<Scalars["String"]>;
+  displaySequence: Scalars["Int"];
+  displayText: Scalars["String"];
+  name: Scalars["String"];
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  streetAddress?: InputMaybe<Scalars["String"]>;
+};
+
+export type CreateGroupInput = {
+  description: Scalars["String"];
+  memberIds?: InputMaybe<Array<Scalars["Int"]>>;
+  name: Scalars["String"];
+  visible: Scalars["Boolean"];
 };
 
 export type CreateMemberInput = {
@@ -120,6 +127,7 @@ export type CreateMemberInput = {
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
   gender?: InputMaybe<Scalars["String"]>;
+  groupIds?: InputMaybe<Array<Scalars["Int"]>>;
   insta?: InputMaybe<Scalars["String"]>;
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
@@ -141,7 +149,7 @@ export type CreateRoleInput = {
 };
 
 export type CreateUserInput = {
-  memberId: Scalars["String"];
+  memberId: Scalars["Int"];
 };
 
 export type DateTimeFilter = {
@@ -205,6 +213,49 @@ export enum Gender_Type {
   PreferNotToSay = "PREFER_NOT_TO_SAY"
 }
 
+export type Group = {
+  __typename?: "Group";
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
+  description?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  /** Identifies the date and time when the object was last updated. */
+  isDeleted: Scalars["Boolean"];
+  members: Array<Member>;
+  name?: Maybe<Scalars["String"]>;
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
+  visible?: Maybe<Scalars["Boolean"]>;
+};
+
+export type GroupRelationFilter = {
+  is?: InputMaybe<GroupWhereInput>;
+  isNot?: InputMaybe<GroupWhereInput>;
+};
+
+export type GroupWhereInput = {
+  AND?: InputMaybe<Array<GroupWhereInput>>;
+  NOT?: InputMaybe<Array<GroupWhereInput>>;
+  OR?: InputMaybe<Array<GroupWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
+  memberGroups?: InputMaybe<MemberGroupsListRelationFilter>;
+  name?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+  visible?: InputMaybe<BoolFilter>;
+};
+
 export type IntFilter = {
   equals?: InputMaybe<Scalars["Int"]>;
   gt?: InputMaybe<Scalars["Int"]>;
@@ -229,12 +280,15 @@ export type Member = {
   centreId?: Maybe<Scalars["Int"]>;
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
   currentAddress?: Maybe<Scalars["String"]>;
   dob?: Maybe<Scalars["DateTime"]>;
   email?: Maybe<Scalars["String"]>;
   firstName: Scalars["String"];
   gender?: Maybe<Gender_Type>;
-  id: Scalars["String"];
+  groups: Array<Group>;
+  id: Scalars["Int"];
   insta?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
@@ -254,8 +308,28 @@ export type Member = {
   uniqueKey?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
   user?: Maybe<User>;
   viber?: Maybe<Scalars["String"]>;
+};
+
+export type MemberGroupsListRelationFilter = {
+  every?: InputMaybe<MemberGroupsWhereInput>;
+  none?: InputMaybe<MemberGroupsWhereInput>;
+  some?: InputMaybe<MemberGroupsWhereInput>;
+};
+
+export type MemberGroupsWhereInput = {
+  AND?: InputMaybe<Array<MemberGroupsWhereInput>>;
+  NOT?: InputMaybe<Array<MemberGroupsWhereInput>>;
+  OR?: InputMaybe<Array<MemberGroupsWhereInput>>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  group?: InputMaybe<GroupRelationFilter>;
+  groupId?: InputMaybe<IntFilter>;
+  member?: InputMaybe<MemberRelationFilter>;
+  memberId?: InputMaybe<IntFilter>;
 };
 
 export type MemberListRelationFilter = {
@@ -284,11 +358,12 @@ export type MemberWhereInput = {
   email?: InputMaybe<StringFilter>;
   firstName?: InputMaybe<StringFilter>;
   gender?: InputMaybe<EnumGenderTypeFilter>;
-  id?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
   insta?: InputMaybe<StringFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
   isMember?: InputMaybe<BoolFilter>;
   lastName?: InputMaybe<StringFilter>;
+  memberGroups?: InputMaybe<MemberGroupsListRelationFilter>;
   membershipType?: InputMaybe<EnumMembershipTypeFilter>;
   messenger?: InputMaybe<StringFilter>;
   middleName?: InputMaybe<StringFilter>;
@@ -325,6 +400,7 @@ export type Mutation = {
   __typename?: "Mutation";
   changePassword: User;
   createCentre: Centre;
+  createGroup: Group;
   createMember: Member;
   createRole: Role;
   createUser: User;
@@ -332,11 +408,13 @@ export type Mutation = {
   login: Auth;
   refreshToken: Token;
   removeCentre: Centre;
+  removeGroup: Group;
   removeMember: Member;
   removeRole: Role;
   removeUser: User;
   resetPassword: ResponseStatus;
   updateCentre: Centre;
+  updateGroup: Group;
   updateMember: Member;
   updateRole: Role;
 };
@@ -347,6 +425,10 @@ export type MutationChangePasswordArgs = {
 
 export type MutationCreateCentreArgs = {
   createCentreInput: CreateCentreInput;
+};
+
+export type MutationCreateGroupArgs = {
+  createGroupInput: CreateGroupInput;
 };
 
 export type MutationCreateMemberArgs = {
@@ -377,8 +459,12 @@ export type MutationRemoveCentreArgs = {
   id: Scalars["Int"];
 };
 
+export type MutationRemoveGroupArgs = {
+  id: Scalars["Int"];
+};
+
 export type MutationRemoveMemberArgs = {
-  id: Scalars["String"];
+  id: Scalars["Int"];
 };
 
 export type MutationRemoveRoleArgs = {
@@ -386,7 +472,7 @@ export type MutationRemoveRoleArgs = {
 };
 
 export type MutationRemoveUserArgs = {
-  id: Scalars["String"];
+  id: Scalars["Int"];
 };
 
 export type MutationResetPasswordArgs = {
@@ -395,6 +481,10 @@ export type MutationResetPasswordArgs = {
 
 export type MutationUpdateCentreArgs = {
   updateCentreInput: UpdateCentreInput;
+};
+
+export type MutationUpdateGroupArgs = {
+  updateGroupInput: UpdateGroupInput;
 };
 
 export type MutationUpdateMemberArgs = {
@@ -416,14 +506,14 @@ export type PasswordHistoryWhereInput = {
   OR?: InputMaybe<Array<PasswordHistoryWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
-  id?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
   password?: InputMaybe<StringFilter>;
   uniqueKey?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedBy?: InputMaybe<StringFilter>;
   user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
+  userId?: InputMaybe<IntFilter>;
 };
 
 export type PasswordTokenRelationFilter = {
@@ -436,17 +526,19 @@ export type PasswordTokenWhereInput = {
   NOT?: InputMaybe<Array<PasswordTokenWhereInput>>;
   OR?: InputMaybe<Array<PasswordTokenWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
-  id?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
   token?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   user?: InputMaybe<UserRelationFilter>;
-  userId?: InputMaybe<StringFilter>;
+  userId?: InputMaybe<IntFilter>;
 };
 
 export type Query = {
   __typename?: "Query";
   centre: Centre;
   centres: Array<Centre>;
+  group: Group;
+  groups: Array<Group>;
   hello: Scalars["String"];
   helloWorld: Scalars["String"];
   me: User;
@@ -462,12 +554,16 @@ export type QueryCentreArgs = {
   id: Scalars["Int"];
 };
 
+export type QueryGroupArgs = {
+  id: Scalars["Int"];
+};
+
 export type QueryHelloArgs = {
   name: Scalars["String"];
 };
 
 export type QueryMemberArgs = {
-  id: Scalars["String"];
+  id: Scalars["Int"];
 };
 
 export type QueryRoleArgs = {
@@ -479,7 +575,7 @@ export type QueryRolesArgs = {
 };
 
 export type QueryUserArgs = {
-  id: Scalars["String"];
+  id: Scalars["Int"];
 };
 
 export type ResetPasswordInitiateInput = {
@@ -489,7 +585,7 @@ export type ResetPasswordInitiateInput = {
 export type ResetPasswordInput = {
   password: Scalars["String"];
   token: Scalars["String"];
-  userId: Scalars["String"];
+  userId: Scalars["Int"];
 };
 
 export type ResponseStatus = {
@@ -501,6 +597,8 @@ export type Role = {
   __typename?: "Role";
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
   id: Scalars["ID"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
@@ -510,6 +608,8 @@ export type Role = {
   uniqueKey?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
   users: Array<User>;
 };
 
@@ -524,7 +624,7 @@ export type RoleWhereInput = {
   OR?: InputMaybe<Array<RoleWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
-  id?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
   name?: InputMaybe<StringFilter>;
   roleType?: InputMaybe<EnumTypeFilter>;
@@ -574,9 +674,21 @@ export enum Type {
 }
 
 export type UpdateCentreInput = {
-  /** Example field (placeholder) */
-  exampleField?: InputMaybe<Scalars["Int"]>;
+  city?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<Scalars["String"]>;
+  displaySequence?: InputMaybe<Scalars["Int"]>;
+  displayText?: InputMaybe<Scalars["String"]>;
   id: Scalars["Int"];
+  name?: InputMaybe<Scalars["String"]>;
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  streetAddress?: InputMaybe<Scalars["String"]>;
+};
+
+export type UpdateGroupInput = {
+  description: Scalars["String"];
+  id: Scalars["Int"];
+  memberIds?: InputMaybe<Array<Scalars["Int"]>>;
+  name: Scalars["String"];
 };
 
 export type UpdateMemberInput = {
@@ -587,7 +699,8 @@ export type UpdateMemberInput = {
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
   gender?: InputMaybe<Scalars["String"]>;
-  id: Scalars["String"];
+  groupIds?: InputMaybe<Array<Scalars["Int"]>>;
+  id: Scalars["Int"];
   insta?: InputMaybe<Scalars["String"]>;
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
@@ -605,7 +718,7 @@ export type UpdateMemberInput = {
 };
 
 export type UpdateRoleInput = {
-  id: Scalars["String"];
+  id: Scalars["Int"];
   name?: InputMaybe<Scalars["String"]>;
 };
 
@@ -614,17 +727,21 @@ export type User = {
   avatar: Scalars["String"];
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
-  id: Scalars["String"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
+  id: Scalars["Int"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
   member: Member;
-  memberId: Scalars["String"];
+  memberId: Scalars["Int"];
   role: Role;
   status: Status;
   /** Unique key associated with the object. */
   uniqueKey?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
   userName: Scalars["String"];
 };
 
@@ -651,15 +768,15 @@ export type UserWhereInput = {
   avatar?: InputMaybe<StringFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
-  id?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
   member?: InputMaybe<MemberRelationFilter>;
-  memberId?: InputMaybe<StringFilter>;
+  memberId?: InputMaybe<IntFilter>;
   password?: InputMaybe<StringFilter>;
   passwordHistory?: InputMaybe<PasswordHistoryRelationFilter>;
   passwordToken?: InputMaybe<PasswordTokenRelationFilter>;
   role?: InputMaybe<RoleRelationFilter>;
-  roleId?: InputMaybe<StringFilter>;
+  roleId?: InputMaybe<IntFilter>;
   status?: InputMaybe<EnumUserStatusFilter>;
   uniqueKey?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -699,7 +816,7 @@ export type RequestPasswordResetMutation = {
 };
 
 export type ResetPasswordMutationVariables = Exact<{
-  userId: Scalars["String"];
+  userId: Scalars["Int"];
   token: Scalars["String"];
   password: Scalars["String"];
 }>;
@@ -726,7 +843,7 @@ export type MembersQuery = {
   __typename?: "Query";
   members: Array<{
     __typename?: "Member";
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     middleName?: string | null;
@@ -751,7 +868,7 @@ export type MembersQuery = {
     viber?: string | null;
     user?: {
       __typename?: "User";
-      id: string;
+      id: number;
       userName: string;
       status: Status;
       role: { __typename?: "Role"; name: string };
@@ -765,14 +882,14 @@ export type MembersQuery = {
 };
 
 export type MemberQueryVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars["Int"];
 }>;
 
 export type MemberQuery = {
   __typename?: "Query";
   member: {
     __typename?: "Member";
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     middleName?: string | null;
@@ -797,7 +914,7 @@ export type MemberQuery = {
     viber?: string | null;
     user?: {
       __typename?: "User";
-      id: string;
+      id: number;
       userName: string;
       status: Status;
       role: { __typename?: "Role"; id: string; name: string };
@@ -818,7 +935,7 @@ export type CreateMemberMutation = {
   __typename?: "Mutation";
   createMember: {
     __typename?: "Member";
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
     centreId?: number | null;
@@ -831,16 +948,16 @@ export type UpdateMemberMutationVariables = Exact<{
 
 export type UpdateMemberMutation = {
   __typename?: "Mutation";
-  updateMember: { __typename?: "Member"; id: string };
+  updateMember: { __typename?: "Member"; id: number };
 };
 
 export type DeleteMemberMutationVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars["Int"];
 }>;
 
 export type DeleteMemberMutation = {
   __typename?: "Mutation";
-  removeMember: { __typename?: "Member"; id: string };
+  removeMember: { __typename?: "Member"; id: number };
 };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never }>;
@@ -849,14 +966,14 @@ export type UsersQuery = {
   __typename?: "Query";
   users: Array<{
     __typename?: "User";
-    id: string;
+    id: number;
     userName: string;
     avatar: string;
     status: Status;
     role: { __typename?: "Role"; name: string };
     member: {
       __typename?: "Member";
-      id: string;
+      id: number;
       firstName: string;
       middleName?: string | null;
       lastName: string;
@@ -866,20 +983,20 @@ export type UsersQuery = {
 };
 
 export type UserQueryVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars["Int"];
 }>;
 
 export type UserQuery = {
   __typename?: "Query";
   user: {
     __typename?: "User";
-    id: string;
+    id: number;
     userName: string;
     avatar: string;
     role: { __typename?: "Role"; name: string };
     member: {
       __typename?: "Member";
-      id: string;
+      id: number;
       firstName: string;
       middleName?: string | null;
       lastName: string;
@@ -895,20 +1012,20 @@ export type CreateUserMutation = {
   __typename?: "Mutation";
   createUser: {
     __typename?: "User";
-    id: string;
+    id: number;
     userName: string;
     role: { __typename?: "Role"; id: string; name: string };
-    member: { __typename?: "Member"; id: string };
+    member: { __typename?: "Member"; id: number };
   };
 };
 
 export type DeleteUserMutationVariables = Exact<{
-  id: Scalars["String"];
+  id: Scalars["Int"];
 }>;
 
 export type DeleteUserMutation = {
   __typename?: "Mutation";
-  removeUser: { __typename?: "User"; id: string };
+  removeUser: { __typename?: "User"; id: number };
 };
 
 import { IntrospectionQuery } from "graphql";
@@ -1072,6 +1189,123 @@ export default {
       },
       {
         kind: "OBJECT",
+        name: "Group",
+        fields: [
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "description",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "isDeleted",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "members",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Member",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "name",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "visible",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
         name: "Member",
         fields: [
           {
@@ -1125,6 +1359,14 @@ export default {
             args: []
           },
           {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "currentAddress",
             type: {
               kind: "SCALAR",
@@ -1164,6 +1406,24 @@ export default {
             type: {
               kind: "SCALAR",
               name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "groups",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Group",
+                    ofType: null
+                  }
+                }
+              }
             },
             args: []
           },
@@ -1319,6 +1579,14 @@ export default {
             args: []
           },
           {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "user",
             type: {
               kind: "OBJECT",
@@ -1378,6 +1646,29 @@ export default {
             args: [
               {
                 name: "createCentreInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "createGroup",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Group",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createGroupInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -1550,6 +1841,29 @@ export default {
             ]
           },
           {
+            name: "removeGroup",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Group",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "removeMember",
             type: {
               kind: "NON_NULL",
@@ -1665,6 +1979,29 @@ export default {
             ]
           },
           {
+            name: "updateGroup",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Group",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "updateGroupInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "updateMember",
             type: {
               kind: "NON_NULL",
@@ -1751,6 +2088,47 @@ export default {
                   ofType: {
                     kind: "OBJECT",
                     name: "Centre",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "group",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Group",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "groups",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Group",
                     ofType: null
                   }
                 }
@@ -1968,6 +2346,14 @@ export default {
             args: []
           },
           {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "id",
             type: {
               kind: "NON_NULL",
@@ -2027,6 +2413,14 @@ export default {
                 kind: "SCALAR",
                 name: "Any"
               }
+            },
+            args: []
+          },
+          {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
             },
             args: []
           },
@@ -2103,6 +2497,14 @@ export default {
                 kind: "SCALAR",
                 name: "Any"
               }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
             },
             args: []
           },
@@ -2194,6 +2596,14 @@ export default {
             args: []
           },
           {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "userName",
             type: {
               kind: "NON_NULL",
@@ -2261,11 +2671,7 @@ export function useRequestPasswordResetMutation() {
   >(RequestPasswordResetDocument);
 }
 export const ResetPasswordDocument = gql`
-  mutation resetPassword(
-    $userId: String!
-    $token: String!
-    $password: String!
-  ) {
+  mutation resetPassword($userId: Int!, $token: String!, $password: String!) {
     resetPassword(
       resetPasswordInput: {
         userId: $userId
@@ -2348,7 +2754,7 @@ export function useMembersQuery(
   return Urql.useQuery<MembersQuery>({ query: MembersDocument, ...options });
 }
 export const MemberDocument = gql`
-  query member($id: String!) {
+  query member($id: Int!) {
     member(id: $id) {
       id
       firstName
@@ -2427,7 +2833,7 @@ export function useUpdateMemberMutation() {
   );
 }
 export const DeleteMemberDocument = gql`
-  mutation deleteMember($id: String!) {
+  mutation deleteMember($id: Int!) {
     removeMember(id: $id) {
       id
     }
@@ -2466,7 +2872,7 @@ export function useUsersQuery(
   return Urql.useQuery<UsersQuery>({ query: UsersDocument, ...options });
 }
 export const UserDocument = gql`
-  query user($id: String!) {
+  query user($id: Int!) {
     user(id: $id) {
       id
       userName
@@ -2511,7 +2917,7 @@ export function useCreateUserMutation() {
   );
 }
 export const DeleteUserDocument = gql`
-  mutation deleteUser($id: String!) {
+  mutation deleteUser($id: Int!) {
     removeUser(id: $id) {
       id
     }
