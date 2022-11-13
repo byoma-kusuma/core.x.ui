@@ -6,8 +6,13 @@ import "./index.css";
 import { Provider } from "urql";
 import { gqlClient } from "./config/gqlClient";
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const container = document.getElementById("root")!;
+let container = document.getElementById("root");
+
+if (!container) {
+  container = document.createElement("div");
+  container.setAttribute("id", "root");
+}
+
 const root = createRoot(container);
 
 root.render(

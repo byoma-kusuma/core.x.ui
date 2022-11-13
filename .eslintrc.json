@@ -21,10 +21,9 @@
     "linebreak-style": ["error", "unix"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],
-    "@typescript-eslint/no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
-    "unused-imports/no-unused-vars": [
-      "warn",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
       {
         "vars": "all",
         "varsIgnorePattern": "^_",

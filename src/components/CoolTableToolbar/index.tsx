@@ -18,7 +18,6 @@ import { FilterSchema } from "../CoolTable";
 import { DebounceInput } from "react-debounce-input";
 
 const ToolBarStyle = styled(Toolbar)(({ theme }) => ({
-  height: 96,
   display: "flex",
   justifyContent: "space-between",
   padding: theme.spacing(0, 1, 0, 3),
@@ -78,6 +77,7 @@ interface CoolTableToolbarProps<T> {
     schema: Array<FilterSchema<T>> | undefined;
   };
   onSelectActionButtonClick: () => void;
+  dense: boolean;
 }
 
 function a11yProps(index: number) {
@@ -94,7 +94,8 @@ export default function CoolTableToolbar<T>(props: CoolTableToolbarProps<T>) {
     onSearch,
     onSelectToggle,
     filterSchema,
-    onSelectActionButtonClick
+    onSelectActionButtonClick,
+    dense
   } = props;
 
   const [showFilter, setShowFilter] = React.useState(false);
@@ -105,7 +106,7 @@ export default function CoolTableToolbar<T>(props: CoolTableToolbarProps<T>) {
         <TopAdornmentStyle>
           <Tabs
             value={filterSchema.tab}
-            onChange={(e, v) => {
+            onChange={(_, v) => {
               filterSchema.onTabChange(v);
             }}
             aria-label="Filter tabs"
@@ -131,14 +132,17 @@ export default function CoolTableToolbar<T>(props: CoolTableToolbarProps<T>) {
           ...(selectedCount > 0 && {
             color: "primary.main",
             bgcolor: "primary.lighter"
-          })
+          }),
+          height: dense ? 64 : 96
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center" }}>
           <SearchStyle
             value={searchQuery}
             placeholder="Search ..."
+            autoFocus
             inputComponent={DebounceInput}
+            sx={{ height: dense ? "40px" : "56px" }}
             inputProps={{
               debounceTimeout: 300,
               onChange: (e: React.ChangeEvent<HTMLInputElement>) =>

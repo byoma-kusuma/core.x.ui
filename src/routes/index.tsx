@@ -2,6 +2,9 @@ import { exact } from "prop-types";
 import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
+import Groups from "../pages/Groups";
+import Group from "../pages/Groups/Group";
+import GroupDetail from "../pages/Groups/GroupDetail";
 import Login from "../pages/Login";
 import NotFound404 from "../pages/NotFound404";
 import ResetPassword from "../pages/ResetPassword";
@@ -35,7 +38,13 @@ export default [
 
       // users routes
       { path: "users", element: <Users />, exact },
-      { path: "users/:id", element: <User />, exact }
+      { path: "users/:id", element: <User />, exact },
+
+      // group routes
+      { path: "groups", element: <Groups />, exact },
+      { path: "groups/new", element: <Group />, exact },
+      { path: "groups/:id", element: <Group />, exact },
+      { path: "groups/:id/details", element: <GroupDetail />, exact }
     ]
   },
   {

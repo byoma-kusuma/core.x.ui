@@ -33,8 +33,8 @@ import {
   useUpdateMemberMutation
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
-import { getMemberFullName } from "../../../utils/formatString";
 import MemberFormValidator from "../../../validators/MemberFormValidator";
+import { getMemberFullName } from "../utils";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",
