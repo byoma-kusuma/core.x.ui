@@ -54,12 +54,13 @@ interface CoolTableProps<T, K> {
     v: string
   ) => void;
   tableHeight?: string;
+  minWidth?: string;
+  dense?: boolean;
 }
 
-export default function CoolTable<
-  T extends { id: K },
-  K extends number | string = number
->(props: CoolTableProps<T, K>) {
+function CoolTable<T extends { id: K }, K extends number | string = number>(
+  props: CoolTableProps<T, K>
+) {
   const {
     onRequestSort = () => undefined,
     onRequestSelection = () => undefined,
@@ -72,7 +73,9 @@ export default function CoolTable<
     filterSchema,
     data,
     dataSchema,
-    tableHeight
+    tableHeight,
+    minWidth,
+    dense = false
   } = props;
 
   const headers = React.useMemo(
@@ -167,13 +170,17 @@ export default function CoolTable<
     [unpaginatedTableData, page, rowsPerPage]
   );
 
+  const tableSpacing = dense ? 0.2 : 1;
+
   return (
     <Card
       sx={(theme) => ({
-        border: `1px solid ${theme.palette.grey[500_16]}`
+        border: `1px solid ${theme.palette.grey[500_16]}`,
+        ...(dense ? { borderRadius: 0 } : {})
       })}
     >
       <CoolTableToolbar<T>
+        dense={dense}
         selectedCount={selectedRows.length}
         totalCount={data.length}
         onSelectActionButtonClick={() =>
@@ -198,7 +205,10 @@ export default function CoolTable<
       />
       <Scrollbar>
         <TableContainer
-          sx={{ minWidth: 800, maxHeight: tableHeight || "360px" }}
+          sx={{
+            minWidth: minWidth || "768px",
+            maxHeight: tableHeight || "360px"
+          }}
         >
           <Table stickyHeader>
             {/* header section */}
@@ -227,7 +237,7 @@ export default function CoolTable<
                     key={headerCell.id.toString()}
                     align={headerCell.alignRight ? "right" : "left"}
                     sortDirection={orderBy === headerCell.id ? order : false}
-                    sx={(theme) => ({ padding: theme.spacing(1) })}
+                    sx={(theme) => ({ padding: theme.spacing(tableSpacing) })}
                   >
                     <TableSortLabel
                       hideSortIcon
@@ -283,7 +293,7 @@ export default function CoolTable<
                           <TableCell
                             key={key.toString()}
                             sx={(theme) => ({
-                              padding: theme.spacing(1)
+                              padding: theme.spacing(tableSpacing)
                             })}
                             align={align}
                           >
@@ -323,3 +333,5 @@ export default function CoolTable<
     </Card>
   );
 }
+
+export default React.memo(CoolTable) as typeof CoolTable;

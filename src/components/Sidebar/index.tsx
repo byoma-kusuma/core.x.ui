@@ -5,7 +5,7 @@ import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
 import useResponsive from "../../hooks/useResponsive";
 import Scrollbar from "../../components/Scrollbar";
 import NavSection from "../NavSection";
-import { NavigationItem } from "../../types/Navgiation";
+import { NavigationItem } from "../../schemas/navigation";
 
 const DRAWER_WIDTH = 280;
 

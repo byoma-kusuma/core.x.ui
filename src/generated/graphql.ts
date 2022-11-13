@@ -113,7 +113,7 @@ export type CreateCentreInput = {
 
 export type CreateGroupInput = {
   description: Scalars["String"];
-  memberIds?: InputMaybe<Array<Scalars["Int"]>>;
+  memberIds: Array<Scalars["Int"]>;
   name: Scalars["String"];
   visible: Scalars["Boolean"];
 };
@@ -219,19 +219,19 @@ export type Group = {
   createdAt: Scalars["DateTime"];
   /** Identifies who created the object. */
   createdBy?: Maybe<Scalars["String"]>;
-  description?: Maybe<Scalars["String"]>;
-  id: Scalars["ID"];
+  description: Scalars["String"];
+  id: Scalars["Int"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
   members: Array<Member>;
-  name?: Maybe<Scalars["String"]>;
+  name: Scalars["String"];
   /** Unique key associated with the object. */
   uniqueKey?: Maybe<Scalars["String"]>;
   /** Identifies the date and time when the object was last updated. */
   updatedAt: Scalars["DateTime"];
   /** Identifies who made the last update to the object. */
   updatedBy?: Maybe<Scalars["String"]>;
-  visible?: Maybe<Scalars["Boolean"]>;
+  visible: Scalars["Boolean"];
 };
 
 export type GroupRelationFilter = {
@@ -599,7 +599,7 @@ export type Role = {
   createdAt: Scalars["DateTime"];
   /** Identifies who created the object. */
   createdBy?: Maybe<Scalars["String"]>;
-  id: Scalars["ID"];
+  id: Scalars["Int"];
   /** Identifies the date and time when the object was last updated. */
   isDeleted: Scalars["Boolean"];
   name: Scalars["String"];
@@ -687,13 +687,15 @@ export type UpdateCentreInput = {
 export type UpdateGroupInput = {
   description: Scalars["String"];
   id: Scalars["Int"];
-  memberIds?: InputMaybe<Array<Scalars["Int"]>>;
+  memberIds: Array<Scalars["Int"]>;
   name: Scalars["String"];
+  visible: Scalars["Boolean"];
 };
 
 export type UpdateMemberInput = {
   active: Scalars["Boolean"];
   centerAffiliation: Scalars["String"];
+  centreId?: InputMaybe<Scalars["Int"]>;
   currentAddress?: InputMaybe<Scalars["String"]>;
   dob?: InputMaybe<Scalars["DateTime"]>;
   email?: InputMaybe<Scalars["String"]>;
@@ -837,6 +839,101 @@ export type CentresQuery = {
   }>;
 };
 
+export type GroupsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GroupsQuery = {
+  __typename?: "Query";
+  groups: Array<{
+    __typename?: "Group";
+    createdAt: any;
+    visible: boolean;
+    description: string;
+    id: number;
+    name: string;
+  }>;
+};
+
+export type GroupQueryVariables = Exact<{
+  id: Scalars["Int"];
+}>;
+
+export type GroupQuery = {
+  __typename?: "Query";
+  group: {
+    __typename?: "Group";
+    id: number;
+    createdAt: any;
+    visible: boolean;
+    description: string;
+    name: string;
+    members: Array<{
+      __typename?: "Member";
+      id: number;
+      firstName: string;
+      lastName: string;
+      middleName?: string | null;
+      centerAffiliation: CentreAffiliation_Type;
+      currentAddress?: string | null;
+      dob?: any | null;
+      email?: string | null;
+      createdAt: any;
+      gender?: Gender_Type | null;
+      insta?: string | null;
+      isMember: boolean;
+      active: boolean;
+      membershipType?: Membership_Type | null;
+      messenger?: string | null;
+      permanentAddress?: string | null;
+      phonePrimary?: string | null;
+      phoneSecondary?: string | null;
+      photo?: string | null;
+      refugeName?: string | null;
+      sanghaJoinDate?: any | null;
+      title?: string | null;
+      viber?: string | null;
+      user?: {
+        __typename?: "User";
+        id: number;
+        userName: string;
+        status: Status;
+        role: { __typename?: "Role"; name: string };
+      } | null;
+      centre?: {
+        __typename?: "Centre";
+        id: number;
+        displayText?: string | null;
+      } | null;
+    }>;
+  };
+};
+
+export type CreateGroupMutationVariables = Exact<{
+  createGroupInput: CreateGroupInput;
+}>;
+
+export type CreateGroupMutation = {
+  __typename?: "Mutation";
+  createGroup: { __typename?: "Group"; id: number };
+};
+
+export type UpdateGroupMutationVariables = Exact<{
+  updateGroupInput: UpdateGroupInput;
+}>;
+
+export type UpdateGroupMutation = {
+  __typename?: "Mutation";
+  updateGroup: { __typename?: "Group"; id: number };
+};
+
+export type DeleteGroupMutationVariables = Exact<{
+  id: Scalars["Int"];
+}>;
+
+export type DeleteGroupMutation = {
+  __typename?: "Mutation";
+  removeGroup: { __typename?: "Group"; id: number };
+};
+
 export type MembersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MembersQuery = {
@@ -917,7 +1014,7 @@ export type MemberQuery = {
       id: number;
       userName: string;
       status: Status;
-      role: { __typename?: "Role"; id: string; name: string };
+      role: { __typename?: "Role"; id: number; name: string };
     } | null;
     centre?: {
       __typename?: "Centre";
@@ -1014,7 +1111,7 @@ export type CreateUserMutation = {
     __typename?: "User";
     id: number;
     userName: string;
-    role: { __typename?: "Role"; id: string; name: string };
+    role: { __typename?: "Role"; id: number; name: string };
     member: { __typename?: "Member"; id: number };
   };
 };
@@ -1213,8 +1310,11 @@ export default {
           {
             name: "description",
             type: {
-              kind: "SCALAR",
-              name: "Any"
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
             },
             args: []
           },
@@ -1261,8 +1361,11 @@ export default {
           {
             name: "name",
             type: {
-              kind: "SCALAR",
-              name: "Any"
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
             },
             args: []
           },
@@ -1296,8 +1399,11 @@ export default {
           {
             name: "visible",
             type: {
-              kind: "SCALAR",
-              name: "Any"
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
             },
             args: []
           }
@@ -2703,6 +2809,118 @@ export function useCentresQuery(
   options?: Omit<Urql.UseQueryArgs<CentresQueryVariables>, "query">
 ) {
   return Urql.useQuery<CentresQuery>({ query: CentresDocument, ...options });
+}
+export const GroupsDocument = gql`
+  query groups {
+    groups {
+      createdAt
+      visible
+      description
+      id
+      name
+    }
+  }
+`;
+
+export function useGroupsQuery(
+  options?: Omit<Urql.UseQueryArgs<GroupsQueryVariables>, "query">
+) {
+  return Urql.useQuery<GroupsQuery>({ query: GroupsDocument, ...options });
+}
+export const GroupDocument = gql`
+  query group($id: Int!) {
+    group(id: $id) {
+      id
+      createdAt
+      visible
+      description
+      name
+      members {
+        id
+        firstName
+        lastName
+        middleName
+        centerAffiliation
+        currentAddress
+        dob
+        email
+        firstName
+        createdAt
+        gender
+        insta
+        isMember
+        active
+        membershipType
+        messenger
+        permanentAddress
+        currentAddress
+        phonePrimary
+        phoneSecondary
+        photo
+        refugeName
+        sanghaJoinDate
+        title
+        viber
+        user {
+          id
+          userName
+          status
+          role {
+            name
+          }
+        }
+        centre {
+          id
+          displayText
+        }
+      }
+    }
+  }
+`;
+
+export function useGroupQuery(
+  options: Omit<Urql.UseQueryArgs<GroupQueryVariables>, "query">
+) {
+  return Urql.useQuery<GroupQuery>({ query: GroupDocument, ...options });
+}
+export const CreateGroupDocument = gql`
+  mutation createGroup($createGroupInput: CreateGroupInput!) {
+    createGroup(createGroupInput: $createGroupInput) {
+      id
+    }
+  }
+`;
+
+export function useCreateGroupMutation() {
+  return Urql.useMutation<CreateGroupMutation, CreateGroupMutationVariables>(
+    CreateGroupDocument
+  );
+}
+export const UpdateGroupDocument = gql`
+  mutation updateGroup($updateGroupInput: UpdateGroupInput!) {
+    updateGroup(updateGroupInput: $updateGroupInput) {
+      id
+    }
+  }
+`;
+
+export function useUpdateGroupMutation() {
+  return Urql.useMutation<UpdateGroupMutation, UpdateGroupMutationVariables>(
+    UpdateGroupDocument
+  );
+}
+export const DeleteGroupDocument = gql`
+  mutation deleteGroup($id: Int!) {
+    removeGroup(id: $id) {
+      id
+    }
+  }
+`;
+
+export function useDeleteGroupMutation() {
+  return Urql.useMutation<DeleteGroupMutation, DeleteGroupMutationVariables>(
+    DeleteGroupDocument
+  );
 }
 export const MembersDocument = gql`
   query members {

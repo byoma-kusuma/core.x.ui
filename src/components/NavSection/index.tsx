@@ -17,7 +17,7 @@ import {
   Typography
 } from "@mui/material";
 import Iconify from "../Iconify";
-import { NavigationItem } from "../../types/Navgiation";
+import { NavigationItem } from "../../schemas/navigation";
 
 const ListItemStyles = (theme: Theme) => ({
   ...theme.typography.body2,

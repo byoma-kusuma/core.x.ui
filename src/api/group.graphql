@@ -1,0 +1,76 @@
+query groups {
+  groups {
+    createdAt
+    visible
+    description
+    id
+    name
+  }
+}
+
+query group($id: Int!) {
+  group(id: $id) {
+    id
+    createdAt
+    visible
+    description
+    name
+    members {
+      id
+      firstName
+      lastName
+      middleName
+      centerAffiliation
+      currentAddress
+      dob
+      email
+      firstName
+      createdAt
+      gender
+      insta
+      isMember
+      active
+      membershipType
+      messenger
+      permanentAddress
+      currentAddress
+      phonePrimary
+      phoneSecondary
+      photo
+      refugeName
+      sanghaJoinDate
+      title
+      viber
+      user {
+        id
+        userName
+        status
+        role {
+          name
+        }
+      }
+      centre {
+        id
+        displayText
+      }
+    }
+  }
+}
+
+mutation createGroup($createGroupInput: CreateGroupInput!) {
+  createGroup(createGroupInput: $createGroupInput) {
+    id
+  }
+}
+
+mutation updateGroup($updateGroupInput: UpdateGroupInput!) {
+  updateGroup(updateGroupInput: $updateGroupInput) {
+    id
+  }
+}
+
+mutation deleteGroup($id: Int!) {
+  removeGroup(id: $id) {
+    id
+  }
+}

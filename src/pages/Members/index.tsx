@@ -12,7 +12,6 @@ import {
 import Label from "../../components/Label";
 import PageWithHeader from "../../components/PageWithHeader";
 import {
-  MembersQuery,
   Status,
   useDeleteMemberMutation,
   useMembersQuery
@@ -21,21 +20,7 @@ import GqlApiHandler from "../../services/GqlApiHandler";
 import Iconify from "../../components/Iconify";
 import { useConfirm } from "material-ui-confirm";
 import { useNavigate } from "react-router-dom";
-import { getMemberFullName } from "../../utils/formatString";
-
-function format(data: MembersQuery | undefined) {
-  if (!data) return [];
-  return data.members.map((r) => ({
-    ...r,
-    fullName: getMemberFullName(r),
-    combinedPhone:
-      r.phonePrimary && r.phoneSecondary
-        ? `${r.phonePrimary}, ${r.phoneSecondary}`
-        : r.phonePrimary || r.phoneSecondary,
-    userName: r.user?.userName,
-    userStatus: r.user?.status
-  }));
-}
+import { formatMemberListData } from "./utils";
 
 export default function Members() {
   const [{ data, fetching, error }] = useMembersQuery();
@@ -105,7 +90,7 @@ export default function Members() {
         defaultOrderKey="fullName"
         defaultOrderDirection="asc"
         onSelectActionButtonClick={(data) => console.log(data)}
-        data={format(data)}
+        data={formatMemberListData(data)}
         filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
         dataSchema={[
           {

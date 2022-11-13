@@ -1,4 +1,5 @@
-import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, Button, IconButton, Typography } from "@mui/material";
+import { format } from "date-fns";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,35 +8,30 @@ import Iconify from "../../components/Iconify";
 import Label from "../../components/Label";
 import PageWithHeader from "../../components/PageWithHeader";
 import {
-  Status,
-  useDeleteUserMutation,
-  UsersQuery,
-  useUsersQuery
+  GroupsQuery,
+  useDeleteGroupMutation,
+  useGroupsQuery
 } from "../../generated/graphql";
 import GqlApiHandler from "../../services/GqlApiHandler";
-import { getMemberFullName } from "../Members/utils";
 
-function formatData(data: UsersQuery | undefined) {
+function formatData(data: GroupsQuery | undefined): GroupsQuery["groups"] {
   if (!data) return [];
-  return data.users.map((r) => ({
-    ...r,
-    fullName: getMemberFullName(r.member),
-    email: r.member.email
-  }));
+  return data.groups;
 }
 
-export default function Users() {
-  const [{ data, fetching, error }] = useUsersQuery();
-  const [, deleteUserMut] = useDeleteUserMutation();
+export default function Groups() {
+  const [{ data, fetching, error }] = useGroupsQuery();
+
+  const [, deleteGroupMut] = useDeleteGroupMutation();
 
   const confirm = useConfirm();
   const navigate = useNavigate();
 
-  const handleUserDelete = (id: number, name: string) => {
+  const handleGroupDelete = (id: number, name: string) => {
     confirm({
       description: (
         <Typography>
-          Are you sure you want to remove <b>{name}</b> from user?
+          Are you sure you want to remove <b>{name}</b> from groups?
         </Typography>
       ),
       title: "Delete Confirmation",
@@ -46,7 +42,7 @@ export default function Users() {
       confirmationText: "Confirm"
     }).then(async () => {
       new GqlApiHandler(
-        await deleteUserMut({
+        await deleteGroupMut({
           id
         })
       )
@@ -57,59 +53,58 @@ export default function Users() {
     });
   };
 
-  const handleUserEdit = (id: number) => {
-    navigate(`/app/users/${id}`);
-  };
-
   return (
     <PageWithHeader
-      header="Users"
+      header="Groups"
       crumbs={[
-        { label: "Users", route: "/app/users", key: "1" },
+        { label: "Groups", route: "/app/groups", key: "1" },
         { label: "List", route: "/", key: "2" }
       ]}
+      actionButton={
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => navigate("/app/groups/new")}
+        >
+          New Group
+        </Button>
+      }
     >
       <CoolTable
         error={GqlApiHandler.getErrorMessage(error)}
         loading={fetching}
         tableHeight="calc(100vh - 400px)"
-        defaultOrderKey="userName"
+        defaultOrderKey="name"
         defaultOrderDirection="asc"
         onSelectActionButtonClick={(data) => console.log(data)}
         data={formatData(data)}
         filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
         dataSchema={[
           {
-            id: "fullName",
-            headerLabel: "Name",
-            formatter({ fullName, avatar }) {
-              return (
-                <Stack direction="row" alignItems="center" spacing={2}>
-                  <Avatar src={avatar || ""} />
-                  <Typography variant="subtitle2">{fullName}</Typography>
-                </Stack>
-              );
+            id: "name",
+            headerLabel: "Name"
+          },
+          {
+            id: "createdAt",
+            headerLabel: "Created At",
+            formatter(r) {
+              return format(new Date(r.createdAt), "MM/dd/yyyy");
             }
           },
           {
-            id: "userName",
-            headerLabel: "Username"
+            id: "description",
+            headerLabel: "Description"
           },
           {
-            id: "email",
-            headerLabel: "Email"
-          },
-          {
-            id: "status",
-            headerLabel: "Validation Status",
-            formatter({ status }) {
-              const isValidated = status === Status.Validated;
+            id: "visible",
+            headerLabel: "Visibility",
+            formatter(r) {
               return (
                 <Label
-                  label={isValidated ? "Validated" : "Validation Pending"}
+                  label={r.visible ? "Visible" : "Not Visible"}
                   type="semi-rounded"
-                  color={isValidated ? "success" : "error"}
                   sx={{ minWidth: "60px" }}
+                  color={r.visible ? "success" : "error"}
                 />
               );
             }
@@ -120,14 +115,30 @@ export default function Users() {
             formatter(r) {
               return (
                 <Box display="flex" justifyContent="flex-end">
-                  <IconButton onClick={() => handleUserEdit(r.id)}>
+                  <IconButton
+                    onClick={() => {
+                      navigate(`/app/groups/${r.id}/details`);
+                    }}
+                  >
+                    <Iconify
+                      icon="eva:info-outline"
+                      sx={{ color: "text.disabled", width: 20, height: 20 }}
+                    />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => {
+                      navigate(`/app/groups/${r.id}`);
+                    }}
+                  >
                     <Iconify
                       icon="eva:edit-2-outline"
                       sx={{ color: "text.disabled", width: 20, height: 20 }}
                     />
                   </IconButton>
                   <IconButton
-                    onClick={() => handleUserDelete(r.id, r.userName)}
+                    onClick={() => {
+                      handleGroupDelete(r.id, r.name);
+                    }}
                   >
                     <Iconify
                       icon="eva:trash-2-outline"

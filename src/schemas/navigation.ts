@@ -1,7 +1,15 @@
 import { getIcon } from "../components/Iconify";
-import { NavigationItem } from "../types/Navgiation";
 
-const navConfig = [
+export interface NavigationItem {
+  title: string;
+  path: string;
+  icon: JSX.Element | "";
+  info?: string;
+  children?: Array<NavigationItem>;
+  type?: "grouper";
+}
+
+const navConfig: Array<NavigationItem> = [
   { title: "General", path: "", icon: "", type: "grouper" },
   {
     title: "dashboard",
@@ -18,12 +26,17 @@ const navConfig = [
     path: "/app/users",
     icon: getIcon("eva:person-add-fill")
   },
+  {
+    title: "groups",
+    path: "/app/groups",
+    icon: getIcon("eva:keypad-fill")
+  },
   { title: "New Section", path: "", icon: "", type: "grouper" },
   {
     title: "New Page",
     path: "/app/newpage",
     icon: getIcon("eva:people-fill")
   }
-] as Array<NavigationItem>;
+];
 
 export default navConfig;

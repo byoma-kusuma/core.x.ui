@@ -4,6 +4,7 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import symbols from "../../utils/symbols";
+import Spinner from "../Spinner";
 
 const RootStyle = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2, 1, 2),
@@ -30,11 +31,21 @@ interface PageWithHeaderProps {
   header?: string;
   crumbs?: Array<Crumb>;
   actionButton?: JSX.Element;
+  loading?: boolean;
 }
 
 export default function PageWithHeader(props: PageWithHeaderProps) {
-  const { children, header, crumbs, actionButton = <div /> } = props;
+  const {
+    children,
+    header,
+    crumbs,
+    actionButton = <div />,
+    loading = false
+  } = props;
   const navigate = useNavigate();
+
+  console.log(loading);
+
   return (
     <RootStyle>
       {(header || crumbs) && (
@@ -83,7 +94,7 @@ export default function PageWithHeader(props: PageWithHeaderProps) {
           <div>{actionButton}</div>
         </HeaderRoot>
       )}
-      {children}
+      {loading ? <Spinner /> : children}
     </RootStyle>
   );
 }

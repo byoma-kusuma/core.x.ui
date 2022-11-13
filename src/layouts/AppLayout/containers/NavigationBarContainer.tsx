@@ -5,8 +5,8 @@ import LanguagePopover from "../../../components/LanguagePopover";
 import NavigationBar from "../../../components/NavigationBar";
 import NotificationsPopover from "../../../components/NotificationsPopover";
 import { useMeQuery } from "../../../generated/graphql";
+import { getMemberFullName } from "../../../pages/Members/utils";
 import { hardLogout } from "../../../services/auth";
-import { getMemberFullName } from "../../../utils/formatString";
 
 interface NavigationBarContainerProps {
   onHamburgerClick: () => void;
