@@ -794,7 +794,12 @@ export type MeQuery = {
     __typename?: "User";
     userName: string;
     avatar: string;
-    member: { __typename?: "Member"; firstName: string; lastName: string };
+    member: {
+      __typename?: "Member";
+      id: number;
+      firstName: string;
+      lastName: string;
+    };
   };
 };
 
@@ -2738,6 +2743,7 @@ export const MeDocument = gql`
       userName
       avatar
       member {
+        id
         firstName
         lastName
       }

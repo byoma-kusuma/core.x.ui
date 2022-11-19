@@ -49,8 +49,6 @@ export default function TabComponentRenderer(props: Props) {
     defaultActiveKey || schema[0]?.key
   );
 
-  console.log(activeTab);
-
   return (
     <Box sx={{ width: "100%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

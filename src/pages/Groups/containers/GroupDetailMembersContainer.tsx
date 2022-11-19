@@ -2,11 +2,6 @@ import {
   Avatar,
   Box,
   Button,
-  Card,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
   IconButton,
   Stack,
   Typography
@@ -27,7 +22,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { formatGroupMembersListData } from "../utils";
 import GroupDetailMembersAddMemberContainer from "./GroupDetailMembersAddMemberContainer";
-import ReactSlidingPane from "react-sliding-pane";
+import ActionPopoup from "../../../components/ActionPopup";
+import SendEmailPane from "../../Common/SendEmailPane";
 
 export default function GroupDetailMembersContainer() {
   const { id } = useParams();
@@ -41,8 +37,13 @@ export default function GroupDetailMembersContainer() {
   const [, updateGroupMut] = useUpdateGroupMutation();
 
   const [openAddMemberPanel, setOpenAddMemberPanel] = React.useState(false);
+  const [showActions, setShowActions] = React.useState(false);
+  const [showAddEmail, setShowAddEmail] = React.useState(false);
+  const [selectedMemberIds, setSelectedMemberIds] = React.useState<
+    Array<number>
+  >([]);
 
-  async function handleGroupUpdate(updatedMembers: Array<number>) {
+  const handleGroupUpdate = async (updatedMembers: Array<number>) => {
     new GqlApiHandler(
       await updateGroupMut({
         updateGroupInput: {
@@ -55,11 +56,11 @@ export default function GroupDetailMembersContainer() {
         notiSuccess("Member Removed from the group!");
       })
       .onError(({ notiErr }) => notiErr());
-  }
+  };
 
-  function onMemberRemoveButtonClick(
+  const onMemberRemoveButtonClick = (
     row: ReturnType<typeof formatGroupMembersListData>[0]
-  ) {
+  ) => {
     confirm({
       description: (
         <Typography>
@@ -80,10 +81,7 @@ export default function GroupDetailMembersContainer() {
           .map((member) => member.id) || []
       )
     );
-  }
-
-  const [showActions, setShowActions] = React.useState(false);
-  const [showPanel, setShowPanel] = React.useState(false);
+  };
 
   return (
     <div>
@@ -109,7 +107,10 @@ export default function GroupDetailMembersContainer() {
         tableHeight="calc(100vh - 400px)"
         defaultOrderKey="fullName"
         defaultOrderDirection="asc"
-        onSelectActionButtonClick={() => setShowActions(true)}
+        onSelectActionButtonClick={(dataIds) => {
+          setShowActions(true);
+          setSelectedMemberIds(dataIds);
+        }}
         data={formatGroupMembersListData(data)}
         filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
         dataSchema={[
@@ -177,83 +178,32 @@ export default function GroupDetailMembersContainer() {
           }
         ]}
       />
+
       <GroupDetailMembersAddMemberContainer
         open={openAddMemberPanel}
         handleClose={() => setOpenAddMemberPanel(false)}
       />
 
-      <Dialog
+      <ActionPopoup
         open={showActions}
-        keepMounted
-        onClose={() => setShowActions(false)}
-        aria-describedby="alert-dialog-slide-description"
-      >
-        <DialogTitle>{"Pick an action"}</DialogTitle>
-        <DialogContent>
-          <Box display="flex" justifyContent="space-between" p={2}>
-            <Card
-              elevation={6}
-              sx={{
-                borderRadius: 0,
-                height: "160px",
-                width: "160px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-                ":hover": {
-                  boxShadow: 20
-                }
-              }}
-              onClick={() => {
-                setShowPanel(true);
-                setShowActions(false);
-              }}
-            >
-              Email
-            </Card>
-            <Card
-              elevation={6}
-              sx={{
-                borderRadius: 0,
-                height: "160px",
-                width: "160px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                cursor: "pointer",
-                ":hover": {
-                  boxShadow: 20
-                },
-                ml: "32px"
-              }}
-              onClick={() => {
-                setShowPanel(true);
-                setShowActions(false);
-              }}
-            >
-              SMS
-            </Card>
-          </Box>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setShowActions(false)} variant="contained">
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
+        handleClose={() => setShowActions(false)}
+        actionItems={[
+          {
+            name: "Email",
+            onClick: () => setShowAddEmail(true)
+          },
+          {
+            name: "SMS",
+            onClick: () => ({})
+          }
+        ]}
+      />
 
-      <ReactSlidingPane
-        overlayClassName="sliding-pane-bkbds-overlay"
-        className="sliding-pane-bkbds-root"
-        isOpen={showPanel}
-        title="Send Email/SMS"
-        subtitle="Send Email/SMS to following members"
-        width="800px"
-        onRequestClose={() => setShowPanel(false)}
-      >
-        Work in progress
-      </ReactSlidingPane>
+      <SendEmailPane
+        open={showAddEmail}
+        handleClose={() => setShowAddEmail(false)}
+        selectedMemberIds={selectedMemberIds}
+      />
     </div>
   );
 }
