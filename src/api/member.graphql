@@ -103,3 +103,9 @@ mutation deleteMember($id: Int!) {
     id
   }
 }
+
+mutation sendEmail($sendEmailInput: SendEmailInput!) {
+  sendEmail(sendEmailInput: $sendEmailInput) {
+    status
+  }
+}

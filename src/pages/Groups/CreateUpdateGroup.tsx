@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
 import GroupFormContainer from "./containers/GroupFormContainer";
 
-export default function Group() {
+export default function CreateUpdateGroup() {
   const { id } = useParams();
 
   const isEditMode = Boolean(id);

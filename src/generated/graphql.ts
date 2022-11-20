@@ -413,6 +413,7 @@ export type Mutation = {
   removeRole: Role;
   removeUser: User;
   resetPassword: ResponseStatus;
+  sendEmail: ResponseStatus;
   updateCentre: Centre;
   updateGroup: Group;
   updateMember: Member;
@@ -477,6 +478,10 @@ export type MutationRemoveUserArgs = {
 
 export type MutationResetPasswordArgs = {
   resetPasswordInput: ResetPasswordInput;
+};
+
+export type MutationSendEmailArgs = {
+  sendEmailInput: SendEmailInput;
 };
 
 export type MutationUpdateCentreArgs = {
@@ -640,6 +645,12 @@ export enum Role_Type {
   System = "SYSTEM"
 }
 
+export type SendEmailInput = {
+  content: Scalars["String"];
+  memberEmails: Array<Scalars["String"]>;
+  subject: Scalars["String"];
+};
+
 /** Current status of the user within the system */
 export enum Status {
   Validated = "VALIDATED",
@@ -794,7 +805,12 @@ export type MeQuery = {
     __typename?: "User";
     userName: string;
     avatar: string;
-    member: { __typename?: "Member"; firstName: string; lastName: string };
+    member: {
+      __typename?: "Member";
+      id: number;
+      firstName: string;
+      lastName: string;
+    };
   };
 };
 
@@ -1055,6 +1071,15 @@ export type DeleteMemberMutationVariables = Exact<{
 export type DeleteMemberMutation = {
   __typename?: "Mutation";
   removeMember: { __typename?: "Member"; id: number };
+};
+
+export type SendEmailMutationVariables = Exact<{
+  sendEmailInput: SendEmailInput;
+}>;
+
+export type SendEmailMutation = {
+  __typename?: "Mutation";
+  sendEmail: { __typename?: "ResponseStatus"; status: string };
 };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never }>;
@@ -2062,6 +2087,29 @@ export default {
             ]
           },
           {
+            name: "sendEmail",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "ResponseStatus",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "sendEmailInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "updateCentre",
             type: {
               kind: "NON_NULL",
@@ -2738,6 +2786,7 @@ export const MeDocument = gql`
       userName
       avatar
       member {
+        id
         firstName
         lastName
       }
@@ -3061,6 +3110,19 @@ export const DeleteMemberDocument = gql`
 export function useDeleteMemberMutation() {
   return Urql.useMutation<DeleteMemberMutation, DeleteMemberMutationVariables>(
     DeleteMemberDocument
+  );
+}
+export const SendEmailDocument = gql`
+  mutation sendEmail($sendEmailInput: SendEmailInput!) {
+    sendEmail(sendEmailInput: $sendEmailInput) {
+      status
+    }
+  }
+`;
+
+export function useSendEmailMutation() {
+  return Urql.useMutation<SendEmailMutation, SendEmailMutationVariables>(
+    SendEmailDocument
   );
 }
 export const UsersDocument = gql`

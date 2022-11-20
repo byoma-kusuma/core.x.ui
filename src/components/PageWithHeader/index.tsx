@@ -44,8 +44,6 @@ export default function PageWithHeader(props: PageWithHeaderProps) {
   } = props;
   const navigate = useNavigate();
 
-  console.log(loading);
-
   return (
     <RootStyle>
       {(header || crumbs) && (
