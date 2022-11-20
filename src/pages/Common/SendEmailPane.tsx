@@ -3,7 +3,12 @@ import { Box, FormHelperText, TextField } from "@mui/material";
 import * as React from "react";
 import ReactSlidingPane from "react-sliding-pane";
 import Spinner from "../../components/Spinner";
-import { MembersQuery, useMembersQuery } from "../../generated/graphql";
+import {
+  MembersQuery,
+  useMembersQuery,
+  useSendEmailMutation
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
 import MembersSelectAutocomplete from "./MembersSelectAutocomplete";
 
 interface Props {
@@ -20,6 +25,8 @@ export default function SendEmailPane(props: Props) {
   const [to, setTo] = React.useState<MembersQuery["members"]>([]);
   const [subject, setSubject] = React.useState("");
   const [content, setContent] = React.useState("");
+
+  const [{ fetching: sending }, sendEmailMut] = useSendEmailMutation();
 
   const selectedMembersWithEmails = (
     selectedMemberIds
@@ -83,10 +90,27 @@ export default function SendEmailPane(props: Props) {
         />
         <LoadingButton
           fullWidth
+          loading={sending}
           sx={{ mt: 1 }}
           variant="contained"
           size="large"
           disabled={!to.length || !subject || !content}
+          onClick={async () => {
+            new GqlApiHandler(
+              await sendEmailMut({
+                sendEmailInput: {
+                  memberEmails: to.map((member) => member.email as string),
+                  subject,
+                  content
+                }
+              })
+            )
+              .onSuccess(({ notiSuccess }) => {
+                notiSuccess("Email sent!");
+                handleClose();
+              })
+              .onError(({ notiErr }) => notiErr());
+          }}
         >
           Send
         </LoadingButton>
