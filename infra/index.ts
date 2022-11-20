@@ -23,7 +23,7 @@ const staticSite = new azure_native.web.StaticSite("staticSite", {
   buildProperties: {
     appArtifactLocation: "build",
     appLocation: "/",
-    appBuildCommand: "npm run generate",
+    appBuildCommand: "npm run build",
     apiLocation: ""
   }
 });
