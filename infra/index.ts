@@ -24,7 +24,22 @@ const staticSite = new azure_native.web.StaticSite("staticSite", {
     appArtifactLocation: "build",
     appLocation: "/",
     appBuildCommand: "npm run build",
-    apiLocation: ""
+    apiLocation: "",
+    // set the following to false to skip github workflow setup
+    skipGithubActionWorkflowGeneration: false
   }
 });
-export const url = staticSite.contentDistributionEndpoint;
+
+// this will fail the first time as the dns record needs to be added with your provider
+// add a cname with pointing your desired domain name to the outputted url
+// then run pulumi up again
+new azure_native.web.StaticSiteCustomDomain(`bkportalui${stack}customdomain`, {
+  domainName:
+    stack === "prod"
+      ? "portal.byomakusuma.com"
+      : `${stack}.portal.byomakusuma.com`,
+  name: staticSite.name,
+  resourceGroupName: resourceGroup.name
+});
+
+export const url = staticSite.defaultHostname;

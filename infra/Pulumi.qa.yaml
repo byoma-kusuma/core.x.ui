@@ -1,4 +1,4 @@
 config:
-  azure-native:location: UkSouth
+  azure-native:location: eastus2
   bk-portal-site:gh_token:
     secure: AAABAI6nLQh0GmOI7GvP8UZAx6Z4RRnbpF+MdqMK5OqIjOaf/7JuuiIvSUTSgiiGSv7knz7N5ZOlWiU2DC6utvpYZJqww06/
