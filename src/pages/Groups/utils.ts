@@ -1,5 +1,12 @@
-import { GroupQuery, MembersQuery } from "../../generated/graphql";
+import { GroupQuery, GroupsQuery, MembersQuery } from "../../generated/graphql";
 import { getMemberFullName } from "../Members/utils";
+
+export function formatGroupListData(
+  data: GroupsQuery | undefined
+): GroupsQuery["groups"] {
+  if (!data) return [];
+  return data.groups;
+}
 
 export function formatGroupMembersListData(data: GroupQuery | undefined) {
   if (!data) return [];

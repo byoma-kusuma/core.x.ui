@@ -199,4 +199,8 @@ jobs:
           action: "close"
 ```
 
+## Testing
+
+Todo: https://www.pulumi.com/docs/guides/testing/unit/
+
 <h1 align="center"> --- Happy Coding🐘 --- </h1>

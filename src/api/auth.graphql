@@ -3,6 +3,7 @@ query me {
     userName
     avatar
     member {
+      id
       firstName
       lastName
     }

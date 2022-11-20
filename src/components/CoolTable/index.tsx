@@ -13,8 +13,8 @@ import {
 } from "@mui/material";
 import Scrollbar from "../Scrollbar";
 import { pick } from "lodash";
-import DataNotFound from "../CoolTableNoData";
-import CoolTableToolbar from "../CoolTableToolbar";
+import DataNotFound from "./CoolTableNoData";
+import CoolTableToolbar from "./CoolTableToolbar";
 import CoolTableFns from "./CoolTableFns";
 
 export interface DataSchema<T> {
