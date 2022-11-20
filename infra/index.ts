@@ -19,6 +19,12 @@ const staticSite = new azure_native.web.StaticSite("staticSite", {
   sku: {
     name: "Free",
     tier: "Free"
+  },
+  buildProperties: {
+    appArtifactLocation: "build",
+    appLocation: "/",
+    appBuildCommand: "npm run generate",
+    apiLocation: ""
   }
 });
 export const url = staticSite.contentDistributionEndpoint;
