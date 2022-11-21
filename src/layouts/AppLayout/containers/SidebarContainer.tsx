@@ -1,6 +1,7 @@
 import * as React from "react";
 import Sidebar from "../../../components/Sidebar";
 import NavigationSchema from "../../../schemas/navigation";
+import { useMeQuery } from "../../../generated/graphql";
 
 interface SidebarContainerProps {
   isOpenSidebar: boolean;
@@ -9,6 +10,9 @@ interface SidebarContainerProps {
 
 export default function SidebarContainer(props: SidebarContainerProps) {
   const { isOpenSidebar, onCloseSidebar } = props;
+  const [{ data: user }] = useMeQuery({
+    requestPolicy: "cache-only"
+  });
 
   return (
     <div>
@@ -17,9 +21,10 @@ export default function SidebarContainer(props: SidebarContainerProps) {
         onCloseSidebar={onCloseSidebar}
         menuLogoUrl="/static/bk_t.png"
         currentUser={{
-          fullName: "Amogh Rijal",
-          avatar: "/static/mock-images/avatars/avatar_default.jpg",
-          role: "Admin",
+          fullName: user?.me.userName || "User",
+          avatar:
+            user?.me.avatar || "/static/mock-images/avatars/avatar_default.jpg",
+          role: "TBD",
           link: "/app"
         }}
         navigationSchema={NavigationSchema}

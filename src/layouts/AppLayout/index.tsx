@@ -25,6 +25,7 @@ const MainStyle = styled("div")(({ theme }) => ({
 
 export default function DashboardLayout() {
   const [open, setOpen] = React.useState(false);
+
   return (
     <RootStyle>
       <NavigationBarContainer onHamburgerClick={() => setOpen(true)} />
