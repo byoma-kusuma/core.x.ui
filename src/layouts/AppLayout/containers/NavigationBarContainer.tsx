@@ -17,7 +17,7 @@ export default function NavigationBarContainer(
 ) {
   const { onHamburgerClick } = props;
 
-  const [{ data }] = useMeQuery({
+  const [{ data: user }] = useMeQuery({
     requestPolicy: "cache-only"
   });
 
@@ -31,11 +31,11 @@ export default function NavigationBarContainer(
             <LanguagePopover />
             <NotificationsPopover />
             <ContactsPopover />
-            {data && (
+            {user && (
               <AccountPopover
-                photoUrl={data.me.avatar}
-                user={getMemberFullName(data.me.member)}
-                userName={data.me.userName}
+                photoUrl={user.me.avatar}
+                user={getMemberFullName(user.me.member)}
+                userName={user.me.userName}
                 onLogout={() => {
                   hardLogout();
                 }}
