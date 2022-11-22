@@ -1,0 +1,3 @@
+name: bk-portal-site
+runtime: nodejs
+description: BK Portal SPA

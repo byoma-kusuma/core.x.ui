@@ -198,6 +198,9 @@ export default function MemberFormContainer(props: Props) {
                 {/* extract theses to new container and useformikcontext later */}
                 <TextField
                   fullWidth
+                  inputProps={{
+                    "data-testId": "member-form-firstName"
+                  }}
                   label="First Name*"
                   value={formik.values.firstName || ""}
                   onChange={(e) =>
@@ -214,6 +217,7 @@ export default function MemberFormContainer(props: Props) {
               <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
+                  inputProps={{ "data-testId": "member-form-lastName" }}
                   label="Last Name*"
                   value={formik.values.lastName || ""}
                   onChange={(e) =>
@@ -229,6 +233,9 @@ export default function MemberFormContainer(props: Props) {
                 <TextField
                   fullWidth
                   label="Email"
+                  inputProps={{
+                    "data-testId": "member-form-email"
+                  }}
                   value={formik.values.email || ""}
                   onChange={(e) =>
                     formik.setFieldValue("email", e.target.value)
@@ -248,7 +255,14 @@ export default function MemberFormContainer(props: Props) {
                     }
                   }}
                   renderInput={(params) => (
-                    <TextField {...params} label="Centre" />
+                    <TextField
+                      {...params}
+                      label="Centre"
+                      inputProps={{
+                        "data-testId": "member-form-centreAffliliation",
+                        ...params.inputProps
+                      }}
+                    />
                   )}
                 />
               </Grid>
@@ -256,8 +270,10 @@ export default function MemberFormContainer(props: Props) {
                 <FormControlLabel
                   control={
                     <Switch
+                      data-testId="member-form-isMember"
                       color="success"
                       checked={formik.values.isMember}
+                      name="f"
                       onChange={(e) => {
                         formik.setFieldValue("isMember", e.target.checked);
                       }}
@@ -271,6 +287,7 @@ export default function MemberFormContainer(props: Props) {
                 <FormControlLabel
                   control={
                     <Switch
+                      data-testId="member-form-active"
                       checked={formik.values.active}
                       onChange={(e) => {
                         formik.setFieldValue("active", e.target.checked);
@@ -290,6 +307,7 @@ export default function MemberFormContainer(props: Props) {
                 size="large"
                 type="submit"
                 loading={creating || updating}
+                data-testId="member-form-submit"
               >
                 {id ? "Update Member" : "Create Member"}
               </LoadingButton>

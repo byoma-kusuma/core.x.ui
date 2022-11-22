@@ -3,7 +3,7 @@ import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
 import Groups from "../pages/Groups";
-import Group from "../pages/Groups/Group";
+import Group from "../pages/Groups/CreateUpdateGroup";
 import GroupDetail from "../pages/Groups/GroupDetail";
 import Login from "../pages/Login";
 import NotFound404 from "../pages/NotFound404";

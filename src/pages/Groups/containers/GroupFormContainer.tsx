@@ -1,17 +1,12 @@
 import { LoadingButton } from "@mui/lab";
 import {
-  Autocomplete,
-  Avatar,
   Box,
   Button,
-  Chip,
   FormControlLabel,
   Grid,
   Paper,
-  Stack,
   Switch,
-  TextField,
-  Typography
+  TextField
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
@@ -24,7 +19,6 @@ import {
   CreateGroupInput,
   GroupDocument,
   GroupQuery,
-  MembersQuery,
   UpdateGroupInput,
   useCreateGroupMutation,
   useMembersQuery,
@@ -33,7 +27,7 @@ import {
 import GqlApiHandler from "../../../services/GqlApiHandler";
 import GroupFormValidator from "../../../validators/GroupFormValidator";
 import SlidingPane from "react-sliding-pane";
-import { getMemberFullName } from "../../Members/utils";
+import MembersSelectAutocomplete from "../../Common/MembersSelectAutocomplete";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",
@@ -61,15 +55,6 @@ export default function GroupFormContainer(props: Props) {
   const [{ data: membersData }] = useMembersQuery();
 
   const [openPanel, setOpenPanel] = React.useState(false);
-
-  const membersDataByMemberId = React.useMemo(
-    () =>
-      (membersData?.members || []).reduce((acc, cur) => {
-        acc[cur.id] = cur;
-        return acc;
-      }, {} as Record<number, MembersQuery["members"][0]>),
-    [membersData]
-  );
 
   const [{ data }] = useQuery<GroupQuery>({
     query: GroupDocument,
@@ -159,50 +144,12 @@ export default function GroupFormContainer(props: Props) {
                 />
               </Grid>
               <Grid item xs={12}>
-                <Autocomplete
-                  disablePortal
-                  multiple
-                  fullWidth
-                  value={formik.values.memberIds
-                    .map((id) => membersDataByMemberId[id])
-                    .filter(Boolean)}
-                  onChange={(_, v) => {
-                    formik.setFieldValue(
-                      "memberIds",
-                      v.map((member) => member.id)
-                    );
-                  }}
-                  renderTags={(tagValue, getTagProps) =>
-                    tagValue.map((option, index) => (
-                      <Chip
-                        key={option.id}
-                        label={getMemberFullName(option)}
-                        avatar={
-                          <Avatar
-                            alt="member-avatar"
-                            src={option.photo || ""}
-                          />
-                        }
-                        {...omit(getTagProps({ index }), "key")}
-                      />
-                    ))
+                <MembersSelectAutocomplete
+                  value={formik.values.memberIds}
+                  onChange={(memberIds) =>
+                    formik.setFieldValue("memberIds", memberIds)
                   }
-                  id="group-member-select"
                   options={membersData?.members || []}
-                  renderOption={(props, option) => (
-                    <li {...props}>
-                      <Stack direction="row" alignItems="center" spacing={2}>
-                        <Avatar src={option.photo || ""} />
-                        <Typography variant="subtitle2">
-                          {option.id}. {getMemberFullName(option)}
-                        </Typography>
-                      </Stack>
-                    </li>
-                  )}
-                  getOptionLabel={(option) => getMemberFullName(option)}
-                  renderInput={(params) => (
-                    <TextField {...params} label="Members" />
-                  )}
                 />
               </Grid>
             </Grid>

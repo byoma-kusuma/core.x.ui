@@ -14,7 +14,7 @@ import {
   Tab
 } from "@mui/material";
 import Iconify from "../Iconify";
-import { FilterSchema } from "../CoolTable";
+import { FilterSchema } from ".";
 import { DebounceInput } from "react-debounce-input";
 
 const ToolBarStyle = styled(Toolbar)(({ theme }) => ({
@@ -31,10 +31,6 @@ const FilterBarStyle = styled("div")(({ theme }) => ({
   height: "auto",
   borderTop: `1px solid ${theme.palette.divider}`,
   padding: theme.spacing(3),
-  //   transition: theme.transitions.create(["height"], {
-  //     easing: theme.transitions.easing.easeIn,
-  //     duration: theme.transitions.duration.short
-  //   })
   transition: "1s ease"
 }));
 
