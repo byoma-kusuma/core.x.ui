@@ -81,6 +81,9 @@ export default function LoginFormContainer() {
               fullWidth
               autoComplete="username"
               type="email"
+              inputProps={{
+                "data-testId": "login-username"
+              }}
               label="Email address"
               {...getFieldProps("email")}
               error={Boolean(touched.email && errors.email)}
@@ -89,6 +92,9 @@ export default function LoginFormContainer() {
 
             <TextField
               fullWidth
+              inputProps={{
+                "data-testId": "login-password"
+              }}
               autoComplete="current-password"
               type={showPassword ? "text" : "password"}
               label="Password"
@@ -133,6 +139,7 @@ export default function LoginFormContainer() {
             type="submit"
             variant="contained"
             loading={isSubmitting}
+            data-testId="login-submit-button"
           >
             Login
           </LoadingButton>
