@@ -80,6 +80,7 @@ function NavItem(props: NavItemProps) {
             ...ListItemStyles(theme),
             ...(isActiveRoot && activeRootStyle)
           })}
+          data-testId={`sidebar=${title}`}
         >
           <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
           <ListItemText disableTypography primary={title} />
@@ -109,6 +110,7 @@ function NavItem(props: NavItemProps) {
                     ...ListItemStyles(theme),
                     ...(isActiveSub && activeSubStyle)
                   })}
+                  data-testId={`sidebar-children-${title}`}
                 >
                   <ListItemIconStyle>
                     <Box
@@ -128,6 +130,7 @@ function NavItem(props: NavItemProps) {
                           bgcolor: "primary.main"
                         })
                       }}
+                      data-testId="helloworld"
                     />
                   </ListItemIconStyle>
                   <ListItemText disableTypography primary={title} />
@@ -149,6 +152,7 @@ function NavItem(props: NavItemProps) {
         ...ListItemStyles(theme),
         ...(isActiveRoot && activeRootStyle)
       })}
+      data-testId={"sidebar-${title}"}
     >
       <ListItemIconStyle>{icon && icon}</ListItemIconStyle>
       <ListItemText disableTypography primary={title} />

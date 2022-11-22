@@ -52,8 +52,8 @@ export default function AccountPopover(props: AccountPopoverProps) {
   return (
     <>
       <IconButton
-        className="hello"
         onClick={handleOpen}
+        data-testId="navigation-profilePicture-menu"
         sx={{
           p: 0,
           ...(open
