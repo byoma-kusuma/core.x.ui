@@ -2,6 +2,7 @@ import { LoadingButton } from "@mui/lab";
 import { Box, FormHelperText, TextField } from "@mui/material";
 import * as React from "react";
 import ReactSlidingPane from "react-sliding-pane";
+import HtmlEditor from "../../components/HtmlEditor";
 import Spinner from "../../components/Spinner";
 import {
   MembersQuery,
@@ -78,20 +79,13 @@ export default function SendEmailPane(props: Props) {
           onChange={(e) => setSubject(e.target.value)}
           sx={{ mt: 1 }}
         />
-        <TextField
-          label="Content"
-          fullWidth
-          variant="outlined"
-          value={content}
-          multiline
-          rows={12}
-          onChange={(e) => setContent(e.target.value)}
-          sx={{ mt: 1 }}
-        />
+        <Box mt={1} height="240px">
+          <HtmlEditor onChange={(v) => setContent(v)} />
+        </Box>
         <LoadingButton
           fullWidth
           loading={sending}
-          sx={{ mt: 1 }}
+          sx={{ mt: 10 }}
           variant="contained"
           size="large"
           disabled={!to.length || !subject || !content}
