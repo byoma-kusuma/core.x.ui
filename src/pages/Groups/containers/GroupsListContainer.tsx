@@ -14,7 +14,11 @@ import GqlApiHandler from "../../../services/GqlApiHandler";
 import { formatGroupListData } from "../utils";
 
 export default function GroupsListContainer() {
-  const [{ data, fetching, error }] = useGroupsQuery();
+  const context = React.useMemo(() => ({ additionalTypenames: ["Group"] }), []);
+
+  const [{ data, fetching, error }] = useGroupsQuery({
+    context
+  });
 
   const [, deleteGroupMut] = useDeleteGroupMutation();
 
