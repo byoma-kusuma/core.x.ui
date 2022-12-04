@@ -22,7 +22,10 @@ export default function Member() {
       ]}
     >
       <Grid container spacing={2}>
-        <MemberFormContainer height={PAGE_ELEMENTS_HEIGHT} id={Number(id)} />
+        <MemberFormContainer
+          height={PAGE_ELEMENTS_HEIGHT}
+          id={id ? Number(id) : undefined}
+        />
       </Grid>
     </PageWithHeader>
   );

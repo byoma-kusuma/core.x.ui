@@ -62,7 +62,6 @@ const initialValues = {
 
 export default function MemberFormContainer(props: Props) {
   const { height, id } = props;
-
   const navigate = useNavigate();
   const confirm = useConfirm();
 
