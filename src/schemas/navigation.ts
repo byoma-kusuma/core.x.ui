@@ -41,6 +41,11 @@ const navConfig: Array<NavigationItem> = [
     path: "/app/resources",
     icon: getIcon("eva:file-add-fill")
   },
+  {
+    title: "events",
+    path: "/app/events",
+    icon: getIcon("eva:activity-fill")
+  },
   { title: "New Section", path: "", icon: "", type: "grouper" },
   {
     title: "New Page",

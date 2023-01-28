@@ -5,6 +5,7 @@ import CommonLayout from "../layouts/CommonLayout";
 import Abhisekhas from "../pages/Abhisekha";
 import AbhisekhaDetailPage from "../pages/Abhisekha/AbhisekhaDetailPage";
 import CreateUpdateAbhisekhaPage from "../pages/Abhisekha/CreateUpdateAbhisekhaPage";
+import Events from "../pages/Event";
 import Groups from "../pages/Groups";
 import Group from "../pages/Groups/CreateUpdateGroupPage";
 import GroupDetail from "../pages/Groups/GroupDetailPage";
@@ -75,7 +76,7 @@ export default [
       },
 
       // events routes
-      { path: "events", element: <Resources />, exact }
+      { path: "events", element: <Events />, exact }
       // { path: "resources/new", element: <CreateUpdateResourcePage />, exact },
       // { path: "resources/:id", element: <CreateUpdateResourcePage />, exact },
       // {
