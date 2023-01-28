@@ -21,6 +21,380 @@ export type Scalars = {
   JWT: any;
 };
 
+export type Abhisekha = {
+  __typename?: "Abhisekha";
+  abhisekhaEvents: Array<EventAbhisekhaWithoutAbhisekha>;
+  abhisekhaMembers: Array<MemberAbhisekhaWithoutAbhisekha>;
+  abhisekhaResources: Array<AbhisekhaResourceWithoutAbhisekha>;
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
+  /** Name of the abhisekha */
+  description: Scalars["String"];
+  id: Scalars["Int"];
+  /** Identifies the date and time when the object was last deleted. */
+  isDeleted: Scalars["Boolean"];
+  /** Name of the abhisekha */
+  name: Scalars["String"];
+  /** Resources for the abhisekha */
+  resources: Array<Resource>;
+  /** Name of the abhisekha */
+  teacher: Scalars["String"];
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
+};
+
+export type AbhisekhaCreateNestedOneWithoutAbhisekhaResourceInput = {
+  connect?: InputMaybe<AbhisekhaWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<AbhisekhaCreateOrConnectWithoutAbhisekhaResourceInput>;
+  create?: InputMaybe<AbhisekhaCreateWithoutAbhisekhaResourceInput>;
+};
+
+export type AbhisekhaCreateNestedOneWithoutEventAbhisekhaInput = {
+  connect?: InputMaybe<AbhisekhaWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<AbhisekhaCreateOrConnectWithoutEventAbhisekhaInput>;
+  create?: InputMaybe<AbhisekhaCreateWithoutEventAbhisekhaInput>;
+};
+
+export type AbhisekhaCreateNestedOneWithoutMemberAbhisekhaInput = {
+  connect?: InputMaybe<AbhisekhaWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<AbhisekhaCreateOrConnectWithoutMemberAbhisekhaInput>;
+  create?: InputMaybe<AbhisekhaCreateWithoutMemberAbhisekhaInput>;
+};
+
+export type AbhisekhaCreateOrConnectWithoutAbhisekhaResourceInput = {
+  create: AbhisekhaCreateWithoutAbhisekhaResourceInput;
+  where: AbhisekhaWhereUniqueInput;
+};
+
+export type AbhisekhaCreateOrConnectWithoutEventAbhisekhaInput = {
+  create: AbhisekhaCreateWithoutEventAbhisekhaInput;
+  where: AbhisekhaWhereUniqueInput;
+};
+
+export type AbhisekhaCreateOrConnectWithoutMemberAbhisekhaInput = {
+  create: AbhisekhaCreateWithoutMemberAbhisekhaInput;
+  where: AbhisekhaWhereUniqueInput;
+};
+
+export type AbhisekhaCreateWithoutAbhisekhaResourceInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  description: Scalars["String"];
+  eventAbhisekha?: InputMaybe<EventAbhisekhaCreateNestedManyWithoutAbhishekaInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutAbhishekaInput>;
+  name: Scalars["String"];
+  teacher: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AbhisekhaCreateWithoutEventAbhisekhaInput = {
+  abhisekhaResource?: InputMaybe<AbhisekhaResourceCreateNestedManyWithoutAbhishekaInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  description: Scalars["String"];
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutAbhishekaInput>;
+  name: Scalars["String"];
+  teacher: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AbhisekhaCreateWithoutMemberAbhisekhaInput = {
+  abhisekhaResource?: InputMaybe<AbhisekhaResourceCreateNestedManyWithoutAbhishekaInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  description: Scalars["String"];
+  eventAbhisekha?: InputMaybe<EventAbhisekhaCreateNestedManyWithoutAbhishekaInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  name: Scalars["String"];
+  teacher: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AbhisekhaMemberDetails = {
+  /** Date of abhisekha */
+  abhisekhaDate: Scalars["String"];
+  /** Place of abhisekha */
+  abhisekhaPlace: Scalars["String"];
+  /** Id of member who attended the abhisekha */
+  memberId: Scalars["Int"];
+  /** Member attending the Abhisekha type eg: Peripheral */
+  type: Scalars["String"];
+};
+
+export type AbhisekhaRelationFilter = {
+  is?: InputMaybe<AbhisekhaWhereInput>;
+  isNot?: InputMaybe<AbhisekhaWhereInput>;
+};
+
+export type AbhisekhaResourceAbhishekaIdResourceIdCompoundUniqueInput = {
+  abhishekaId: Scalars["Int"];
+  resourceId: Scalars["Int"];
+};
+
+export type AbhisekhaResourceCreateManyAbhishekaInput = {
+  resourceId: Scalars["Int"];
+};
+
+export type AbhisekhaResourceCreateManyAbhishekaInputEnvelope = {
+  data: Array<AbhisekhaResourceCreateManyAbhishekaInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type AbhisekhaResourceCreateManyResourceInput = {
+  abhishekaId: Scalars["Int"];
+};
+
+export type AbhisekhaResourceCreateManyResourceInputEnvelope = {
+  data: Array<AbhisekhaResourceCreateManyResourceInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type AbhisekhaResourceCreateNestedManyWithoutAbhishekaInput = {
+  connect?: InputMaybe<Array<AbhisekhaResourceWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<AbhisekhaResourceCreateOrConnectWithoutAbhishekaInput>
+  >;
+  create?: InputMaybe<Array<AbhisekhaResourceCreateWithoutAbhishekaInput>>;
+  createMany?: InputMaybe<AbhisekhaResourceCreateManyAbhishekaInputEnvelope>;
+};
+
+export type AbhisekhaResourceCreateNestedManyWithoutResourceInput = {
+  connect?: InputMaybe<Array<AbhisekhaResourceWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<AbhisekhaResourceCreateOrConnectWithoutResourceInput>
+  >;
+  create?: InputMaybe<Array<AbhisekhaResourceCreateWithoutResourceInput>>;
+  createMany?: InputMaybe<AbhisekhaResourceCreateManyResourceInputEnvelope>;
+};
+
+export type AbhisekhaResourceCreateOrConnectWithoutAbhishekaInput = {
+  create: AbhisekhaResourceCreateWithoutAbhishekaInput;
+  where: AbhisekhaResourceWhereUniqueInput;
+};
+
+export type AbhisekhaResourceCreateOrConnectWithoutResourceInput = {
+  create: AbhisekhaResourceCreateWithoutResourceInput;
+  where: AbhisekhaResourceWhereUniqueInput;
+};
+
+export type AbhisekhaResourceCreateWithoutAbhishekaInput = {
+  resource: ResourceCreateNestedOneWithoutAbhisekhaResourceInput;
+};
+
+export type AbhisekhaResourceCreateWithoutResourceInput = {
+  abhisheka: AbhisekhaCreateNestedOneWithoutAbhisekhaResourceInput;
+};
+
+export type AbhisekhaResourceListRelationFilter = {
+  every?: InputMaybe<AbhisekhaResourceWhereInput>;
+  none?: InputMaybe<AbhisekhaResourceWhereInput>;
+  some?: InputMaybe<AbhisekhaResourceWhereInput>;
+};
+
+export type AbhisekhaResourceWhereInput = {
+  AND?: InputMaybe<Array<AbhisekhaResourceWhereInput>>;
+  NOT?: InputMaybe<Array<AbhisekhaResourceWhereInput>>;
+  OR?: InputMaybe<Array<AbhisekhaResourceWhereInput>>;
+  abhisheka?: InputMaybe<AbhisekhaRelationFilter>;
+  abhishekaId?: InputMaybe<IntFilter>;
+  resource?: InputMaybe<ResourceRelationFilter>;
+  resourceId?: InputMaybe<IntFilter>;
+};
+
+export type AbhisekhaResourceWhereUniqueInput = {
+  abhishekaId_resourceId?: InputMaybe<AbhisekhaResourceAbhishekaIdResourceIdCompoundUniqueInput>;
+};
+
+export type AbhisekhaResourceWithoutAbhisekha = {
+  __typename?: "AbhisekhaResourceWithoutAbhisekha";
+  abhishekaId: Scalars["Int"];
+  resource: Resource;
+  resourceId: Scalars["Int"];
+};
+
+export type AbhisekhaResourceWithoutResource = {
+  __typename?: "AbhisekhaResourceWithoutResource";
+  abhisheka: Abhisekha;
+  abhishekaId: Scalars["Int"];
+  resourceId: Scalars["Int"];
+};
+
+export type AbhisekhaWhereInput = {
+  AND?: InputMaybe<Array<AbhisekhaWhereInput>>;
+  NOT?: InputMaybe<Array<AbhisekhaWhereInput>>;
+  OR?: InputMaybe<Array<AbhisekhaWhereInput>>;
+  abhisekhaResource?: InputMaybe<AbhisekhaResourceListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  eventAbhisekha?: InputMaybe<EventAbhisekhaListRelationFilter>;
+  id?: InputMaybe<IntFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaListRelationFilter>;
+  name?: InputMaybe<StringFilter>;
+  teacher?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+};
+
+export type AbhisekhaWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+};
+
+export type Address = {
+  __typename?: "Address";
+  city?: Maybe<Scalars["String"]>;
+  country?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
+  id: Scalars["Int"];
+  stateProvince?: Maybe<Scalars["String"]>;
+  street?: Maybe<Scalars["String"]>;
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
+};
+
+export type AddressCreateInput = {
+  Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
+  city?: InputMaybe<Scalars["String"]>;
+  country: Scalars["String"];
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
+  memberPermanentAddress?: InputMaybe<MemberCreateNestedOneWithoutPermanentAddressInput>;
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AddressCreateNestedOneWithoutMemberCurrentAddressInput = {
+  connect?: InputMaybe<AddressWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<AddressCreateOrConnectWithoutMemberCurrentAddressInput>;
+  create?: InputMaybe<AddressCreateWithoutMemberCurrentAddressInput>;
+};
+
+export type AddressCreateNestedOneWithoutMemberPermanentAddressInput = {
+  connect?: InputMaybe<AddressWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<AddressCreateOrConnectWithoutMemberPermanentAddressInput>;
+  create?: InputMaybe<AddressCreateWithoutMemberPermanentAddressInput>;
+};
+
+export type AddressCreateNestedOneWithoutMembersInput = {
+  connect?: InputMaybe<AddressWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<AddressCreateOrConnectWithoutMembersInput>;
+  create?: InputMaybe<AddressCreateWithoutMembersInput>;
+};
+
+export type AddressCreateOrConnectWithoutMemberCurrentAddressInput = {
+  create: AddressCreateWithoutMemberCurrentAddressInput;
+  where: AddressWhereUniqueInput;
+};
+
+export type AddressCreateOrConnectWithoutMemberPermanentAddressInput = {
+  create: AddressCreateWithoutMemberPermanentAddressInput;
+  where: AddressWhereUniqueInput;
+};
+
+export type AddressCreateOrConnectWithoutMembersInput = {
+  create: AddressCreateWithoutMembersInput;
+  where: AddressWhereUniqueInput;
+};
+
+export type AddressCreateWithoutMemberCurrentAddressInput = {
+  Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
+  city?: InputMaybe<Scalars["String"]>;
+  country: Scalars["String"];
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  memberPermanentAddress?: InputMaybe<MemberCreateNestedOneWithoutPermanentAddressInput>;
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AddressCreateWithoutMemberPermanentAddressInput = {
+  Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
+  city?: InputMaybe<Scalars["String"]>;
+  country: Scalars["String"];
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AddressCreateWithoutMembersInput = {
+  city?: InputMaybe<Scalars["String"]>;
+  country: Scalars["String"];
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
+  memberPermanentAddress?: InputMaybe<MemberCreateNestedOneWithoutPermanentAddressInput>;
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type AddressRelationFilter = {
+  is?: InputMaybe<AddressWhereInput>;
+  isNot?: InputMaybe<AddressWhereInput>;
+};
+
+export type AddressWhereInput = {
+  AND?: InputMaybe<Array<AddressWhereInput>>;
+  Members?: InputMaybe<MemberListRelationFilter>;
+  NOT?: InputMaybe<Array<AddressWhereInput>>;
+  OR?: InputMaybe<Array<AddressWhereInput>>;
+  city?: InputMaybe<StringFilter>;
+  country?: InputMaybe<StringFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  id?: InputMaybe<IntFilter>;
+  memberCurrentAddress?: InputMaybe<MemberRelationFilter>;
+  memberPermanentAddress?: InputMaybe<MemberRelationFilter>;
+  stateProvince?: InputMaybe<StringFilter>;
+  street?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+};
+
+export type AddressWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+};
+
 export type Auth = {
   __typename?: "Auth";
   /** JWT access token */
@@ -53,28 +427,26 @@ export type Centre = {
   updatedAt: Scalars["DateTime"];
 };
 
-export enum CentreAffiliationType {
-  Australia = "Australia",
-  Hetauda = "Hetauda",
-  MahendraNagar = "MahendraNagar",
-  Nepal = "Nepal",
-  None = "None",
-  Thailand = "Thailand",
-  Uk = "UK",
-  Usa = "USA"
-}
+export type CentreCreateNestedOneWithoutMembersInput = {
+  connect?: InputMaybe<CentreWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<CentreCreateOrConnectWithoutMembersInput>;
+  create?: InputMaybe<CentreCreateWithoutMembersInput>;
+};
 
-/** Types of centre affiliation */
-export enum CentreAffiliation_Type {
-  Australia = "Australia",
-  Hetauda = "Hetauda",
-  MahendraNagar = "MahendraNagar",
-  Nepal = "Nepal",
-  None = "None",
-  Thailand = "Thailand",
-  Uk = "UK",
-  Usa = "USA"
-}
+export type CentreCreateOrConnectWithoutMembersInput = {
+  create: CentreCreateWithoutMembersInput;
+  where: CentreWhereUniqueInput;
+};
+
+export type CentreCreateWithoutMembersInput = {
+  city?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<Scalars["String"]>;
+  displaySequence: Scalars["Int"];
+  displayText: Scalars["String"];
+  name: Scalars["String"];
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  streetAddress?: InputMaybe<Scalars["String"]>;
+};
 
 export type CentreRelationFilter = {
   is?: InputMaybe<CentreWhereInput>;
@@ -96,34 +468,51 @@ export type CentreWhereInput = {
   streetAddress?: InputMaybe<StringFilter>;
 };
 
+export type CentreWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<Scalars["String"]>;
+};
+
 export type ChangePasswordInput = {
   newPassword: Scalars["String"];
   oldPassword: Scalars["String"];
 };
 
-export type CreateCentreInput = {
-  city?: InputMaybe<Scalars["String"]>;
-  country?: InputMaybe<Scalars["String"]>;
-  displaySequence: Scalars["Int"];
-  displayText: Scalars["String"];
+export type CreateAbhisekhaInput = {
+  /** Name of the abhisekha */
+  description: Scalars["String"];
+  /** Name of the abhisekha */
   name: Scalars["String"];
-  stateProvince?: InputMaybe<Scalars["String"]>;
-  streetAddress?: InputMaybe<Scalars["String"]>;
+  /** Name of the abhisekha */
+  teacher: Scalars["String"];
+};
+
+export type CreateEventInput = {
+  /** Event end date */
+  endDate: Scalars["DateTime"];
+  /** Details of members attending the event */
+  eventMemberDetails: Array<EventMemberDetails>;
+  /** After the event ends or at a certain specific time, the event is locked and event related details cannot be updated/deleted */
+  isLocked: Scalars["Boolean"];
+  /** Some notes related to the event */
+  notes: Scalars["String"];
+  /** Event start date */
+  startDate: Scalars["DateTime"];
+  /** Type of the event */
+  type: Scalars["String"];
 };
 
 export type CreateGroupInput = {
   description: Scalars["String"];
-  memberIds: Array<Scalars["Int"]>;
+  memberIds?: InputMaybe<Array<Scalars["Int"]>>;
   name: Scalars["String"];
   visible: Scalars["Boolean"];
 };
 
 export type CreateMemberInput = {
   active: Scalars["Boolean"];
-  centerAffiliation: Scalars["String"];
   centreId?: InputMaybe<Scalars["Int"]>;
-  currentAddress?: InputMaybe<Scalars["String"]>;
-  dob?: InputMaybe<Scalars["DateTime"]>;
+  currentAddressId?: InputMaybe<Scalars["Int"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
   gender?: InputMaybe<Scalars["String"]>;
@@ -131,17 +520,26 @@ export type CreateMemberInput = {
   insta?: InputMaybe<Scalars["String"]>;
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
+  memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
   membershipType?: InputMaybe<Scalars["String"]>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
-  permanentAddress?: InputMaybe<Scalars["String"]>;
-  phonePrimary?: InputMaybe<Scalars["String"]>;
-  phoneSecondary?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddressId?: InputMaybe<Scalars["Int"]>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
   title?: InputMaybe<Scalars["String"]>;
   viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type CreateResourceInput = {
+  /** Example field (placeholder) */
+  exampleField: Scalars["Int"];
 };
 
 export type CreateRoleInput = {
@@ -161,13 +559,6 @@ export type DateTimeFilter = {
   lte?: InputMaybe<Scalars["DateTime"]>;
   not?: InputMaybe<DateTimeFilter>;
   notIn?: InputMaybe<Array<Scalars["DateTime"]>>;
-};
-
-export type EnumCentreAffiliationTypeFilter = {
-  equals?: InputMaybe<CentreAffiliationType>;
-  in?: InputMaybe<Array<CentreAffiliationType>>;
-  not?: InputMaybe<EnumCentreAffiliationTypeFilter>;
-  notIn?: InputMaybe<Array<CentreAffiliationType>>;
 };
 
 export type EnumGenderTypeFilter = {
@@ -198,6 +589,569 @@ export type EnumUserStatusFilter = {
   notIn?: InputMaybe<Array<UserStatus>>;
 };
 
+export type Event = {
+  __typename?: "Event";
+  /** The child events of this event, if this event is a parent event. */
+  childEvents: Array<Event>;
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
+  /** Event end date */
+  endDate: Scalars["DateTime"];
+  /** The event Abhisekhas for this event. */
+  eventAbhisekha: Array<EventAbhisekhaWithoutEvent>;
+  eventAbhisekhas: Array<EventAbhisekhaWithoutEvent>;
+  /** The event members for this event. */
+  eventMember: Array<EventMemberWithoutEvent>;
+  eventMembers: Array<EventMemberWithoutEvent>;
+  /** The event resources for this event. */
+  eventResource: Array<EventResourceWithoutEvent>;
+  eventResources: Array<EventResourceWithoutEvent>;
+  id: Scalars["Int"];
+  /** Identifies the date and time when the object was last deleted. */
+  isDeleted: Scalars["Boolean"];
+  /** After the event ends or at a certain specific time, the event is locked and event related details cannot be updated/deleted */
+  isLocked: Scalars["Boolean"];
+  /** Some notes related to the event */
+  notes?: Maybe<Scalars["String"]>;
+  /** The parent event, if this event is a child event. */
+  parentEvent?: Maybe<Event>;
+  /** The ID of the parent event, if this event is a child event. */
+  parentEventId?: Maybe<Scalars["Int"]>;
+  /** Event start date */
+  startDate: Scalars["DateTime"];
+  /** Type of the event */
+  type: Scalars["String"];
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
+};
+
+export type EventAbhisekhaCreateManyAbhishekaInput = {
+  eventId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventAbhisekhaCreateManyAbhishekaInputEnvelope = {
+  data: Array<EventAbhisekhaCreateManyAbhishekaInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventAbhisekhaCreateManyEventInput = {
+  abhishekaId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventAbhisekhaCreateManyEventInputEnvelope = {
+  data: Array<EventAbhisekhaCreateManyEventInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventAbhisekhaCreateNestedManyWithoutAbhishekaInput = {
+  connect?: InputMaybe<Array<EventAbhisekhaWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventAbhisekhaCreateOrConnectWithoutAbhishekaInput>
+  >;
+  create?: InputMaybe<Array<EventAbhisekhaCreateWithoutAbhishekaInput>>;
+  createMany?: InputMaybe<EventAbhisekhaCreateManyAbhishekaInputEnvelope>;
+};
+
+export type EventAbhisekhaCreateNestedManyWithoutEventInput = {
+  connect?: InputMaybe<Array<EventAbhisekhaWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventAbhisekhaCreateOrConnectWithoutEventInput>
+  >;
+  create?: InputMaybe<Array<EventAbhisekhaCreateWithoutEventInput>>;
+  createMany?: InputMaybe<EventAbhisekhaCreateManyEventInputEnvelope>;
+};
+
+export type EventAbhisekhaCreateOrConnectWithoutAbhishekaInput = {
+  create: EventAbhisekhaCreateWithoutAbhishekaInput;
+  where: EventAbhisekhaWhereUniqueInput;
+};
+
+export type EventAbhisekhaCreateOrConnectWithoutEventInput = {
+  create: EventAbhisekhaCreateWithoutEventInput;
+  where: EventAbhisekhaWhereUniqueInput;
+};
+
+export type EventAbhisekhaCreateWithoutAbhishekaInput = {
+  event: EventCreateNestedOneWithoutEventAbhisekhaInput;
+  type: Scalars["String"];
+};
+
+export type EventAbhisekhaCreateWithoutEventInput = {
+  abhisheka: AbhisekhaCreateNestedOneWithoutEventAbhisekhaInput;
+  type: Scalars["String"];
+};
+
+export type EventAbhisekhaEventIdAbhishekaIdCompoundUniqueInput = {
+  abhishekaId: Scalars["Int"];
+  eventId: Scalars["Int"];
+};
+
+export type EventAbhisekhaListRelationFilter = {
+  every?: InputMaybe<EventAbhisekhaWhereInput>;
+  none?: InputMaybe<EventAbhisekhaWhereInput>;
+  some?: InputMaybe<EventAbhisekhaWhereInput>;
+};
+
+export type EventAbhisekhaWhereInput = {
+  AND?: InputMaybe<Array<EventAbhisekhaWhereInput>>;
+  NOT?: InputMaybe<Array<EventAbhisekhaWhereInput>>;
+  OR?: InputMaybe<Array<EventAbhisekhaWhereInput>>;
+  abhisheka?: InputMaybe<AbhisekhaRelationFilter>;
+  abhishekaId?: InputMaybe<IntFilter>;
+  event?: InputMaybe<EventRelationFilter>;
+  eventId?: InputMaybe<IntFilter>;
+  type?: InputMaybe<StringFilter>;
+};
+
+export type EventAbhisekhaWhereUniqueInput = {
+  eventId_abhishekaId?: InputMaybe<EventAbhisekhaEventIdAbhishekaIdCompoundUniqueInput>;
+};
+
+export type EventAbhisekhaWithoutAbhisekha = {
+  __typename?: "EventAbhisekhaWithoutAbhisekha";
+  abhishekaId: Scalars["Int"];
+  event: Event;
+  eventId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventAbhisekhaWithoutEvent = {
+  __typename?: "EventAbhisekhaWithoutEvent";
+  abhisheka: Abhisekha;
+  abhishekaId: Scalars["Int"];
+  eventId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventCreateManyParentEventInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  endDate: Scalars["DateTime"];
+  id?: InputMaybe<Scalars["Int"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isLocked: Scalars["Boolean"];
+  notes?: InputMaybe<Scalars["String"]>;
+  startDate: Scalars["DateTime"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type EventCreateManyParentEventInputEnvelope = {
+  data: Array<EventCreateManyParentEventInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventCreateNestedManyWithoutParentEventInput = {
+  connect?: InputMaybe<Array<EventWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventCreateOrConnectWithoutParentEventInput>
+  >;
+  create?: InputMaybe<Array<EventCreateWithoutParentEventInput>>;
+  createMany?: InputMaybe<EventCreateManyParentEventInputEnvelope>;
+};
+
+export type EventCreateNestedOneWithoutChildEventsInput = {
+  connect?: InputMaybe<EventWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<EventCreateOrConnectWithoutChildEventsInput>;
+  create?: InputMaybe<EventCreateWithoutChildEventsInput>;
+};
+
+export type EventCreateNestedOneWithoutEventAbhisekhaInput = {
+  connect?: InputMaybe<EventWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<EventCreateOrConnectWithoutEventAbhisekhaInput>;
+  create?: InputMaybe<EventCreateWithoutEventAbhisekhaInput>;
+};
+
+export type EventCreateNestedOneWithoutEventMemberInput = {
+  connect?: InputMaybe<EventWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<EventCreateOrConnectWithoutEventMemberInput>;
+  create?: InputMaybe<EventCreateWithoutEventMemberInput>;
+};
+
+export type EventCreateNestedOneWithoutEventResourceInput = {
+  connect?: InputMaybe<EventWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<EventCreateOrConnectWithoutEventResourceInput>;
+  create?: InputMaybe<EventCreateWithoutEventResourceInput>;
+};
+
+export type EventCreateOrConnectWithoutChildEventsInput = {
+  create: EventCreateWithoutChildEventsInput;
+  where: EventWhereUniqueInput;
+};
+
+export type EventCreateOrConnectWithoutEventAbhisekhaInput = {
+  create: EventCreateWithoutEventAbhisekhaInput;
+  where: EventWhereUniqueInput;
+};
+
+export type EventCreateOrConnectWithoutEventMemberInput = {
+  create: EventCreateWithoutEventMemberInput;
+  where: EventWhereUniqueInput;
+};
+
+export type EventCreateOrConnectWithoutEventResourceInput = {
+  create: EventCreateWithoutEventResourceInput;
+  where: EventWhereUniqueInput;
+};
+
+export type EventCreateOrConnectWithoutParentEventInput = {
+  create: EventCreateWithoutParentEventInput;
+  where: EventWhereUniqueInput;
+};
+
+export type EventCreateWithoutChildEventsInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  endDate: Scalars["DateTime"];
+  eventAbhisekha?: InputMaybe<EventAbhisekhaCreateNestedManyWithoutEventInput>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutEventInput>;
+  eventResource?: InputMaybe<EventResourceCreateNestedManyWithoutEventInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isLocked: Scalars["Boolean"];
+  notes?: InputMaybe<Scalars["String"]>;
+  parentEvent?: InputMaybe<EventCreateNestedOneWithoutChildEventsInput>;
+  startDate: Scalars["DateTime"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type EventCreateWithoutEventAbhisekhaInput = {
+  childEvents?: InputMaybe<EventCreateNestedManyWithoutParentEventInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  endDate: Scalars["DateTime"];
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutEventInput>;
+  eventResource?: InputMaybe<EventResourceCreateNestedManyWithoutEventInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isLocked: Scalars["Boolean"];
+  notes?: InputMaybe<Scalars["String"]>;
+  parentEvent?: InputMaybe<EventCreateNestedOneWithoutChildEventsInput>;
+  startDate: Scalars["DateTime"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type EventCreateWithoutEventMemberInput = {
+  childEvents?: InputMaybe<EventCreateNestedManyWithoutParentEventInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  endDate: Scalars["DateTime"];
+  eventAbhisekha?: InputMaybe<EventAbhisekhaCreateNestedManyWithoutEventInput>;
+  eventResource?: InputMaybe<EventResourceCreateNestedManyWithoutEventInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isLocked: Scalars["Boolean"];
+  notes?: InputMaybe<Scalars["String"]>;
+  parentEvent?: InputMaybe<EventCreateNestedOneWithoutChildEventsInput>;
+  startDate: Scalars["DateTime"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type EventCreateWithoutEventResourceInput = {
+  childEvents?: InputMaybe<EventCreateNestedManyWithoutParentEventInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  endDate: Scalars["DateTime"];
+  eventAbhisekha?: InputMaybe<EventAbhisekhaCreateNestedManyWithoutEventInput>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutEventInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isLocked: Scalars["Boolean"];
+  notes?: InputMaybe<Scalars["String"]>;
+  parentEvent?: InputMaybe<EventCreateNestedOneWithoutChildEventsInput>;
+  startDate: Scalars["DateTime"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type EventCreateWithoutParentEventInput = {
+  childEvents?: InputMaybe<EventCreateNestedManyWithoutParentEventInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  endDate: Scalars["DateTime"];
+  eventAbhisekha?: InputMaybe<EventAbhisekhaCreateNestedManyWithoutEventInput>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutEventInput>;
+  eventResource?: InputMaybe<EventResourceCreateNestedManyWithoutEventInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isLocked: Scalars["Boolean"];
+  notes?: InputMaybe<Scalars["String"]>;
+  startDate: Scalars["DateTime"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type EventListRelationFilter = {
+  every?: InputMaybe<EventWhereInput>;
+  none?: InputMaybe<EventWhereInput>;
+  some?: InputMaybe<EventWhereInput>;
+};
+
+export type EventMemberCreateManyEventInput = {
+  hasAttended: Scalars["Boolean"];
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventMemberCreateManyEventInputEnvelope = {
+  data: Array<EventMemberCreateManyEventInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventMemberCreateManyMemberInput = {
+  eventId: Scalars["Int"];
+  hasAttended: Scalars["Boolean"];
+  type: Scalars["String"];
+};
+
+export type EventMemberCreateManyMemberInputEnvelope = {
+  data: Array<EventMemberCreateManyMemberInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventMemberCreateNestedManyWithoutEventInput = {
+  connect?: InputMaybe<Array<EventMemberWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventMemberCreateOrConnectWithoutEventInput>
+  >;
+  create?: InputMaybe<Array<EventMemberCreateWithoutEventInput>>;
+  createMany?: InputMaybe<EventMemberCreateManyEventInputEnvelope>;
+};
+
+export type EventMemberCreateNestedManyWithoutMemberInput = {
+  connect?: InputMaybe<Array<EventMemberWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventMemberCreateOrConnectWithoutMemberInput>
+  >;
+  create?: InputMaybe<Array<EventMemberCreateWithoutMemberInput>>;
+  createMany?: InputMaybe<EventMemberCreateManyMemberInputEnvelope>;
+};
+
+export type EventMemberCreateOrConnectWithoutEventInput = {
+  create: EventMemberCreateWithoutEventInput;
+  where: EventMemberWhereUniqueInput;
+};
+
+export type EventMemberCreateOrConnectWithoutMemberInput = {
+  create: EventMemberCreateWithoutMemberInput;
+  where: EventMemberWhereUniqueInput;
+};
+
+export type EventMemberCreateWithoutEventInput = {
+  hasAttended: Scalars["Boolean"];
+  member: MemberCreateNestedOneWithoutEventMemberInput;
+  type: Scalars["String"];
+};
+
+export type EventMemberCreateWithoutMemberInput = {
+  event: EventCreateNestedOneWithoutEventMemberInput;
+  hasAttended: Scalars["Boolean"];
+  type: Scalars["String"];
+};
+
+export type EventMemberDetails = {
+  hasAttended: Scalars["Boolean"];
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventMemberListRelationFilter = {
+  every?: InputMaybe<EventMemberWhereInput>;
+  none?: InputMaybe<EventMemberWhereInput>;
+  some?: InputMaybe<EventMemberWhereInput>;
+};
+
+export type EventMemberMemberIdEventIdCompoundUniqueInput = {
+  eventId: Scalars["Int"];
+  memberId: Scalars["Int"];
+};
+
+export type EventMemberWhereInput = {
+  AND?: InputMaybe<Array<EventMemberWhereInput>>;
+  NOT?: InputMaybe<Array<EventMemberWhereInput>>;
+  OR?: InputMaybe<Array<EventMemberWhereInput>>;
+  event?: InputMaybe<EventRelationFilter>;
+  eventId?: InputMaybe<IntFilter>;
+  hasAttended?: InputMaybe<BoolFilter>;
+  member?: InputMaybe<MemberRelationFilter>;
+  memberId?: InputMaybe<IntFilter>;
+  type?: InputMaybe<StringFilter>;
+};
+
+export type EventMemberWhereUniqueInput = {
+  memberId_eventId?: InputMaybe<EventMemberMemberIdEventIdCompoundUniqueInput>;
+};
+
+export type EventMemberWithoutEvent = {
+  __typename?: "EventMemberWithoutEvent";
+  eventId: Scalars["Int"];
+  hasAttended: Scalars["Boolean"];
+  member: Member;
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventMemberWithoutMember = {
+  __typename?: "EventMemberWithoutMember";
+  event: Event;
+  eventId: Scalars["Int"];
+  hasAttended: Scalars["Boolean"];
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventRelationFilter = {
+  is?: InputMaybe<EventWhereInput>;
+  isNot?: InputMaybe<EventWhereInput>;
+};
+
+export type EventResourceCreateManyEventInput = {
+  resourceId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventResourceCreateManyEventInputEnvelope = {
+  data: Array<EventResourceCreateManyEventInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventResourceCreateManyResourceInput = {
+  eventId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventResourceCreateManyResourceInputEnvelope = {
+  data: Array<EventResourceCreateManyResourceInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type EventResourceCreateNestedManyWithoutEventInput = {
+  connect?: InputMaybe<Array<EventResourceWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventResourceCreateOrConnectWithoutEventInput>
+  >;
+  create?: InputMaybe<Array<EventResourceCreateWithoutEventInput>>;
+  createMany?: InputMaybe<EventResourceCreateManyEventInputEnvelope>;
+};
+
+export type EventResourceCreateNestedManyWithoutResourceInput = {
+  connect?: InputMaybe<Array<EventResourceWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<EventResourceCreateOrConnectWithoutResourceInput>
+  >;
+  create?: InputMaybe<Array<EventResourceCreateWithoutResourceInput>>;
+  createMany?: InputMaybe<EventResourceCreateManyResourceInputEnvelope>;
+};
+
+export type EventResourceCreateOrConnectWithoutEventInput = {
+  create: EventResourceCreateWithoutEventInput;
+  where: EventResourceWhereUniqueInput;
+};
+
+export type EventResourceCreateOrConnectWithoutResourceInput = {
+  create: EventResourceCreateWithoutResourceInput;
+  where: EventResourceWhereUniqueInput;
+};
+
+export type EventResourceCreateWithoutEventInput = {
+  resource: ResourceCreateNestedOneWithoutEventResourceInput;
+  type: Scalars["String"];
+};
+
+export type EventResourceCreateWithoutResourceInput = {
+  event: EventCreateNestedOneWithoutEventResourceInput;
+  type: Scalars["String"];
+};
+
+export type EventResourceEventIdResourceIdCompoundUniqueInput = {
+  eventId: Scalars["Int"];
+  resourceId: Scalars["Int"];
+};
+
+export type EventResourceListRelationFilter = {
+  every?: InputMaybe<EventResourceWhereInput>;
+  none?: InputMaybe<EventResourceWhereInput>;
+  some?: InputMaybe<EventResourceWhereInput>;
+};
+
+export type EventResourceWhereInput = {
+  AND?: InputMaybe<Array<EventResourceWhereInput>>;
+  NOT?: InputMaybe<Array<EventResourceWhereInput>>;
+  OR?: InputMaybe<Array<EventResourceWhereInput>>;
+  event?: InputMaybe<EventRelationFilter>;
+  eventId?: InputMaybe<IntFilter>;
+  resource?: InputMaybe<ResourceRelationFilter>;
+  resourceId?: InputMaybe<IntFilter>;
+  type?: InputMaybe<StringFilter>;
+};
+
+export type EventResourceWhereUniqueInput = {
+  eventId_resourceId?: InputMaybe<EventResourceEventIdResourceIdCompoundUniqueInput>;
+};
+
+export type EventResourceWithoutEvent = {
+  __typename?: "EventResourceWithoutEvent";
+  eventId: Scalars["Int"];
+  resource: Resource;
+  resourceId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventResourceWithoutResource = {
+  __typename?: "EventResourceWithoutResource";
+  event: Event;
+  eventId: Scalars["Int"];
+  resourceId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type EventWhereInput = {
+  AND?: InputMaybe<Array<EventWhereInput>>;
+  NOT?: InputMaybe<Array<EventWhereInput>>;
+  OR?: InputMaybe<Array<EventWhereInput>>;
+  childEvents?: InputMaybe<EventListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  endDate?: InputMaybe<DateTimeFilter>;
+  eventAbhisekha?: InputMaybe<EventAbhisekhaListRelationFilter>;
+  eventMember?: InputMaybe<EventMemberListRelationFilter>;
+  eventResource?: InputMaybe<EventResourceListRelationFilter>;
+  id?: InputMaybe<IntFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
+  isLocked?: InputMaybe<BoolFilter>;
+  notes?: InputMaybe<StringFilter>;
+  parentEvent?: InputMaybe<EventRelationFilter>;
+  parentEventId?: InputMaybe<IntFilter>;
+  startDate?: InputMaybe<DateTimeFilter>;
+  type?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+};
+
+export type EventWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+};
+
 export enum GenderType {
   Female = "FEMALE",
   Male = "MALE",
@@ -220,10 +1174,10 @@ export type Group = {
   /** Identifies who created the object. */
   createdBy?: Maybe<Scalars["String"]>;
   description: Scalars["String"];
+  groupMembers: Array<MemberGroupWithoutGroup>;
   id: Scalars["Int"];
-  /** Identifies the date and time when the object was last updated. */
+  /** Identifies the date and time when the object was last deleted. */
   isDeleted: Scalars["Boolean"];
-  members: Array<Member>;
   name: Scalars["String"];
   /** Unique key associated with the object. */
   uniqueKey?: Maybe<Scalars["String"]>;
@@ -231,6 +1185,29 @@ export type Group = {
   updatedAt: Scalars["DateTime"];
   /** Identifies who made the last update to the object. */
   updatedBy?: Maybe<Scalars["String"]>;
+  visible: Scalars["Boolean"];
+};
+
+export type GroupCreateNestedOneWithoutMemberGroupsInput = {
+  connect?: InputMaybe<GroupWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<GroupCreateOrConnectWithoutMemberGroupsInput>;
+  create?: InputMaybe<GroupCreateWithoutMemberGroupsInput>;
+};
+
+export type GroupCreateOrConnectWithoutMemberGroupsInput = {
+  create: GroupCreateWithoutMemberGroupsInput;
+  where: GroupWhereUniqueInput;
+};
+
+export type GroupCreateWithoutMemberGroupsInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  description: Scalars["String"];
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  name: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
   visible: Scalars["Boolean"];
 };
 
@@ -248,12 +1225,17 @@ export type GroupWhereInput = {
   description?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
   isDeleted?: InputMaybe<BoolFilter>;
-  memberGroups?: InputMaybe<MemberGroupsListRelationFilter>;
+  memberGroups?: InputMaybe<MemberGroupListRelationFilter>;
   name?: InputMaybe<StringFilter>;
   uniqueKey?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedBy?: InputMaybe<StringFilter>;
   visible?: InputMaybe<BoolFilter>;
+};
+
+export type GroupWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
 };
 
 export type IntFilter = {
@@ -275,31 +1257,36 @@ export type LoginInput = {
 export type Member = {
   __typename?: "Member";
   active: Scalars["Boolean"];
-  centerAffiliation: CentreAffiliation_Type;
   centre?: Maybe<Centre>;
   centreId?: Maybe<Scalars["Int"]>;
   /** Identifies the date and time when the object was created. */
   createdAt: Scalars["DateTime"];
   /** Identifies who created the object. */
   createdBy?: Maybe<Scalars["String"]>;
-  currentAddress?: Maybe<Scalars["String"]>;
-  dob?: Maybe<Scalars["DateTime"]>;
+  currentAddress?: Maybe<Address>;
+  currentAddressId?: Maybe<Scalars["Int"]>;
   email?: Maybe<Scalars["String"]>;
+  events?: Maybe<Array<Event>>;
   firstName: Scalars["String"];
   gender?: Maybe<Gender_Type>;
-  groups: Array<Group>;
   id: Scalars["Int"];
   insta?: Maybe<Scalars["String"]>;
-  /** Identifies the date and time when the object was last updated. */
+  /** Identifies the date and time when the object was last deleted. */
   isDeleted: Scalars["Boolean"];
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
+  memberAbhisekhas: Array<MemberAbhisekhaWithoutMember>;
+  memberEvents: Array<EventMemberWithoutMember>;
+  memberGroups: Array<MemberGroupWithoutMember>;
   membershipType?: Maybe<Membership_Type>;
   messenger?: Maybe<Scalars["String"]>;
   middleName?: Maybe<Scalars["String"]>;
-  permanentAddress?: Maybe<Scalars["String"]>;
-  phonePrimary?: Maybe<Scalars["String"]>;
-  phoneSecondary?: Maybe<Scalars["String"]>;
+  notes?: Maybe<Scalars["String"]>;
+  permanentAddress?: Maybe<Address>;
+  permanentAddressId?: Maybe<Scalars["Int"]>;
+  phoneLand?: Maybe<Scalars["String"]>;
+  phoneMobile?: Maybe<Scalars["String"]>;
+  phoneOther?: Maybe<Scalars["String"]>;
   photo?: Maybe<Scalars["String"]>;
   refugeName?: Maybe<Scalars["String"]>;
   sanghaJoinDate?: Maybe<Scalars["DateTime"]>;
@@ -312,24 +1299,482 @@ export type Member = {
   updatedBy?: Maybe<Scalars["String"]>;
   user?: Maybe<User>;
   viber?: Maybe<Scalars["String"]>;
+  yearOfBirth?: Maybe<Scalars["Int"]>;
 };
 
-export type MemberGroupsListRelationFilter = {
-  every?: InputMaybe<MemberGroupsWhereInput>;
-  none?: InputMaybe<MemberGroupsWhereInput>;
-  some?: InputMaybe<MemberGroupsWhereInput>;
+export type MemberAbhisekhaCreateManyAbhishekaInput = {
+  abhisekhaDate: Scalars["DateTime"];
+  abhisekhaPlace: Scalars["String"];
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
 };
 
-export type MemberGroupsWhereInput = {
-  AND?: InputMaybe<Array<MemberGroupsWhereInput>>;
-  NOT?: InputMaybe<Array<MemberGroupsWhereInput>>;
-  OR?: InputMaybe<Array<MemberGroupsWhereInput>>;
+export type MemberAbhisekhaCreateManyAbhishekaInputEnvelope = {
+  data: Array<MemberAbhisekhaCreateManyAbhishekaInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type MemberAbhisekhaCreateManyMemberInput = {
+  abhisekhaDate: Scalars["DateTime"];
+  abhisekhaPlace: Scalars["String"];
+  abhishekaId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type MemberAbhisekhaCreateManyMemberInputEnvelope = {
+  data: Array<MemberAbhisekhaCreateManyMemberInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type MemberAbhisekhaCreateNestedManyWithoutAbhishekaInput = {
+  connect?: InputMaybe<Array<MemberAbhisekhaWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<MemberAbhisekhaCreateOrConnectWithoutAbhishekaInput>
+  >;
+  create?: InputMaybe<Array<MemberAbhisekhaCreateWithoutAbhishekaInput>>;
+  createMany?: InputMaybe<MemberAbhisekhaCreateManyAbhishekaInputEnvelope>;
+};
+
+export type MemberAbhisekhaCreateNestedManyWithoutMemberInput = {
+  connect?: InputMaybe<Array<MemberAbhisekhaWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<MemberAbhisekhaCreateOrConnectWithoutMemberInput>
+  >;
+  create?: InputMaybe<Array<MemberAbhisekhaCreateWithoutMemberInput>>;
+  createMany?: InputMaybe<MemberAbhisekhaCreateManyMemberInputEnvelope>;
+};
+
+export type MemberAbhisekhaCreateOrConnectWithoutAbhishekaInput = {
+  create: MemberAbhisekhaCreateWithoutAbhishekaInput;
+  where: MemberAbhisekhaWhereUniqueInput;
+};
+
+export type MemberAbhisekhaCreateOrConnectWithoutMemberInput = {
+  create: MemberAbhisekhaCreateWithoutMemberInput;
+  where: MemberAbhisekhaWhereUniqueInput;
+};
+
+export type MemberAbhisekhaCreateWithoutAbhishekaInput = {
+  abhisekhaDate: Scalars["DateTime"];
+  abhisekhaPlace: Scalars["String"];
+  member: MemberCreateNestedOneWithoutMemberAbhisekhaInput;
+  type: Scalars["String"];
+};
+
+export type MemberAbhisekhaCreateWithoutMemberInput = {
+  abhisekhaDate: Scalars["DateTime"];
+  abhisekhaPlace: Scalars["String"];
+  abhisheka: AbhisekhaCreateNestedOneWithoutMemberAbhisekhaInput;
+  type: Scalars["String"];
+};
+
+export type MemberAbhisekhaDetails = {
+  /** Date of abhisekha */
+  abhisekhaDate: Scalars["String"];
+  /** Id of member who attended the abhisekha */
+  abhisekhaId: Scalars["Int"];
+  /** Place of abhisekha */
+  abhisekhaPlace: Scalars["String"];
+  /** Member attending the Abhisekha type eg: Peripheral */
+  type: Scalars["String"];
+};
+
+export type MemberAbhisekhaListRelationFilter = {
+  every?: InputMaybe<MemberAbhisekhaWhereInput>;
+  none?: InputMaybe<MemberAbhisekhaWhereInput>;
+  some?: InputMaybe<MemberAbhisekhaWhereInput>;
+};
+
+export type MemberAbhisekhaMemberIdAbhishekaIdCompoundUniqueInput = {
+  abhishekaId: Scalars["Int"];
+  memberId: Scalars["Int"];
+};
+
+export type MemberAbhisekhaWhereInput = {
+  AND?: InputMaybe<Array<MemberAbhisekhaWhereInput>>;
+  NOT?: InputMaybe<Array<MemberAbhisekhaWhereInput>>;
+  OR?: InputMaybe<Array<MemberAbhisekhaWhereInput>>;
+  abhisekhaDate?: InputMaybe<DateTimeFilter>;
+  abhisekhaPlace?: InputMaybe<StringFilter>;
+  abhisheka?: InputMaybe<AbhisekhaRelationFilter>;
+  abhishekaId?: InputMaybe<IntFilter>;
+  member?: InputMaybe<MemberRelationFilter>;
+  memberId?: InputMaybe<IntFilter>;
+  type?: InputMaybe<StringFilter>;
+};
+
+export type MemberAbhisekhaWhereUniqueInput = {
+  memberId_abhishekaId?: InputMaybe<MemberAbhisekhaMemberIdAbhishekaIdCompoundUniqueInput>;
+};
+
+export type MemberAbhisekhaWithoutAbhisekha = {
+  __typename?: "MemberAbhisekhaWithoutAbhisekha";
+  abhisekhaDate: Scalars["DateTime"];
+  abhisekhaPlace: Scalars["String"];
+  abhishekaId: Scalars["Int"];
+  member: Member;
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type MemberAbhisekhaWithoutMember = {
+  __typename?: "MemberAbhisekhaWithoutMember";
+  abhisekhaDate: Scalars["DateTime"];
+  abhisekhaPlace: Scalars["String"];
+  abhisheka: Abhisekha;
+  abhishekaId: Scalars["Int"];
+  memberId: Scalars["Int"];
+  type: Scalars["String"];
+};
+
+export type MemberCreateManyAddressInput = {
+  active?: InputMaybe<Scalars["Boolean"]>;
+  centreId?: InputMaybe<Scalars["Int"]>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  currentAddressId?: InputMaybe<Scalars["Int"]>;
+  email?: InputMaybe<Scalars["String"]>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<GenderType>;
+  id?: InputMaybe<Scalars["Int"]>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  membershipType?: InputMaybe<MembershipType>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddressId?: InputMaybe<Scalars["Int"]>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MemberCreateManyAddressInputEnvelope = {
+  data: Array<MemberCreateManyAddressInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type MemberCreateNestedManyWithoutAddressInput = {
+  connect?: InputMaybe<Array<MemberWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<Array<MemberCreateOrConnectWithoutAddressInput>>;
+  create?: InputMaybe<Array<MemberCreateWithoutAddressInput>>;
+  createMany?: InputMaybe<MemberCreateManyAddressInputEnvelope>;
+};
+
+export type MemberCreateNestedOneWithoutCurrentAddressInput = {
+  connect?: InputMaybe<MemberWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<MemberCreateOrConnectWithoutCurrentAddressInput>;
+  create?: InputMaybe<MemberCreateWithoutCurrentAddressInput>;
+};
+
+export type MemberCreateNestedOneWithoutEventMemberInput = {
+  connect?: InputMaybe<MemberWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<MemberCreateOrConnectWithoutEventMemberInput>;
+  create?: InputMaybe<MemberCreateWithoutEventMemberInput>;
+};
+
+export type MemberCreateNestedOneWithoutMemberAbhisekhaInput = {
+  connect?: InputMaybe<MemberWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<MemberCreateOrConnectWithoutMemberAbhisekhaInput>;
+  create?: InputMaybe<MemberCreateWithoutMemberAbhisekhaInput>;
+};
+
+export type MemberCreateNestedOneWithoutPermanentAddressInput = {
+  connect?: InputMaybe<MemberWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<MemberCreateOrConnectWithoutPermanentAddressInput>;
+  create?: InputMaybe<MemberCreateWithoutPermanentAddressInput>;
+};
+
+export type MemberCreateOrConnectWithoutAddressInput = {
+  create: MemberCreateWithoutAddressInput;
+  where: MemberWhereUniqueInput;
+};
+
+export type MemberCreateOrConnectWithoutCurrentAddressInput = {
+  create: MemberCreateWithoutCurrentAddressInput;
+  where: MemberWhereUniqueInput;
+};
+
+export type MemberCreateOrConnectWithoutEventMemberInput = {
+  create: MemberCreateWithoutEventMemberInput;
+  where: MemberWhereUniqueInput;
+};
+
+export type MemberCreateOrConnectWithoutMemberAbhisekhaInput = {
+  create: MemberCreateWithoutMemberAbhisekhaInput;
+  where: MemberWhereUniqueInput;
+};
+
+export type MemberCreateOrConnectWithoutPermanentAddressInput = {
+  create: MemberCreateWithoutPermanentAddressInput;
+  where: MemberWhereUniqueInput;
+};
+
+export type MemberCreateWithoutAddressInput = {
+  active?: InputMaybe<Scalars["Boolean"]>;
+  centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  email?: InputMaybe<Scalars["String"]>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<GenderType>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
+  memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  membershipType?: InputMaybe<MembershipType>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
+  viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MemberCreateWithoutCurrentAddressInput = {
+  active?: InputMaybe<Scalars["Boolean"]>;
+  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
+  centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  email?: InputMaybe<Scalars["String"]>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<GenderType>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
+  memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  membershipType?: InputMaybe<MembershipType>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
+  viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MemberCreateWithoutEventMemberInput = {
+  active?: InputMaybe<Scalars["Boolean"]>;
+  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
+  centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  email?: InputMaybe<Scalars["String"]>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<GenderType>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
+  memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  membershipType?: InputMaybe<MembershipType>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
+  viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MemberCreateWithoutMemberAbhisekhaInput = {
+  active?: InputMaybe<Scalars["Boolean"]>;
+  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
+  centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  email?: InputMaybe<Scalars["String"]>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<GenderType>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  membershipType?: InputMaybe<MembershipType>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
+  viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MemberCreateWithoutPermanentAddressInput = {
+  active?: InputMaybe<Scalars["Boolean"]>;
+  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
+  centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  email?: InputMaybe<Scalars["String"]>;
+  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
+  firstName: Scalars["String"];
+  gender?: InputMaybe<GenderType>;
+  insta?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName: Scalars["String"];
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
+  memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  membershipType?: InputMaybe<MembershipType>;
+  messenger?: InputMaybe<Scalars["String"]>;
+  middleName?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
+  photo?: InputMaybe<Scalars["String"]>;
+  refugeName?: InputMaybe<Scalars["String"]>;
+  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
+  title?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
+  viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type MemberGroupCreateManyMemberInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  groupId: Scalars["Int"];
+};
+
+export type MemberGroupCreateManyMemberInputEnvelope = {
+  data: Array<MemberGroupCreateManyMemberInput>;
+  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
+};
+
+export type MemberGroupCreateNestedManyWithoutMemberInput = {
+  connect?: InputMaybe<Array<MemberGroupWhereUniqueInput>>;
+  connectOrCreate?: InputMaybe<
+    Array<MemberGroupCreateOrConnectWithoutMemberInput>
+  >;
+  create?: InputMaybe<Array<MemberGroupCreateWithoutMemberInput>>;
+  createMany?: InputMaybe<MemberGroupCreateManyMemberInputEnvelope>;
+};
+
+export type MemberGroupCreateOrConnectWithoutMemberInput = {
+  create: MemberGroupCreateWithoutMemberInput;
+  where: MemberGroupWhereUniqueInput;
+};
+
+export type MemberGroupCreateWithoutMemberInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  group: GroupCreateNestedOneWithoutMemberGroupsInput;
+};
+
+export type MemberGroupListRelationFilter = {
+  every?: InputMaybe<MemberGroupWhereInput>;
+  none?: InputMaybe<MemberGroupWhereInput>;
+  some?: InputMaybe<MemberGroupWhereInput>;
+};
+
+export type MemberGroupMemberIdGroupIdCompoundUniqueInput = {
+  groupId: Scalars["Int"];
+  memberId: Scalars["Int"];
+};
+
+export type MemberGroupWhereInput = {
+  AND?: InputMaybe<Array<MemberGroupWhereInput>>;
+  NOT?: InputMaybe<Array<MemberGroupWhereInput>>;
+  OR?: InputMaybe<Array<MemberGroupWhereInput>>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
   group?: InputMaybe<GroupRelationFilter>;
   groupId?: InputMaybe<IntFilter>;
   member?: InputMaybe<MemberRelationFilter>;
   memberId?: InputMaybe<IntFilter>;
+};
+
+export type MemberGroupWhereUniqueInput = {
+  memberId_groupId?: InputMaybe<MemberGroupMemberIdGroupIdCompoundUniqueInput>;
+};
+
+export type MemberGroupWithoutGroup = {
+  __typename?: "MemberGroupWithoutGroup";
+  createdAt: Scalars["DateTime"];
+  createdBy?: Maybe<Scalars["String"]>;
+  groupId: Scalars["Int"];
+  member: Member;
+  memberId: Scalars["Int"];
+};
+
+export type MemberGroupWithoutMember = {
+  __typename?: "MemberGroupWithoutMember";
+  createdAt: Scalars["DateTime"];
+  createdBy?: Maybe<Scalars["String"]>;
+  group: Group;
+  groupId: Scalars["Int"];
+  memberId: Scalars["Int"];
 };
 
 export type MemberListRelationFilter = {
@@ -348,14 +1793,16 @@ export type MemberWhereInput = {
   NOT?: InputMaybe<Array<MemberWhereInput>>;
   OR?: InputMaybe<Array<MemberWhereInput>>;
   active?: InputMaybe<BoolFilter>;
-  centerAffiliation?: InputMaybe<EnumCentreAffiliationTypeFilter>;
+  address?: InputMaybe<AddressRelationFilter>;
+  addressid?: InputMaybe<IntFilter>;
   centre?: InputMaybe<CentreRelationFilter>;
   centreId?: InputMaybe<IntFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
-  currentAddress?: InputMaybe<StringFilter>;
-  dob?: InputMaybe<DateTimeFilter>;
+  currentAddress?: InputMaybe<AddressRelationFilter>;
+  currentAddressId?: InputMaybe<IntFilter>;
   email?: InputMaybe<StringFilter>;
+  eventMember?: InputMaybe<EventMemberListRelationFilter>;
   firstName?: InputMaybe<StringFilter>;
   gender?: InputMaybe<EnumGenderTypeFilter>;
   id?: InputMaybe<IntFilter>;
@@ -363,13 +1810,17 @@ export type MemberWhereInput = {
   isDeleted?: InputMaybe<BoolFilter>;
   isMember?: InputMaybe<BoolFilter>;
   lastName?: InputMaybe<StringFilter>;
-  memberGroups?: InputMaybe<MemberGroupsListRelationFilter>;
+  memberAbhisekha?: InputMaybe<MemberAbhisekhaListRelationFilter>;
+  memberGroup?: InputMaybe<MemberGroupListRelationFilter>;
   membershipType?: InputMaybe<EnumMembershipTypeFilter>;
   messenger?: InputMaybe<StringFilter>;
   middleName?: InputMaybe<StringFilter>;
-  permanentAddress?: InputMaybe<StringFilter>;
-  phonePrimary?: InputMaybe<StringFilter>;
-  phoneSecondary?: InputMaybe<StringFilter>;
+  note?: InputMaybe<StringFilter>;
+  permanentAddress?: InputMaybe<AddressRelationFilter>;
+  permanentAddressId?: InputMaybe<IntFilter>;
+  phoneLand?: InputMaybe<StringFilter>;
+  phoneMobile?: InputMaybe<StringFilter>;
+  phoneOther?: InputMaybe<StringFilter>;
   photo?: InputMaybe<StringFilter>;
   refugeName?: InputMaybe<StringFilter>;
   sanghaJoinDate?: InputMaybe<DateTimeFilter>;
@@ -379,6 +1830,14 @@ export type MemberWhereInput = {
   updatedBy?: InputMaybe<StringFilter>;
   user?: InputMaybe<UserRelationFilter>;
   viber?: InputMaybe<StringFilter>;
+  yearOfBirth?: InputMaybe<IntFilter>;
+};
+
+export type MemberWhereUniqueInput = {
+  currentAddressId?: InputMaybe<Scalars["Int"]>;
+  id?: InputMaybe<Scalars["Int"]>;
+  permanentAddressId?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
 };
 
 export enum MembershipType {
@@ -399,24 +1858,35 @@ export enum Membership_Type {
 export type Mutation = {
   __typename?: "Mutation";
   changePassword: User;
-  createCentre: Centre;
+  createAbhisekha: Abhisekha;
+  createCentre: Address;
+  createEvent: Event;
   createGroup: Group;
   createMember: Member;
+  createResource: Resource;
   createRole: Role;
   createUser: User;
   initiateResetPassword: ResponseStatus;
   login: Auth;
   refreshToken: Token;
+  removeAbhisekha: Abhisekha;
+  removeAddress: Address;
   removeCentre: Centre;
+  removeEvent: Event;
   removeGroup: Group;
   removeMember: Member;
+  removeResource: Resource;
   removeRole: Role;
   removeUser: User;
   resetPassword: ResponseStatus;
   sendEmail: ResponseStatus;
+  updateAbhisekha: Abhisekha;
+  updateAddress: Address;
   updateCentre: Centre;
+  updateEvent: Event;
   updateGroup: Group;
   updateMember: Member;
+  updateResource: Resource;
   updateRole: Role;
 };
 
@@ -424,8 +1894,16 @@ export type MutationChangePasswordArgs = {
   data: ChangePasswordInput;
 };
 
+export type MutationCreateAbhisekhaArgs = {
+  createAbhisekhaInput: CreateAbhisekhaInput;
+};
+
 export type MutationCreateCentreArgs = {
-  createCentreInput: CreateCentreInput;
+  createAddressInput: AddressCreateInput;
+};
+
+export type MutationCreateEventArgs = {
+  createEventInput: CreateEventInput;
 };
 
 export type MutationCreateGroupArgs = {
@@ -434,6 +1912,10 @@ export type MutationCreateGroupArgs = {
 
 export type MutationCreateMemberArgs = {
   createMemberInput: CreateMemberInput;
+};
+
+export type MutationCreateResourceArgs = {
+  createResourceInput: CreateResourceInput;
 };
 
 export type MutationCreateRoleArgs = {
@@ -456,7 +1938,19 @@ export type MutationRefreshTokenArgs = {
   token: Scalars["JWT"];
 };
 
+export type MutationRemoveAbhisekhaArgs = {
+  id: Scalars["Int"];
+};
+
+export type MutationRemoveAddressArgs = {
+  id: Scalars["Int"];
+};
+
 export type MutationRemoveCentreArgs = {
+  id: Scalars["Int"];
+};
+
+export type MutationRemoveEventArgs = {
   id: Scalars["Int"];
 };
 
@@ -465,6 +1959,10 @@ export type MutationRemoveGroupArgs = {
 };
 
 export type MutationRemoveMemberArgs = {
+  id: Scalars["Int"];
+};
+
+export type MutationRemoveResourceArgs = {
   id: Scalars["Int"];
 };
 
@@ -484,8 +1982,20 @@ export type MutationSendEmailArgs = {
   sendEmailInput: SendEmailInput;
 };
 
+export type MutationUpdateAbhisekhaArgs = {
+  updateAbhisekhaInput: UpdateAbhisekhaInput;
+};
+
+export type MutationUpdateAddressArgs = {
+  updateAddressInput: UpdateAddressInput;
+};
+
 export type MutationUpdateCentreArgs = {
   updateCentreInput: UpdateCentreInput;
+};
+
+export type MutationUpdateEventArgs = {
+  updateEventInput: UpdateEventInput;
 };
 
 export type MutationUpdateGroupArgs = {
@@ -496,8 +2006,33 @@ export type MutationUpdateMemberArgs = {
   updateMemberInput: UpdateMemberInput;
 };
 
+export type MutationUpdateResourceArgs = {
+  updateResourceInput: UpdateResourceInput;
+};
+
 export type MutationUpdateRoleArgs = {
   updateRoleInput: UpdateRoleInput;
+};
+
+export type PasswordHistoryCreateNestedOneWithoutUserInput = {
+  connect?: InputMaybe<PasswordHistoryWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PasswordHistoryCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<PasswordHistoryCreateWithoutUserInput>;
+};
+
+export type PasswordHistoryCreateOrConnectWithoutUserInput = {
+  create: PasswordHistoryCreateWithoutUserInput;
+  where: PasswordHistoryWhereUniqueInput;
+};
+
+export type PasswordHistoryCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  password: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
 };
 
 export type PasswordHistoryRelationFilter = {
@@ -521,6 +2056,29 @@ export type PasswordHistoryWhereInput = {
   userId?: InputMaybe<IntFilter>;
 };
 
+export type PasswordHistoryWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  userId?: InputMaybe<Scalars["Int"]>;
+};
+
+export type PasswordTokenCreateNestedOneWithoutUserInput = {
+  connect?: InputMaybe<PasswordTokenWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<PasswordTokenCreateOrConnectWithoutUserInput>;
+  create?: InputMaybe<PasswordTokenCreateWithoutUserInput>;
+};
+
+export type PasswordTokenCreateOrConnectWithoutUserInput = {
+  create: PasswordTokenCreateWithoutUserInput;
+  where: PasswordTokenWhereUniqueInput;
+};
+
+export type PasswordTokenCreateWithoutUserInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  token: Scalars["String"];
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+};
+
 export type PasswordTokenRelationFilter = {
   is?: InputMaybe<PasswordTokenWhereInput>;
   isNot?: InputMaybe<PasswordTokenWhereInput>;
@@ -538,10 +2096,20 @@ export type PasswordTokenWhereInput = {
   userId?: InputMaybe<IntFilter>;
 };
 
+export type PasswordTokenWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  userId?: InputMaybe<Scalars["Int"]>;
+};
+
 export type Query = {
   __typename?: "Query";
+  abhisekha: Abhisekha;
+  abhisekhas: Array<Abhisekha>;
+  address: Address;
+  addresses: Array<Address>;
   centre: Centre;
   centres: Array<Centre>;
+  event: Event;
   group: Group;
   groups: Array<Group>;
   hello: Scalars["String"];
@@ -549,13 +2117,26 @@ export type Query = {
   me: User;
   member: Member;
   members: Array<Member>;
+  resource: Resource;
   role: Role;
   roles: Array<Role>;
   user: User;
   users: Array<User>;
 };
 
+export type QueryAbhisekhaArgs = {
+  id: Scalars["Int"];
+};
+
+export type QueryAddressArgs = {
+  id: Scalars["Int"];
+};
+
 export type QueryCentreArgs = {
+  id: Scalars["Int"];
+};
+
+export type QueryEventArgs = {
   id: Scalars["Int"];
 };
 
@@ -568,6 +2149,10 @@ export type QueryHelloArgs = {
 };
 
 export type QueryMemberArgs = {
+  id: Scalars["Int"];
+};
+
+export type QueryResourceArgs = {
   id: Scalars["Int"];
 };
 
@@ -593,6 +2178,112 @@ export type ResetPasswordInput = {
   userId: Scalars["Int"];
 };
 
+export type Resource = {
+  __typename?: "Resource";
+  /** Identifies the date and time when the object was created. */
+  createdAt: Scalars["DateTime"];
+  /** Identifies who created the object. */
+  createdBy?: Maybe<Scalars["String"]>;
+  /** Description of the resource */
+  description: Scalars["String"];
+  id: Scalars["Int"];
+  /** Identifies the date and time when the object was last deleted. */
+  isDeleted: Scalars["Boolean"];
+  /** Name of the resource */
+  name: Scalars["String"];
+  resourceAbhisekhas: Array<AbhisekhaResourceWithoutResource>;
+  resourceEvents: Array<EventResourceWithoutResource>;
+  /** Type of the resource */
+  type: Scalars["String"];
+  /** Unique key associated with the object. */
+  uniqueKey?: Maybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt: Scalars["DateTime"];
+  /** Identifies who made the last update to the object. */
+  updatedBy?: Maybe<Scalars["String"]>;
+  /** Url containing the resource data */
+  url: Scalars["String"];
+};
+
+export type ResourceCreateNestedOneWithoutAbhisekhaResourceInput = {
+  connect?: InputMaybe<ResourceWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ResourceCreateOrConnectWithoutAbhisekhaResourceInput>;
+  create?: InputMaybe<ResourceCreateWithoutAbhisekhaResourceInput>;
+};
+
+export type ResourceCreateNestedOneWithoutEventResourceInput = {
+  connect?: InputMaybe<ResourceWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<ResourceCreateOrConnectWithoutEventResourceInput>;
+  create?: InputMaybe<ResourceCreateWithoutEventResourceInput>;
+};
+
+export type ResourceCreateOrConnectWithoutAbhisekhaResourceInput = {
+  create: ResourceCreateWithoutAbhisekhaResourceInput;
+  where: ResourceWhereUniqueInput;
+};
+
+export type ResourceCreateOrConnectWithoutEventResourceInput = {
+  create: ResourceCreateWithoutEventResourceInput;
+  where: ResourceWhereUniqueInput;
+};
+
+export type ResourceCreateWithoutAbhisekhaResourceInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  description: Scalars["String"];
+  eventResource?: InputMaybe<EventResourceCreateNestedManyWithoutResourceInput>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  name: Scalars["String"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  url: Scalars["String"];
+};
+
+export type ResourceCreateWithoutEventResourceInput = {
+  abhisekhaResource?: InputMaybe<AbhisekhaResourceCreateNestedManyWithoutResourceInput>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  description: Scalars["String"];
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  name: Scalars["String"];
+  type: Scalars["String"];
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
+  url: Scalars["String"];
+};
+
+export type ResourceRelationFilter = {
+  is?: InputMaybe<ResourceWhereInput>;
+  isNot?: InputMaybe<ResourceWhereInput>;
+};
+
+export type ResourceWhereInput = {
+  AND?: InputMaybe<Array<ResourceWhereInput>>;
+  NOT?: InputMaybe<Array<ResourceWhereInput>>;
+  OR?: InputMaybe<Array<ResourceWhereInput>>;
+  abhisekhaResource?: InputMaybe<AbhisekhaResourceListRelationFilter>;
+  createdAt?: InputMaybe<DateTimeFilter>;
+  createdBy?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+  eventResource?: InputMaybe<EventResourceListRelationFilter>;
+  id?: InputMaybe<IntFilter>;
+  isDeleted?: InputMaybe<BoolFilter>;
+  name?: InputMaybe<StringFilter>;
+  type?: InputMaybe<StringFilter>;
+  uniqueKey?: InputMaybe<StringFilter>;
+  updatedAt?: InputMaybe<DateTimeFilter>;
+  updatedBy?: InputMaybe<StringFilter>;
+  url?: InputMaybe<StringFilter>;
+};
+
+export type ResourceWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+};
+
 export type ResponseStatus = {
   __typename?: "ResponseStatus";
   status: Scalars["String"];
@@ -605,7 +2296,7 @@ export type Role = {
   /** Identifies who created the object. */
   createdBy?: Maybe<Scalars["String"]>;
   id: Scalars["Int"];
-  /** Identifies the date and time when the object was last updated. */
+  /** Identifies the date and time when the object was last deleted. */
   isDeleted: Scalars["Boolean"];
   name: Scalars["String"];
   type: Role_Type;
@@ -616,6 +2307,28 @@ export type Role = {
   /** Identifies who made the last update to the object. */
   updatedBy?: Maybe<Scalars["String"]>;
   users: Array<User>;
+};
+
+export type RoleCreateNestedOneWithoutUsersInput = {
+  connect?: InputMaybe<RoleWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<RoleCreateOrConnectWithoutUsersInput>;
+  create?: InputMaybe<RoleCreateWithoutUsersInput>;
+};
+
+export type RoleCreateOrConnectWithoutUsersInput = {
+  create: RoleCreateWithoutUsersInput;
+  where: RoleWhereUniqueInput;
+};
+
+export type RoleCreateWithoutUsersInput = {
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  name: Scalars["String"];
+  roleType?: InputMaybe<Type>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
 };
 
 export type RoleRelationFilter = {
@@ -637,6 +2350,12 @@ export type RoleWhereInput = {
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedBy?: InputMaybe<StringFilter>;
   users?: InputMaybe<UserListRelationFilter>;
+};
+
+export type RoleWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<Scalars["String"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
 };
 
 /** Type of the role */
@@ -684,6 +2403,28 @@ export enum Type {
   System = "SYSTEM"
 }
 
+export type UpdateAbhisekhaInput = {
+  /** AbhisekhaMember details */
+  abhisekhaMemberDetails?: InputMaybe<Array<AbhisekhaMemberDetails>>;
+  /** Name of the abhisekha */
+  description?: InputMaybe<Scalars["String"]>;
+  id: Scalars["Int"];
+  /** Name of the abhisekha */
+  name?: InputMaybe<Scalars["String"]>;
+  /** Relevant resources for the abhisekha */
+  resourceIds?: InputMaybe<Array<Scalars["Int"]>>;
+  /** Name of the abhisekha */
+  teacher?: InputMaybe<Scalars["String"]>;
+};
+
+export type UpdateAddressInput = {
+  city?: InputMaybe<Scalars["String"]>;
+  country?: InputMaybe<Scalars["String"]>;
+  id: Scalars["Int"];
+  stateProvince?: InputMaybe<Scalars["String"]>;
+  street?: InputMaybe<Scalars["String"]>;
+};
+
 export type UpdateCentreInput = {
   city?: InputMaybe<Scalars["String"]>;
   country?: InputMaybe<Scalars["String"]>;
@@ -695,39 +2436,75 @@ export type UpdateCentreInput = {
   streetAddress?: InputMaybe<Scalars["String"]>;
 };
 
-export type UpdateGroupInput = {
-  description: Scalars["String"];
+export type UpdateEventInput = {
+  /** Identifies the date and time when the object was created. */
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  /** Identifies who created the object. */
+  createdBy?: InputMaybe<Scalars["String"]>;
+  /** Event end date */
+  endDate?: InputMaybe<Scalars["DateTime"]>;
+  /** Details of members attending the event */
+  eventMemberDetails?: InputMaybe<Array<EventMemberDetails>>;
   id: Scalars["Int"];
-  memberIds: Array<Scalars["Int"]>;
-  name: Scalars["String"];
-  visible: Scalars["Boolean"];
+  /** Identifies the date and time when the object was last deleted. */
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  /** After the event ends or at a certain specific time, the event is locked and event related details cannot be updated/deleted */
+  isLocked?: InputMaybe<Scalars["Boolean"]>;
+  /** Some notes related to the event */
+  notes?: InputMaybe<Scalars["String"]>;
+  /** Event start date */
+  startDate?: InputMaybe<Scalars["DateTime"]>;
+  /** Type of the event */
+  type?: InputMaybe<Scalars["String"]>;
+  /** Unique key associated with the object. */
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  /** Identifies the date and time when the object was last updated. */
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  /** Identifies who made the last update to the object. */
+  updatedBy?: InputMaybe<Scalars["String"]>;
+};
+
+export type UpdateGroupInput = {
+  description?: InputMaybe<Scalars["String"]>;
+  id: Scalars["Int"];
+  memberIds?: InputMaybe<Array<Scalars["Int"]>>;
+  name?: InputMaybe<Scalars["String"]>;
+  visible?: InputMaybe<Scalars["Boolean"]>;
 };
 
 export type UpdateMemberInput = {
-  active: Scalars["Boolean"];
-  centerAffiliation: Scalars["String"];
+  active?: InputMaybe<Scalars["Boolean"]>;
   centreId?: InputMaybe<Scalars["Int"]>;
-  currentAddress?: InputMaybe<Scalars["String"]>;
-  dob?: InputMaybe<Scalars["DateTime"]>;
+  currentAddressId?: InputMaybe<Scalars["Int"]>;
   email?: InputMaybe<Scalars["String"]>;
-  firstName: Scalars["String"];
+  firstName?: InputMaybe<Scalars["String"]>;
   gender?: InputMaybe<Scalars["String"]>;
   groupIds?: InputMaybe<Array<Scalars["Int"]>>;
   id: Scalars["Int"];
   insta?: InputMaybe<Scalars["String"]>;
-  isMember: Scalars["Boolean"];
-  lastName: Scalars["String"];
+  isMember?: InputMaybe<Scalars["Boolean"]>;
+  lastName?: InputMaybe<Scalars["String"]>;
+  memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
   membershipType?: InputMaybe<Scalars["String"]>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
-  permanentAddress?: InputMaybe<Scalars["String"]>;
-  phonePrimary?: InputMaybe<Scalars["String"]>;
-  phoneSecondary?: InputMaybe<Scalars["String"]>;
+  note?: InputMaybe<Scalars["String"]>;
+  permanentAddressId?: InputMaybe<Scalars["Int"]>;
+  phoneLand?: InputMaybe<Scalars["String"]>;
+  phoneMobile?: InputMaybe<Scalars["String"]>;
+  phoneOther?: InputMaybe<Scalars["String"]>;
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
   title?: InputMaybe<Scalars["String"]>;
   viber?: InputMaybe<Scalars["String"]>;
+  yearOfBirth?: InputMaybe<Scalars["Int"]>;
+};
+
+export type UpdateResourceInput = {
+  /** Example field (placeholder) */
+  exampleField?: InputMaybe<Scalars["Int"]>;
+  id: Scalars["Int"];
 };
 
 export type UpdateRoleInput = {
@@ -743,7 +2520,7 @@ export type User = {
   /** Identifies who created the object. */
   createdBy?: Maybe<Scalars["String"]>;
   id: Scalars["Int"];
-  /** Identifies the date and time when the object was last updated. */
+  /** Identifies the date and time when the object was last deleted. */
   isDeleted: Scalars["Boolean"];
   member: Member;
   memberId: Scalars["Int"];
@@ -755,6 +2532,33 @@ export type User = {
   updatedAt: Scalars["DateTime"];
   /** Identifies who made the last update to the object. */
   updatedBy?: Maybe<Scalars["String"]>;
+  userName: Scalars["String"];
+};
+
+export type UserCreateNestedOneWithoutMemberInput = {
+  connect?: InputMaybe<UserWhereUniqueInput>;
+  connectOrCreate?: InputMaybe<UserCreateOrConnectWithoutMemberInput>;
+  create?: InputMaybe<UserCreateWithoutMemberInput>;
+};
+
+export type UserCreateOrConnectWithoutMemberInput = {
+  create: UserCreateWithoutMemberInput;
+  where: UserWhereUniqueInput;
+};
+
+export type UserCreateWithoutMemberInput = {
+  avatar?: InputMaybe<Scalars["String"]>;
+  createdAt?: InputMaybe<Scalars["DateTime"]>;
+  createdBy?: InputMaybe<Scalars["String"]>;
+  isDeleted?: InputMaybe<Scalars["Boolean"]>;
+  password: Scalars["String"];
+  passwordHistory?: InputMaybe<PasswordHistoryCreateNestedOneWithoutUserInput>;
+  passwordToken?: InputMaybe<PasswordTokenCreateNestedOneWithoutUserInput>;
+  role: RoleCreateNestedOneWithoutUsersInput;
+  status?: InputMaybe<UserStatus>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  updatedAt?: InputMaybe<Scalars["DateTime"]>;
+  updatedBy?: InputMaybe<Scalars["String"]>;
   userName: Scalars["String"];
 };
 
@@ -795,6 +2599,13 @@ export type UserWhereInput = {
   updatedAt?: InputMaybe<DateTimeFilter>;
   updatedBy?: InputMaybe<StringFilter>;
   userName?: InputMaybe<StringFilter>;
+};
+
+export type UserWhereUniqueInput = {
+  id?: InputMaybe<Scalars["Int"]>;
+  memberId?: InputMaybe<Scalars["Int"]>;
+  uniqueKey?: InputMaybe<Scalars["String"]>;
+  userName?: InputMaybe<Scalars["String"]>;
 };
 
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
@@ -882,43 +2693,42 @@ export type GroupQuery = {
     visible: boolean;
     description: string;
     name: string;
-    members: Array<{
-      __typename?: "Member";
-      id: number;
-      firstName: string;
-      lastName: string;
-      middleName?: string | null;
-      centerAffiliation: CentreAffiliation_Type;
-      currentAddress?: string | null;
-      dob?: any | null;
-      email?: string | null;
-      createdAt: any;
-      gender?: Gender_Type | null;
-      insta?: string | null;
-      isMember: boolean;
-      active: boolean;
-      membershipType?: Membership_Type | null;
-      messenger?: string | null;
-      permanentAddress?: string | null;
-      phonePrimary?: string | null;
-      phoneSecondary?: string | null;
-      photo?: string | null;
-      refugeName?: string | null;
-      sanghaJoinDate?: any | null;
-      title?: string | null;
-      viber?: string | null;
-      user?: {
-        __typename?: "User";
+    groupMembers: Array<{
+      __typename?: "MemberGroupWithoutGroup";
+      member: {
+        __typename?: "Member";
         id: number;
-        userName: string;
-        status: Status;
-        role: { __typename?: "Role"; name: string };
-      } | null;
-      centre?: {
-        __typename?: "Centre";
-        id: number;
-        displayText?: string | null;
-      } | null;
+        firstName: string;
+        lastName: string;
+        middleName?: string | null;
+        email?: string | null;
+        createdAt: any;
+        gender?: Gender_Type | null;
+        phoneMobile?: string | null;
+        phoneLand?: string | null;
+        insta?: string | null;
+        isMember: boolean;
+        active: boolean;
+        membershipType?: Membership_Type | null;
+        messenger?: string | null;
+        photo?: string | null;
+        refugeName?: string | null;
+        sanghaJoinDate?: any | null;
+        title?: string | null;
+        viber?: string | null;
+        user?: {
+          __typename?: "User";
+          id: number;
+          userName: string;
+          status: Status;
+          role: { __typename?: "Role"; name: string };
+        } | null;
+        centre?: {
+          __typename?: "Centre";
+          id: number;
+          displayText?: string | null;
+        } | null;
+      };
     }>;
   };
 };
@@ -960,20 +2770,17 @@ export type MembersQuery = {
     firstName: string;
     lastName: string;
     middleName?: string | null;
-    centerAffiliation: CentreAffiliation_Type;
-    currentAddress?: string | null;
-    dob?: any | null;
     email?: string | null;
     createdAt: any;
     gender?: Gender_Type | null;
+    phoneLand?: string | null;
+    phoneMobile?: string | null;
+    phoneOther?: string | null;
     insta?: string | null;
     isMember: boolean;
     active: boolean;
     membershipType?: Membership_Type | null;
     messenger?: string | null;
-    permanentAddress?: string | null;
-    phonePrimary?: string | null;
-    phoneSecondary?: string | null;
     photo?: string | null;
     refugeName?: string | null;
     sanghaJoinDate?: any | null;
@@ -1006,10 +2813,6 @@ export type MemberQuery = {
     firstName: string;
     lastName: string;
     middleName?: string | null;
-    centerAffiliation: CentreAffiliation_Type;
-    centreId?: number | null;
-    currentAddress?: string | null;
-    dob?: any | null;
     email?: string | null;
     gender?: Gender_Type | null;
     insta?: string | null;
@@ -1017,9 +2820,6 @@ export type MemberQuery = {
     active: boolean;
     membershipType?: Membership_Type | null;
     messenger?: string | null;
-    permanentAddress?: string | null;
-    phonePrimary?: string | null;
-    phoneSecondary?: string | null;
     photo?: string | null;
     refugeName?: string | null;
     sanghaJoinDate?: any | null;
@@ -1161,6 +2961,364 @@ export default {
     },
     subscriptionType: null,
     types: [
+      {
+        kind: "OBJECT",
+        name: "Abhisekha",
+        fields: [
+          {
+            name: "abhisekhaEvents",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventAbhisekhaWithoutAbhisekha",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhisekhaMembers",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "MemberAbhisekhaWithoutAbhisekha",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhisekhaResources",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "AbhisekhaResourceWithoutAbhisekha",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "description",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "isDeleted",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "name",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "resources",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Resource",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "teacher",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "AbhisekhaResourceWithoutAbhisekha",
+        fields: [
+          {
+            name: "abhishekaId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "resource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Resource",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "resourceId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "AbhisekhaResourceWithoutResource",
+        fields: [
+          {
+            name: "abhisheka",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Abhisekha",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhishekaId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "resourceId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "Address",
+        fields: [
+          {
+            name: "city",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "country",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "stateProvince",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "street",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
       {
         kind: "OBJECT",
         name: "Auth",
@@ -1311,6 +3469,610 @@ export default {
       },
       {
         kind: "OBJECT",
+        name: "Event",
+        fields: [
+          {
+            name: "childEvents",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Event",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "endDate",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventAbhisekha",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventAbhisekhaWithoutEvent",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventAbhisekhas",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventAbhisekhaWithoutEvent",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventMember",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventMemberWithoutEvent",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventMembers",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventMemberWithoutEvent",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventResource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventResourceWithoutEvent",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventResources",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventResourceWithoutEvent",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "isDeleted",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "isLocked",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "notes",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "parentEvent",
+            type: {
+              kind: "OBJECT",
+              name: "Event",
+              ofType: null
+            },
+            args: []
+          },
+          {
+            name: "parentEventId",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "startDate",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "EventAbhisekhaWithoutAbhisekha",
+        fields: [
+          {
+            name: "abhishekaId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "event",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "EventAbhisekhaWithoutEvent",
+        fields: [
+          {
+            name: "abhisheka",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Abhisekha",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhishekaId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "EventMemberWithoutEvent",
+        fields: [
+          {
+            name: "eventId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "hasAttended",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "member",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "EventMemberWithoutMember",
+        fields: [
+          {
+            name: "event",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "hasAttended",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "EventResourceWithoutEvent",
+        fields: [
+          {
+            name: "eventId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "resource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Resource",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "resourceId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "EventResourceWithoutResource",
+        fields: [
+          {
+            name: "event",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "eventId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "resourceId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
         name: "Group",
         fields: [
           {
@@ -1344,6 +4106,24 @@ export default {
             args: []
           },
           {
+            name: "groupMembers",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "MemberGroupWithoutGroup",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
             name: "id",
             type: {
               kind: "NON_NULL",
@@ -1361,24 +4141,6 @@ export default {
               ofType: {
                 kind: "SCALAR",
                 name: "Any"
-              }
-            },
-            args: []
-          },
-          {
-            name: "members",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "Member",
-                    ofType: null
-                  }
-                }
               }
             },
             args: []
@@ -1451,17 +4213,6 @@ export default {
             args: []
           },
           {
-            name: "centerAffiliation",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "SCALAR",
-                name: "Any"
-              }
-            },
-            args: []
-          },
-          {
             name: "centre",
             type: {
               kind: "OBJECT",
@@ -1500,13 +4251,14 @@ export default {
           {
             name: "currentAddress",
             type: {
-              kind: "SCALAR",
-              name: "Any"
+              kind: "OBJECT",
+              name: "Address",
+              ofType: null
             },
             args: []
           },
           {
-            name: "dob",
+            name: "currentAddressId",
             type: {
               kind: "SCALAR",
               name: "Any"
@@ -1518,6 +4270,21 @@ export default {
             type: {
               kind: "SCALAR",
               name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "events",
+            type: {
+              kind: "LIST",
+              ofType: {
+                kind: "NON_NULL",
+                ofType: {
+                  kind: "OBJECT",
+                  name: "Event",
+                  ofType: null
+                }
+              }
             },
             args: []
           },
@@ -1537,24 +4304,6 @@ export default {
             type: {
               kind: "SCALAR",
               name: "Any"
-            },
-            args: []
-          },
-          {
-            name: "groups",
-            type: {
-              kind: "NON_NULL",
-              ofType: {
-                kind: "LIST",
-                ofType: {
-                  kind: "NON_NULL",
-                  ofType: {
-                    kind: "OBJECT",
-                    name: "Group",
-                    ofType: null
-                  }
-                }
-              }
             },
             args: []
           },
@@ -1611,6 +4360,60 @@ export default {
             args: []
           },
           {
+            name: "memberAbhisekhas",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "MemberAbhisekhaWithoutMember",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberEvents",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventMemberWithoutMember",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberGroups",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "MemberGroupWithoutMember",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
             name: "membershipType",
             type: {
               kind: "SCALAR",
@@ -1635,15 +4438,24 @@ export default {
             args: []
           },
           {
+            name: "notes",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "permanentAddress",
             type: {
-              kind: "SCALAR",
-              name: "Any"
+              kind: "OBJECT",
+              name: "Address",
+              ofType: null
             },
             args: []
           },
           {
-            name: "phonePrimary",
+            name: "permanentAddressId",
             type: {
               kind: "SCALAR",
               name: "Any"
@@ -1651,7 +4463,23 @@ export default {
             args: []
           },
           {
-            name: "phoneSecondary",
+            name: "phoneLand",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "phoneMobile",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "phoneOther",
             type: {
               kind: "SCALAR",
               name: "Any"
@@ -1733,6 +4561,282 @@ export default {
               name: "Any"
             },
             args: []
+          },
+          {
+            name: "yearOfBirth",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "MemberAbhisekhaWithoutAbhisekha",
+        fields: [
+          {
+            name: "abhisekhaDate",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhisekhaPlace",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhishekaId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "member",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "MemberAbhisekhaWithoutMember",
+        fields: [
+          {
+            name: "abhisekhaDate",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhisekhaPlace",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhisheka",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Abhisekha",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "abhishekaId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "MemberGroupWithoutGroup",
+        fields: [
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "groupId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "member",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Member",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "MemberGroupWithoutMember",
+        fields: [
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "group",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Group",
+                ofType: null
+              }
+            },
+            args: []
+          },
+          {
+            name: "groupId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberId",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
           }
         ],
         interfaces: []
@@ -1765,18 +4869,64 @@ export default {
             ]
           },
           {
-            name: "createCentre",
+            name: "createAbhisekha",
             type: {
               kind: "NON_NULL",
               ofType: {
                 kind: "OBJECT",
-                name: "Centre",
+                name: "Abhisekha",
                 ofType: null
               }
             },
             args: [
               {
-                name: "createCentreInput",
+                name: "createAbhisekhaInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "createCentre",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Address",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createAddressInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "createEvent",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createEventInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -1823,6 +4973,29 @@ export default {
             args: [
               {
                 name: "createMemberInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "createResource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Resource",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "createResourceInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -1949,12 +5122,81 @@ export default {
             ]
           },
           {
+            name: "removeAbhisekha",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Abhisekha",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "removeAddress",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Address",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "removeCentre",
             type: {
               kind: "NON_NULL",
               ofType: {
                 kind: "OBJECT",
                 name: "Centre",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "removeEvent",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
                 ofType: null
               }
             },
@@ -2001,6 +5243,29 @@ export default {
               ofType: {
                 kind: "OBJECT",
                 name: "Member",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "removeResource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Resource",
                 ofType: null
               }
             },
@@ -2110,6 +5375,52 @@ export default {
             ]
           },
           {
+            name: "updateAbhisekha",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Abhisekha",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "updateAbhisekhaInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "updateAddress",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Address",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "updateAddressInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "updateCentre",
             type: {
               kind: "NON_NULL",
@@ -2122,6 +5433,29 @@ export default {
             args: [
               {
                 name: "updateCentreInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "updateEvent",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "updateEventInput",
                 type: {
                   kind: "NON_NULL",
                   ofType: {
@@ -2179,6 +5513,29 @@ export default {
             ]
           },
           {
+            name: "updateResource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Resource",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "updateResourceInput",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "updateRole",
             type: {
               kind: "NON_NULL",
@@ -2208,6 +5565,88 @@ export default {
         kind: "OBJECT",
         name: "Query",
         fields: [
+          {
+            name: "abhisekha",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Abhisekha",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "abhisekhas",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Abhisekha",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "address",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Address",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            name: "addresses",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "Address",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
           {
             name: "centre",
             type: {
@@ -2248,6 +5687,29 @@ export default {
               }
             },
             args: []
+          },
+          {
+            name: "event",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Event",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
           },
           {
             name: "group",
@@ -2377,6 +5839,29 @@ export default {
             args: []
           },
           {
+            name: "resource",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "OBJECT",
+                name: "Resource",
+                ofType: null
+              }
+            },
+            args: [
+              {
+                name: "id",
+                type: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "SCALAR",
+                    name: "Any"
+                  }
+                }
+              }
+            ]
+          },
+          {
             name: "role",
             type: {
               kind: "NON_NULL",
@@ -2459,6 +5944,161 @@ export default {
                     ofType: null
                   }
                 }
+              }
+            },
+            args: []
+          }
+        ],
+        interfaces: []
+      },
+      {
+        kind: "OBJECT",
+        name: "Resource",
+        fields: [
+          {
+            name: "createdAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "createdBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "description",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "id",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "isDeleted",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "name",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "resourceAbhisekhas",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "AbhisekhaResourceWithoutResource",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "resourceEvents",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "LIST",
+                ofType: {
+                  kind: "NON_NULL",
+                  ofType: {
+                    kind: "OBJECT",
+                    name: "EventResourceWithoutResource",
+                    ofType: null
+                  }
+                }
+              }
+            },
+            args: []
+          },
+          {
+            name: "type",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "uniqueKey",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "updatedAt",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
+              }
+            },
+            args: []
+          },
+          {
+            name: "updatedBy",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "url",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
               }
             },
             args: []
@@ -2884,43 +6524,40 @@ export const GroupDocument = gql`
       visible
       description
       name
-      members {
-        id
-        firstName
-        lastName
-        middleName
-        centerAffiliation
-        currentAddress
-        dob
-        email
-        firstName
-        createdAt
-        gender
-        insta
-        isMember
-        active
-        membershipType
-        messenger
-        permanentAddress
-        currentAddress
-        phonePrimary
-        phoneSecondary
-        photo
-        refugeName
-        sanghaJoinDate
-        title
-        viber
-        user {
+      groupMembers {
+        member {
           id
-          userName
-          status
-          role {
-            name
+          firstName
+          lastName
+          middleName
+          email
+          firstName
+          createdAt
+          gender
+          phoneMobile
+          phoneLand
+          insta
+          isMember
+          active
+          membershipType
+          messenger
+          photo
+          refugeName
+          sanghaJoinDate
+          title
+          viber
+          user {
+            id
+            userName
+            status
+            role {
+              name
+            }
           }
-        }
-        centre {
-          id
-          displayText
+          centre {
+            id
+            displayText
+          }
         }
       }
     }
@@ -2978,22 +6615,18 @@ export const MembersDocument = gql`
       firstName
       lastName
       middleName
-      centerAffiliation
-      currentAddress
-      dob
       email
       firstName
       createdAt
       gender
+      phoneLand
+      phoneMobile
+      phoneOther
       insta
       isMember
       active
       membershipType
       messenger
-      permanentAddress
-      currentAddress
-      phonePrimary
-      phoneSecondary
       photo
       refugeName
       sanghaJoinDate
@@ -3027,10 +6660,6 @@ export const MemberDocument = gql`
       firstName
       lastName
       middleName
-      centerAffiliation
-      centreId
-      currentAddress
-      dob
       email
       firstName
       gender
@@ -3039,10 +6668,6 @@ export const MemberDocument = gql`
       active
       membershipType
       messenger
-      permanentAddress
-      currentAddress
-      phonePrimary
-      phoneSecondary
       photo
       refugeName
       sanghaJoinDate

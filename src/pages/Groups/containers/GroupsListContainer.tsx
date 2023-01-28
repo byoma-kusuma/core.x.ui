@@ -8,10 +8,17 @@ import Iconify from "../../../components/Iconify";
 import Label from "../../../components/Label";
 import {
   useGroupsQuery,
-  useDeleteGroupMutation
+  useDeleteGroupMutation,
+  GroupsQuery
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
-import { formatGroupListData } from "../utils";
+
+export function formatGroupListData(
+  data: GroupsQuery | undefined
+): GroupsQuery["groups"] {
+  if (!data) return [];
+  return data.groups;
+}
 
 export default function GroupsListContainer() {
   const context = React.useMemo(() => ({ additionalTypenames: ["Group"] }), []);

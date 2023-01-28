@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import symbols from "../../utils/symbols";
+import symbols from "../../utils/symbols/commonSymbols";
 import Spinner from "../Spinner";
 
 const RootStyle = styled("div")(({ theme }) => ({

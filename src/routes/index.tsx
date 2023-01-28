@@ -3,21 +3,23 @@ import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
 import Groups from "../pages/Groups";
-import Group from "../pages/Groups/CreateUpdateGroup";
-import GroupDetail from "../pages/Groups/GroupDetail";
+import Group from "../pages/Groups/CreateUpdateGroupPage";
+import GroupDetail from "../pages/Groups/GroupDetailPage";
 import Login from "../pages/Login";
 import NotFound404 from "../pages/NotFound404";
 import ResetPassword from "../pages/ResetPassword";
-import RequestResetPassword from "../pages/ResetPassword/RequestResetPassword";
+import RequestResetPassword from "../pages/ResetPassword/RequestResetPasswordPage";
 import Users from "../pages/Users";
-import User from "../pages/Users/User";
+import User from "../pages/Users/UserDetailPage";
 import Private from "./PrivateRoute";
 
 // use lazy imports for routes under app
 const AppLayout = React.lazy(() => import("../layouts/AppLayout"));
 const Dashboard = React.lazy(() => import("../pages/Dashboard"));
 const Members = React.lazy(() => import("../pages/Members"));
-const Member = React.lazy(() => import("../pages/Members/Member"));
+const CreateMember = React.lazy(
+  () => import("../pages/Members/CreateMemberPage")
+);
 
 export default [
   {
@@ -33,8 +35,8 @@ export default [
 
       // members routes
       { path: "members", element: <Members />, exact },
-      { path: "members/:id", element: <Member />, exact },
-      { path: "members/new", element: <Member />, exact },
+      { path: "members/:id", element: <CreateMember />, exact },
+      { path: "members/new", element: <CreateMember />, exact },
 
       // users routes
       { path: "users", element: <Users />, exact },

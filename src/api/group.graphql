@@ -15,43 +15,40 @@ query group($id: Int!) {
     visible
     description
     name
-    members {
-      id
-      firstName
-      lastName
-      middleName
-      centerAffiliation
-      currentAddress
-      dob
-      email
-      firstName
-      createdAt
-      gender
-      insta
-      isMember
-      active
-      membershipType
-      messenger
-      permanentAddress
-      currentAddress
-      phonePrimary
-      phoneSecondary
-      photo
-      refugeName
-      sanghaJoinDate
-      title
-      viber
-      user {
+    groupMembers {
+      member {
         id
-        userName
-        status
-        role {
-          name
+        firstName
+        lastName
+        middleName
+        email
+        firstName
+        createdAt
+        gender
+        phoneMobile
+        phoneLand
+        insta
+        isMember
+        active
+        membershipType
+        messenger
+        photo
+        refugeName
+        sanghaJoinDate
+        title
+        viber
+        user {
+          id
+          userName
+          status
+          role {
+            name
+          }
         }
-      }
-      centre {
-        id
-        displayText
+        centre {
+          id
+          displayText
+        }
       }
     }
   }
