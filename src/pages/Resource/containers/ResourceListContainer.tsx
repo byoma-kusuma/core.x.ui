@@ -1,44 +1,43 @@
 import { Box, IconButton, Typography } from "@mui/material";
-import { format } from "date-fns";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import CoolTable from "../../../components/CoolTable";
 import Iconify from "../../../components/Iconify";
 import {
-  useAbhisekhasQuery,
-  useDeleteAbhisekhaMutation,
-  AbhisekhasQuery
+  ResourcesQuery,
+  useResourcesQuery,
+  useDeleteResourceMutation
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
 
-export function formatAbhisekhaListData(
-  data: AbhisekhasQuery | undefined
-): AbhisekhasQuery["abhisekhas"] {
+export function formatResourceListData(
+  data: ResourcesQuery | undefined
+): ResourcesQuery["resources"] {
   if (!data) return [];
-  return data.abhisekhas;
+  return data.resources;
 }
 
-export default function AbhisekhasListContainer() {
+export default function ResourcesListContainer() {
   const context = React.useMemo(
-    () => ({ additionalTypenames: ["Abhisekha"] }),
+    () => ({ additionalTypenames: ["Resource"] }),
     []
   );
 
-  const [{ data, fetching, error }] = useAbhisekhasQuery({
+  const [{ data, fetching, error }] = useResourcesQuery({
     context
   });
 
-  const [, deleteAbhisekhaMut] = useDeleteAbhisekhaMutation();
+  const [, deleteResourceMut] = useDeleteResourceMutation();
 
   const confirm = useConfirm();
   const navigate = useNavigate();
 
-  const handleAbhisekhaDelete = (id: number, name: string) => {
+  const handleResourceDelete = (id: number, name: string) => {
     confirm({
       description: (
         <Typography>
-          Are you sure you want to remove <b>{name}</b> from abhisekhas?
+          Are you sure you want to remove <b>{name}</b> from resources?
         </Typography>
       ),
       title: "Delete Confirmation",
@@ -49,7 +48,7 @@ export default function AbhisekhasListContainer() {
       confirmationText: "Confirm"
     }).then(async () => {
       new GqlApiHandler(
-        await deleteAbhisekhaMut({
+        await deleteResourceMut({
           id
         })
       )
@@ -67,7 +66,7 @@ export default function AbhisekhasListContainer() {
       defaultOrderKey="name"
       defaultOrderDirection="asc"
       onSelectActionButtonClick={(data) => console.log(data)}
-      data={formatAbhisekhaListData(data)}
+      data={formatResourceListData(data)}
       filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
       dataSchema={[
         {
@@ -75,19 +74,15 @@ export default function AbhisekhasListContainer() {
           headerLabel: "Name"
         },
         {
-          id: "teacher",
-          headerLabel: "Teacher"
-        },
-        {
-          id: "createdAt",
-          headerLabel: "Created At",
+          id: "url",
+          headerLabel: "Resource URL",
           formatter(r) {
-            return format(new Date(r.createdAt), "MM/dd/yyyy");
+            return (
+              <a href={r.url} target="_blank" rel="noreferrer">
+                {r.url}
+              </a>
+            );
           }
-        },
-        {
-          id: "description",
-          headerLabel: "Description"
         },
         {
           id: "opt1",
@@ -97,7 +92,7 @@ export default function AbhisekhasListContainer() {
               <Box display="flex" justifyContent="flex-end">
                 <IconButton
                   onClick={() => {
-                    navigate(`/app/abhisekhas/${r.id}/details`);
+                    navigate(`/app/resources/${r.id}/details`);
                   }}
                 >
                   <Iconify
@@ -107,7 +102,7 @@ export default function AbhisekhasListContainer() {
                 </IconButton>
                 <IconButton
                   onClick={() => {
-                    navigate(`/app/abhisekhas/${r.id}`);
+                    navigate(`/app/resources/${r.id}`);
                   }}
                 >
                   <Iconify
@@ -117,7 +112,7 @@ export default function AbhisekhasListContainer() {
                 </IconButton>
                 <IconButton
                   onClick={() => {
-                    handleAbhisekhaDelete(r.id, r.name);
+                    handleResourceDelete(r.id, r.name);
                   }}
                 >
                   <Iconify

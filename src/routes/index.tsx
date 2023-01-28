@@ -12,6 +12,9 @@ import Login from "../pages/Login";
 import NotFound404 from "../pages/NotFound404";
 import ResetPassword from "../pages/ResetPassword";
 import RequestResetPassword from "../pages/ResetPassword/RequestResetPasswordPage";
+import Resources from "../pages/Resource";
+import CreateUpdateResourcePage from "../pages/Resource/CreateUpdateResourcePage";
+import ResourceDetailPage from "../pages/Resource/ResourceDetailPage";
 import Users from "../pages/Users";
 import User from "../pages/Users/UserDetailPage";
 import Private from "./PrivateRoute";
@@ -59,7 +62,27 @@ export default [
         path: "abhisekhas/:id/details",
         element: <AbhisekhaDetailPage />,
         exact
-      }
+      },
+
+      // resource routes
+      { path: "resources", element: <Resources />, exact },
+      { path: "resources/new", element: <CreateUpdateResourcePage />, exact },
+      { path: "resources/:id", element: <CreateUpdateResourcePage />, exact },
+      {
+        path: "resources/:id/details",
+        element: <ResourceDetailPage />,
+        exact
+      },
+
+      // events routes
+      { path: "events", element: <Resources />, exact }
+      // { path: "resources/new", element: <CreateUpdateResourcePage />, exact },
+      // { path: "resources/:id", element: <CreateUpdateResourcePage />, exact },
+      // {
+      //   path: "resources/:id/details",
+      //   element: <ResourceDetailPage />,
+      //   exact
+      // }
     ]
   },
   {

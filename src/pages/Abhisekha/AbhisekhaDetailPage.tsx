@@ -5,6 +5,7 @@ import PageWithHeader from "../../components/PageWithHeader";
 import TabComponentRenderer from "../../components/TabComponentRenderer";
 import { useAbhisekhaQuery } from "../../generated/graphql";
 import AbhisekhaDetailsMemberContainer from "./containers/AbhisekhaDetailsMemberContainer";
+import AbhisekhaDetailsResourceContainer from "./containers/AbhisekhaDetailsResourceContainer";
 
 export default function AbhisekhaDetailPage() {
   const { id } = useParams();
@@ -39,7 +40,7 @@ export default function AbhisekhaDetailPage() {
           {
             label: "Resources",
             key: "Resources",
-            component: <div>Hiii</div>
+            component: <AbhisekhaDetailsResourceContainer />
           }
         ]}
       />

@@ -36,6 +36,11 @@ const navConfig: Array<NavigationItem> = [
     path: "/app/abhisekhas",
     icon: getIcon("eva:award-outline")
   },
+  {
+    title: "resources",
+    path: "/app/resources",
+    icon: getIcon("eva:file-add-fill")
+  },
   { title: "New Section", path: "", icon: "", type: "grouper" },
   {
     title: "New Page",

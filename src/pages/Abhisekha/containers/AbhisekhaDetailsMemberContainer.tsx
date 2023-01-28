@@ -70,6 +70,7 @@ export default function AbhisekhaDetailsMemberContainer() {
             "updatedAt",
             "createdAt",
             "abhisekhaMembers",
+            "abhisekhaResources",
             "__typename"
           ]),
           abhisekhaMemberDetails
