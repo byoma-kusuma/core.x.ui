@@ -13,12 +13,27 @@ import CoolTable from "../../../components/CoolTable";
 import Iconify from "../../../components/Iconify";
 import Label from "../../../components/Label";
 import {
+  MembersQuery,
   Status,
   useDeleteMemberMutation,
   useMembersQuery
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
-import { formatMemberListData } from "../utils";
+import { getMemberFullName } from "../../../utils/member";
+
+export function formatMemberListData(data: MembersQuery | undefined) {
+  if (!data) return [];
+  return data.members.map((r) => ({
+    ...r,
+    fullName: getMemberFullName(r),
+    combinedPhone:
+      r.phoneLand && r.phoneMobile
+        ? `${r.phoneMobile}, ${r.phoneLand}`
+        : r.phoneMobile || r.phoneLand,
+    userName: r.user?.userName,
+    userStatus: r.user?.status
+  }));
+}
 
 export default function MembersListContainer() {
   const [{ data, fetching, error }] = useMembersQuery();
@@ -146,11 +161,6 @@ export default function MembersListContainer() {
               />
             );
           }
-        },
-        {
-          id: "currentAddress",
-          headerLabel: "Current Address",
-          placeholder: "-"
         },
         {
           id: "opt1",

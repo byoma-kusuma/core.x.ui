@@ -12,18 +12,32 @@ import Iconify from "../../../components/Iconify";
 import Label from "../../../components/Label";
 import GqlApiHandler from "../../../services/GqlApiHandler";
 import {
+  GroupQuery,
   useGroupQuery,
   useUpdateGroupMutation
 } from "../../../generated/graphql";
-import { getMemberFullName } from "../../Members/utils";
-import { omit } from "lodash";
 import { useConfirm } from "material-ui-confirm";
 import { useNavigate, useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import { formatGroupMembersListData } from "../utils";
 import GroupDetailMembersAddMemberContainer from "./GroupDetailMembersAddMemberContainer";
 import ActionPopoup from "../../../components/ActionPopup";
-import SendEmailPane from "../../Common/SendEmailPane";
+import SendEmailPane from "../../CommonComponents/SendEmailPane";
+import { getMemberFullName } from "../../../utils/member";
+import { omit } from "lodash";
+
+export function formatGroupMembersListData(data: GroupQuery | undefined) {
+  if (!data) return [];
+  return data.group.groupMembers.map((r) => ({
+    ...r.member,
+    fullName: getMemberFullName(r.member),
+    combinedPhone:
+      r.member.phoneLand && r.member.phoneMobile
+        ? `${r.member.phoneMobile}, ${r.member.phoneLand}`
+        : r.member.phoneMobile || r.member.phoneLand,
+    userName: r.member.user?.userName,
+    userStatus: r.member.user?.status
+  }));
+}
 
 export default function GroupDetailMembersContainer() {
   const { id } = useParams();
@@ -47,7 +61,7 @@ export default function GroupDetailMembersContainer() {
     new GqlApiHandler(
       await updateGroupMut({
         updateGroupInput: {
-          ...omit(data?.group, ["members", "createdAt", "__typename"]),
+          ...omit(data?.group, ["groupMembers", "createdAt", "__typename"]),
           memberIds: updatedMembers
         }
       })
@@ -76,9 +90,9 @@ export default function GroupDetailMembersContainer() {
       confirmationText: "Confirm"
     }).then(() =>
       handleGroupUpdate(
-        data?.group.members
-          .filter((member) => member.id !== row.id)
-          .map((member) => member.id) || []
+        data?.group.groupMembers
+          .filter((groupMember) => groupMember.member.id !== row.id)
+          .map((groupMember) => groupMember.member.id) || []
       )
     );
   };

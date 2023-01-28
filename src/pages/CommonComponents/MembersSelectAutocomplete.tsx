@@ -9,7 +9,7 @@ import {
 import { omit } from "lodash";
 import * as React from "react";
 import { MembersQuery } from "../../generated/graphql";
-import { getMemberFullName } from "../Members/utils";
+import { getMemberFullName } from "../../utils/member";
 
 interface Props {
   value: Array<number>;

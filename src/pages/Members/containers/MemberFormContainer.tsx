@@ -1,6 +1,5 @@
 import { LoadingButton } from "@mui/lab";
 import {
-  Autocomplete,
   Box,
   FormControlLabel,
   Grid,
@@ -23,18 +22,16 @@ import Iconify from "../../../components/Iconify";
 import InfoProvider from "../../../components/InfoProvider";
 import PhotoUploader from "../../../components/PhotoUploader";
 import {
-  CentreAffiliation_Type,
   CreateMemberInput,
   MemberDocument,
   MemberQuery,
-  UpdateMemberInput,
+  // UpdateMemberInput,
   useCreateMemberMutation,
   useCreateUserMutation,
   useUpdateMemberMutation
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
-import MemberFormValidator from "../../../validators/MemberFormValidator";
-import { getMemberFullName } from "../utils";
+import { getMemberFullName } from "../../../utils/member";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",
@@ -45,19 +42,19 @@ const UserInfoItemStyle = styled("div")(() => ({
   width: "100%"
 }));
 
-const initialValues: CreateMemberInput | UpdateMemberInput = {
-  title: "",
-  firstName: "",
-  lastName: "",
-  active: true,
-  centerAffiliation: CentreAffiliation_Type.Nepal,
-  isMember: true
-};
-
 interface Props {
   height: number;
   id?: number;
 }
+
+const initialValues = {
+  title: "",
+  firstName: "",
+  lastName: "",
+  active: true,
+  isMember: true,
+  email: ""
+};
 
 export default function MemberFormContainer(props: Props) {
   const { height, id } = props;
@@ -75,10 +72,9 @@ export default function MemberFormContainer(props: Props) {
     variables: { id }
   });
 
-  const formik = useFormik<CreateMemberInput | UpdateMemberInput>({
-    validationSchema: MemberFormValidator,
+  const formik = useFormik({
     initialValues: data
-      ? omit(data?.member, ["user", "__typename"])
+      ? omit(data?.member, ["user", "centre", "__typename"])
       : initialValues,
     enableReinitialize: true,
     onSubmit: async (values) => {
@@ -94,7 +90,11 @@ export default function MemberFormContainer(props: Props) {
           .onError(({ notiErr }) => notiErr());
       } else {
         // create mode
-        new GqlApiHandler(await createMemberMut({ createMemberInput: values }))
+        new GqlApiHandler(
+          await createMemberMut({
+            createMemberInput: values as CreateMemberInput
+          })
+        )
           .onSuccess(({ notiSuccess }) => {
             notiSuccess("Member successfully created!");
             navigate("/app/members");
@@ -144,27 +144,25 @@ export default function MemberFormContainer(props: Props) {
             <UserInfoItemStyle style={{ paddingBottom: "16px" }}>
               <Typography variant="subtitle1">User</Typography>
               {thisMemberHasUser ? (
-                <Box>
-                  <Box
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="flex-start"
-                  >
-                    <Box>
-                      <Link component="button" variant="subtitle2">
-                        {thisMemberUserName}
-                      </Link>
-                      <br />
-                      <Typography variant="body2" fontSize={12}>
-                        {thisMemberUserRoleName}
-                      </Typography>
-                    </Box>
-                    <Tooltip title="Send reset password link" placement="top">
-                      <IconButton>
-                        <Iconify icon="ic:baseline-lock-reset" />
-                      </IconButton>
-                    </Tooltip>
+                <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  alignItems="flex-start"
+                >
+                  <Box>
+                    <Link component="button" variant="subtitle2">
+                      {thisMemberUserName}
+                    </Link>
+                    <br />
+                    <Typography variant="body2" fontSize={12}>
+                      {thisMemberUserRoleName}
+                    </Typography>
                   </Box>
+                  <Tooltip title="Send reset password link" placement="top">
+                    <IconButton>
+                      <Iconify icon="ic:baseline-lock-reset" />
+                    </IconButton>
+                  </Tooltip>
                 </Box>
               ) : (
                 <Box display="flex" justifyContent="space-between">
@@ -192,114 +190,67 @@ export default function MemberFormContainer(props: Props) {
       </Grid>
       <Grid item xs={12} md={6} lg={8}>
         <RootStyle elevation={1} sx={{ height: `${height}px` }}>
-          <form onSubmit={formik.handleSubmit}>
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                {/* extract theses to new container and useformikcontext later */}
-                <TextField
-                  fullWidth
-                  inputProps={{
-                    "data-testId": "member-form-firstName"
-                  }}
-                  label="First Name*"
-                  value={formik.values.firstName || ""}
-                  onChange={(e) =>
-                    formik.setFieldValue("firstName", e.target.value)
-                  }
-                  error={
-                    formik.touched.firstName && Boolean(formik.errors.firstName)
-                  }
-                  helperText={
-                    formik.touched.firstName && formik.errors.firstName
-                  }
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  inputProps={{ "data-testId": "member-form-lastName" }}
-                  label="Last Name*"
-                  value={formik.values.lastName || ""}
-                  onChange={(e) =>
-                    formik.setFieldValue("lastName", e.target.value)
-                  }
-                  error={
-                    formik.touched.lastName && Boolean(formik.errors.lastName)
-                  }
-                  helperText={formik.touched.lastName && formik.errors.lastName}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Email"
-                  inputProps={{
-                    "data-testId": "member-form-email"
-                  }}
-                  value={formik.values.email || ""}
-                  onChange={(e) =>
-                    formik.setFieldValue("email", e.target.value)
-                  }
-                  error={formik.touched.email && Boolean(formik.errors.email)}
-                  helperText={formik.touched.email && formik.errors.email}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <Autocomplete
-                  disablePortal
-                  options={Object.values(CentreAffiliation_Type)}
-                  value={formik.values.centerAffiliation}
-                  onChange={(_, v) => {
-                    if (v) {
-                      formik.setFieldValue("centerAffiliation", v);
-                    }
-                  }}
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Centre"
-                      inputProps={{
-                        "data-testId": "member-form-centreAffliliation",
-                        ...params.inputProps
-                      }}
-                    />
-                  )}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6} display="flex" alignItems="center">
-                <FormControlLabel
-                  control={
-                    <Switch
-                      data-testId="member-form-isMember"
-                      color="success"
-                      checked={formik.values.isMember}
-                      name="f"
-                      onChange={(e) => {
-                        formik.setFieldValue("isMember", e.target.checked);
-                      }}
-                    />
-                  }
-                  label="Is Member"
-                />
-                <InfoProvider info="Changing the member status to non-member will also remove the user associated with this member" />
-              </Grid>
-              <Grid item xs={12} sm={6} display="flex" alignItems="center">
-                <FormControlLabel
-                  control={
-                    <Switch
-                      data-testId="member-form-active"
-                      checked={formik.values.active}
-                      onChange={(e) => {
-                        formik.setFieldValue("active", e.target.checked);
-                      }}
-                    />
-                  }
-                  label="Active"
-                />
-                <InfoProvider info="Changing the member status to in-active will also remove the user associated with this member" />
-              </Grid>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={6}>
+              <TextField
+                value={formik.values.firstName}
+                onChange={(e) =>
+                  formik.setFieldValue("firstName", e.target.value)
+                }
+                label="First Name"
+                fullWidth
+              />
             </Grid>
-            <Box display="flex" justifyContent="center">
+            <Grid item xs={12} md={6}>
+              <TextField
+                value={formik.values.lastName}
+                onChange={(e) =>
+                  formik.setFieldValue("lastName", e.target.value)
+                }
+                label="Last Name"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                fullWidth
+                label="Email"
+                value={formik.values.email || ""}
+                onChange={(e) => formik.setFieldValue("email", e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} display="flex" alignItems="center">
+              <FormControlLabel
+                control={
+                  <Switch
+                    data-testId="member-form-isMember"
+                    color="success"
+                    checked={formik.values.isMember}
+                    onChange={(e) => {
+                      formik.setFieldValue("isMember", e.target.checked);
+                    }}
+                  />
+                }
+                label="Is Member"
+              />
+              <InfoProvider info="Changing the member status to non-member will also remove the user associated with this member" />
+            </Grid>
+            <Grid item xs={12} sm={6} display="flex" alignItems="center">
+              <FormControlLabel
+                control={
+                  <Switch
+                    data-testId="member-form-active"
+                    checked={formik.values.active}
+                    onChange={(e) => {
+                      formik.setFieldValue("active", e.target.checked);
+                    }}
+                  />
+                }
+                label="Active"
+              />
+              <InfoProvider info="Changing the member status to in-active will also remove the user associated with this member" />
+            </Grid>
+            <Box display="flex" justifyContent="center" width="100%">
               <LoadingButton
                 disabled={!formik.dirty}
                 variant="contained"
@@ -308,11 +259,12 @@ export default function MemberFormContainer(props: Props) {
                 type="submit"
                 loading={creating || updating}
                 data-testId="member-form-submit"
+                onClick={() => formik.handleSubmit()}
               >
                 {id ? "Update Member" : "Create Member"}
               </LoadingButton>
             </Box>
-          </form>
+          </Grid>
         </RootStyle>
       </Grid>
     </>

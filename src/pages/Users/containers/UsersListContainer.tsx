@@ -8,10 +8,20 @@ import Label from "../../../components/Label";
 import {
   Status,
   useDeleteUserMutation,
+  UsersQuery,
   useUsersQuery
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
-import { formatUserListData } from "../utils";
+import { getMemberFullName } from "../../../utils/member";
+
+export function formatUserListData(data: UsersQuery | undefined) {
+  if (!data) return [];
+  return data.users.map((r) => ({
+    ...r,
+    fullName: getMemberFullName(r.member),
+    email: r.member.email
+  }));
+}
 
 export default function UsersListContainer() {
   const [{ data, fetching, error }] = useUsersQuery();

@@ -7,16 +7,41 @@ import { useParams } from "react-router-dom";
 import ReactSlidingPane from "react-sliding-pane";
 import CoolTable from "../../../components/CoolTable";
 import {
+  GroupQuery,
+  MembersQuery,
   useGroupQuery,
   useMembersQuery,
   useUpdateGroupMutation
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
-import { formatGroupAddMemberListData } from "../utils";
+import { getMemberFullName } from "../../../utils/member";
 
 interface Props {
   open: boolean;
   handleClose: () => void;
+}
+
+export function formatGroupAddMemberListData(
+  data: MembersQuery | undefined,
+  group: GroupQuery | undefined
+) {
+  if (!data || !group) return [];
+  const groupMembersHash = group.group.groupMembers.reduce((acc, cur) => {
+    acc[cur.member.id] = true;
+    return acc;
+  }, {} as Record<number, boolean>);
+  return data.members
+    .filter((m) => !groupMembersHash[m.id])
+    .map((r) => ({
+      ...r,
+      fullName: getMemberFullName(r),
+      combinedPhone:
+        r.phoneLand && r.phoneMobile
+          ? `${r.phoneMobile}, ${r.phoneLand}`
+          : r.phoneMobile || r.phoneLand,
+      userName: r.user?.userName,
+      userStatus: r.user?.status
+    }));
 }
 
 export default function GroupDetailMembersAddMemberContainer(props: Props) {
@@ -29,7 +54,7 @@ export default function GroupDetailMembersAddMemberContainer(props: Props) {
     variables: { id: Number(id) }
   });
 
-  const [{ fetching: _updating }, updateGroupMut] = useUpdateGroupMutation();
+  const [{ fetching: updating }, updateGroupMut] = useUpdateGroupMutation();
 
   const [{ data: members, fetching: fetchingMembers, error }] =
     useMembersQuery();
@@ -39,12 +64,12 @@ export default function GroupDetailMembersAddMemberContainer(props: Props) {
   >([]);
 
   const handleAddMembers = () => {
-    if (groupData?.group) {
-      const previousMemberIds = groupData.group.members.map(
-        (member) => member.id
-      );
+    if (id && groupData?.group) {
+      const previousMemberIds = groupData.group.groupMembers
+        .map((r) => r.member?.id as number)
+        .filter(Boolean);
       const formattedGroup = omit(groupData?.group, [
-        "members",
+        "groupMembers",
         "createdAt",
         "__typename"
       ]);
@@ -66,7 +91,8 @@ export default function GroupDetailMembersAddMemberContainer(props: Props) {
           await updateGroupMut({
             updateGroupInput: {
               ...formattedGroup,
-              memberIds: [...previousMemberIds, ...selectedMemberIds]
+              memberIds: [...previousMemberIds, ...selectedMemberIds],
+              id: Number(id)
             }
           })
         )
@@ -126,7 +152,7 @@ export default function GroupDetailMembersAddMemberContainer(props: Props) {
           <LoadingButton
             variant="contained"
             size="large"
-            disabled={!selectedMemberIds.length}
+            disabled={!selectedMemberIds.length || updating}
             onClick={handleAddMembers}
           >
             Add Selected Members

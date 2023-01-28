@@ -4,22 +4,18 @@ query members {
     firstName
     lastName
     middleName
-    centerAffiliation
-    currentAddress
-    dob
     email
     firstName
     createdAt
     gender
+    phoneLand
+    phoneMobile
+    phoneOther
     insta
     isMember
     active
     membershipType
     messenger
-    permanentAddress
-    currentAddress
-    phonePrimary
-    phoneSecondary
     photo
     refugeName
     sanghaJoinDate
@@ -46,10 +42,6 @@ query member($id: Int!) {
     firstName
     lastName
     middleName
-    centerAffiliation
-    centreId
-    currentAddress
-    dob
     email
     firstName
     gender
@@ -58,10 +50,6 @@ query member($id: Int!) {
     active
     membershipType
     messenger
-    permanentAddress
-    currentAddress
-    phonePrimary
-    phoneSecondary
     photo
     refugeName
     sanghaJoinDate

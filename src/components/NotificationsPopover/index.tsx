@@ -20,7 +20,7 @@ import {
 import Iconify from "../../components/Iconify";
 import Scrollbar from "../../components/Scrollbar";
 import MenuPopover from "../../components/MenuPopover";
-import { fToNow } from "../../utils/formatters";
+import { fToNow } from "../../utils/formatters/commonFormatters";
 
 const NOTIFICATIONS = [
   {
