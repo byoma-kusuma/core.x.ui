@@ -17,6 +17,14 @@ query abhisekha($abhisekhaId: Int!) {
     createdAt
     id
     description
+    abhisekhaResources {
+      resource {
+        id
+        name
+        type
+        url
+      }
+    }
     abhisekhaMembers {
       abhisekhaDate
       abhisekhaPlace

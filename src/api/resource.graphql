@@ -1,0 +1,91 @@
+query resources {
+  resources {
+    id
+    name
+    type
+    description
+    url
+  }
+}
+
+query resource($resourceId: Int!) {
+  resource(id: $resourceId) {
+    id
+    name
+    type
+    description
+    url
+    resourceAbhisekhas {
+      abhisekha {
+        id
+        name
+        teacher
+        description
+      }
+    }
+    resourceEvents {
+      type
+      event {
+        id
+        name
+        startDate
+        endDate
+      }
+    }
+    resourceMembers {
+      type
+      member {
+        id
+        firstName
+        lastName
+        middleName
+        email
+        firstName
+        createdAt
+        gender
+        phoneMobile
+        phoneLand
+        insta
+        isMember
+        active
+        membershipType
+        messenger
+        photo
+        refugeName
+        sanghaJoinDate
+        title
+        viber
+        user {
+          id
+          userName
+          status
+          role {
+            name
+          }
+        }
+        centre {
+          id
+          displayText
+        }
+      }
+    }
+  }
+}
+
+mutation createResource($createResourceInput: CreateResourceInput!) {
+  createResource(createResourceInput: $createResourceInput) {
+    id
+  }
+}
+
+mutation updateResource($updateResourceInput: UpdateResourceInput!) {
+  updateResource(updateResourceInput: $updateResourceInput) {
+    id
+  }
+}
+
+mutation deleteResource($id: Int!) {
+  removeResource(id: $id) {
+    id
+  }
+}

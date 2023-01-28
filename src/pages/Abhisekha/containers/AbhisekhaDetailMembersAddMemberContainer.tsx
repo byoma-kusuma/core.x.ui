@@ -84,6 +84,7 @@ export default function AbhisekhaDetailMembersAddMemberContainer(props: Props) {
 
       const formattedAbhisekha = omit(abhisekhaData?.abhisekha, [
         "abhisekhaMembers",
+        "abhisekhaResources",
         "createdAt",
         "updatedAt",
         "__typename"
