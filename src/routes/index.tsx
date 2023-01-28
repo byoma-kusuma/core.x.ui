@@ -2,6 +2,9 @@ import { exact } from "prop-types";
 import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "../layouts/CommonLayout";
+import Abhisekhas from "../pages/Abhisekha";
+import AbhisekhaDetailPage from "../pages/Abhisekha/AbhisekhaDetailPage";
+import CreateUpdateAbhisekhaPage from "../pages/Abhisekha/CreateUpdateAbhisekhaPage";
 import Groups from "../pages/Groups";
 import Group from "../pages/Groups/CreateUpdateGroupPage";
 import GroupDetail from "../pages/Groups/GroupDetailPage";
@@ -46,7 +49,17 @@ export default [
       { path: "groups", element: <Groups />, exact },
       { path: "groups/new", element: <Group />, exact },
       { path: "groups/:id", element: <Group />, exact },
-      { path: "groups/:id/details", element: <GroupDetail />, exact }
+      { path: "groups/:id/details", element: <GroupDetail />, exact },
+
+      // abhisekha routes
+      { path: "abhisekhas", element: <Abhisekhas />, exact },
+      { path: "abhisekhas/new", element: <CreateUpdateAbhisekhaPage />, exact },
+      { path: "abhisekhas/:id", element: <CreateUpdateAbhisekhaPage />, exact },
+      {
+        path: "abhisekhas/:id/details",
+        element: <AbhisekhaDetailPage />,
+        exact
+      }
     ]
   },
   {

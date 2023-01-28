@@ -7,6 +7,8 @@ import { createBrowserHistory } from "history";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";
 import { Button } from "@mui/material";
 import { ConfirmProvider } from "material-ui-confirm";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers";
 
 // browserhistory shared accross the whole app
 export const history = createBrowserHistory();
@@ -33,7 +35,9 @@ function App() {
             )}
           >
             <ConfirmProvider>
-              <AppRoutes />
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <AppRoutes />
+              </LocalizationProvider>
             </ConfirmProvider>
           </SnackbarProvider>
         </HistoryRouter>
