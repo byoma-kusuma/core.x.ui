@@ -2608,6 +2608,105 @@ export type UserWhereUniqueInput = {
   userName?: InputMaybe<Scalars["String"]>;
 };
 
+export type AbhisekhasQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AbhisekhasQuery = {
+  __typename?: "Query";
+  abhisekhas: Array<{
+    __typename?: "Abhisekha";
+    name: string;
+    teacher: string;
+    updatedAt: any;
+    createdAt: any;
+    id: number;
+    description: string;
+  }>;
+};
+
+export type AbhisekhaQueryVariables = Exact<{
+  abhisekhaId: Scalars["Int"];
+}>;
+
+export type AbhisekhaQuery = {
+  __typename?: "Query";
+  abhisekha: {
+    __typename?: "Abhisekha";
+    name: string;
+    teacher: string;
+    updatedAt: any;
+    createdAt: any;
+    id: number;
+    description: string;
+    abhisekhaMembers: Array<{
+      __typename?: "MemberAbhisekhaWithoutAbhisekha";
+      abhisekhaDate: any;
+      abhisekhaPlace: string;
+      type: string;
+      member: {
+        __typename?: "Member";
+        id: number;
+        firstName: string;
+        lastName: string;
+        middleName?: string | null;
+        email?: string | null;
+        createdAt: any;
+        gender?: Gender_Type | null;
+        phoneMobile?: string | null;
+        phoneLand?: string | null;
+        insta?: string | null;
+        isMember: boolean;
+        active: boolean;
+        membershipType?: Membership_Type | null;
+        messenger?: string | null;
+        photo?: string | null;
+        refugeName?: string | null;
+        sanghaJoinDate?: any | null;
+        title?: string | null;
+        viber?: string | null;
+        user?: {
+          __typename?: "User";
+          id: number;
+          userName: string;
+          status: Status;
+          role: { __typename?: "Role"; name: string };
+        } | null;
+        centre?: {
+          __typename?: "Centre";
+          id: number;
+          displayText?: string | null;
+        } | null;
+      };
+    }>;
+  };
+};
+
+export type CreateAbhisekhaMutationVariables = Exact<{
+  createAbhisekhaInput: CreateAbhisekhaInput;
+}>;
+
+export type CreateAbhisekhaMutation = {
+  __typename?: "Mutation";
+  createAbhisekha: { __typename?: "Abhisekha"; id: number };
+};
+
+export type UpdateAbhisekhaMutationVariables = Exact<{
+  updateAbhisekhaInput: UpdateAbhisekhaInput;
+}>;
+
+export type UpdateAbhisekhaMutation = {
+  __typename?: "Mutation";
+  updateAbhisekha: { __typename?: "Abhisekha"; id: number };
+};
+
+export type DeleteAbhisekhaMutationVariables = Exact<{
+  id: Scalars["Int"];
+}>;
+
+export type DeleteAbhisekhaMutation = {
+  __typename?: "Mutation";
+  removeAbhisekha: { __typename?: "Abhisekha"; id: number };
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -6420,6 +6519,129 @@ export default {
   }
 } as unknown as IntrospectionQuery;
 
+export const AbhisekhasDocument = gql`
+  query abhisekhas {
+    abhisekhas {
+      name
+      teacher
+      updatedAt
+      createdAt
+      id
+      description
+    }
+  }
+`;
+
+export function useAbhisekhasQuery(
+  options?: Omit<Urql.UseQueryArgs<AbhisekhasQueryVariables>, "query">
+) {
+  return Urql.useQuery<AbhisekhasQuery>({
+    query: AbhisekhasDocument,
+    ...options
+  });
+}
+export const AbhisekhaDocument = gql`
+  query abhisekha($abhisekhaId: Int!) {
+    abhisekha(id: $abhisekhaId) {
+      name
+      teacher
+      updatedAt
+      createdAt
+      id
+      description
+      abhisekhaMembers {
+        abhisekhaDate
+        abhisekhaPlace
+        type
+        member {
+          id
+          firstName
+          lastName
+          middleName
+          email
+          firstName
+          createdAt
+          gender
+          phoneMobile
+          phoneLand
+          insta
+          isMember
+          active
+          membershipType
+          messenger
+          photo
+          refugeName
+          sanghaJoinDate
+          title
+          viber
+          user {
+            id
+            userName
+            status
+            role {
+              name
+            }
+          }
+          centre {
+            id
+            displayText
+          }
+        }
+      }
+    }
+  }
+`;
+
+export function useAbhisekhaQuery(
+  options: Omit<Urql.UseQueryArgs<AbhisekhaQueryVariables>, "query">
+) {
+  return Urql.useQuery<AbhisekhaQuery>({
+    query: AbhisekhaDocument,
+    ...options
+  });
+}
+export const CreateAbhisekhaDocument = gql`
+  mutation createAbhisekha($createAbhisekhaInput: CreateAbhisekhaInput!) {
+    createAbhisekha(createAbhisekhaInput: $createAbhisekhaInput) {
+      id
+    }
+  }
+`;
+
+export function useCreateAbhisekhaMutation() {
+  return Urql.useMutation<
+    CreateAbhisekhaMutation,
+    CreateAbhisekhaMutationVariables
+  >(CreateAbhisekhaDocument);
+}
+export const UpdateAbhisekhaDocument = gql`
+  mutation updateAbhisekha($updateAbhisekhaInput: UpdateAbhisekhaInput!) {
+    updateAbhisekha(updateAbhisekhaInput: $updateAbhisekhaInput) {
+      id
+    }
+  }
+`;
+
+export function useUpdateAbhisekhaMutation() {
+  return Urql.useMutation<
+    UpdateAbhisekhaMutation,
+    UpdateAbhisekhaMutationVariables
+  >(UpdateAbhisekhaDocument);
+}
+export const DeleteAbhisekhaDocument = gql`
+  mutation deleteAbhisekha($id: Int!) {
+    removeAbhisekha(id: $id) {
+      id
+    }
+  }
+`;
+
+export function useDeleteAbhisekhaMutation() {
+  return Urql.useMutation<
+    DeleteAbhisekhaMutation,
+    DeleteAbhisekhaMutationVariables
+  >(DeleteAbhisekhaDocument);
+}
 export const MeDocument = gql`
   query me {
     me {

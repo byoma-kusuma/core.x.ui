@@ -31,6 +31,11 @@ const navConfig: Array<NavigationItem> = [
     path: "/app/groups",
     icon: getIcon("eva:keypad-fill")
   },
+  {
+    title: "abhisekhas",
+    path: "/app/abhisekhas",
+    icon: getIcon("eva:award-outline")
+  },
   { title: "New Section", path: "", icon: "", type: "grouper" },
   {
     title: "New Page",

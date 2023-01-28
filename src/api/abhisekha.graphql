@@ -1,0 +1,78 @@
+query abhisekhas {
+  abhisekhas {
+    name
+    teacher
+    updatedAt
+    createdAt
+    id
+    description
+  }
+}
+
+query abhisekha($abhisekhaId: Int!) {
+  abhisekha(id: $abhisekhaId) {
+    name
+    teacher
+    updatedAt
+    createdAt
+    id
+    description
+    abhisekhaMembers {
+      abhisekhaDate
+      abhisekhaPlace
+      type
+      member {
+        id
+        firstName
+        lastName
+        middleName
+        email
+        firstName
+        createdAt
+        gender
+        phoneMobile
+        phoneLand
+        insta
+        isMember
+        active
+        membershipType
+        messenger
+        photo
+        refugeName
+        sanghaJoinDate
+        title
+        viber
+        user {
+          id
+          userName
+          status
+          role {
+            name
+          }
+        }
+        centre {
+          id
+          displayText
+        }
+      }
+    }
+  }
+}
+
+mutation createAbhisekha($createAbhisekhaInput: CreateAbhisekhaInput!) {
+  createAbhisekha(createAbhisekhaInput: $createAbhisekhaInput) {
+    id
+  }
+}
+
+mutation updateAbhisekha($updateAbhisekhaInput: UpdateAbhisekhaInput!) {
+  updateAbhisekha(updateAbhisekhaInput: $updateAbhisekhaInput) {
+    id
+  }
+}
+
+mutation deleteAbhisekha($id: Int!) {
+  removeAbhisekha(id: $id) {
+    id
+  }
+}
