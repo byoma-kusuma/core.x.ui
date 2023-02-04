@@ -2917,6 +2917,20 @@ export type DeleteAbhisekhaMutation = {
   removeAbhisekha: { __typename?: "Abhisekha"; id: number };
 };
 
+export type AddressesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type AddressesQuery = {
+  __typename?: "Query";
+  addresses: Array<{
+    __typename?: "Address";
+    id: number;
+    street?: string | null;
+    city?: string | null;
+    stateProvince?: string | null;
+    country?: string | null;
+  }>;
+};
+
 export type MeQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MeQuery = {
@@ -3127,6 +3141,9 @@ export type MemberQuery = {
     insta?: string | null;
     isMember: boolean;
     active: boolean;
+    phoneLand?: string | null;
+    phoneMobile?: string | null;
+    phoneOther?: string | null;
     membershipType?: Membership_Type | null;
     messenger?: string | null;
     photo?: string | null;
@@ -7145,6 +7162,26 @@ export function useDeleteAbhisekhaMutation() {
     DeleteAbhisekhaMutationVariables
   >(DeleteAbhisekhaDocument);
 }
+export const AddressesDocument = gql`
+  query addresses {
+    addresses {
+      id
+      street
+      city
+      stateProvince
+      country
+    }
+  }
+`;
+
+export function useAddressesQuery(
+  options?: Omit<Urql.UseQueryArgs<AddressesQueryVariables>, "query">
+) {
+  return Urql.useQuery<AddressesQuery>({
+    query: AddressesDocument,
+    ...options
+  });
+}
 export const MeDocument = gql`
   query me {
     me {
@@ -7391,6 +7428,9 @@ export const MemberDocument = gql`
       insta
       isMember
       active
+      phoneLand
+      phoneMobile
+      phoneOther
       membershipType
       messenger
       photo

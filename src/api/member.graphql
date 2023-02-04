@@ -48,6 +48,9 @@ query member($id: Int!) {
     insta
     isMember
     active
+    phoneLand
+    phoneMobile
+    phoneOther
     membershipType
     messenger
     photo

@@ -1,0 +1,9 @@
+query addresses {
+    addresses {
+        id
+        street
+        city
+        stateProvince 
+        country
+    }
+}
