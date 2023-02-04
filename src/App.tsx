@@ -9,6 +9,7 @@ import { Button } from "@mui/material";
 import { ConfirmProvider } from "material-ui-confirm";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import "react-phone-input-2/lib/material.css";
 
 // browserhistory shared accross the whole app
 export const history = createBrowserHistory();

@@ -32,6 +32,7 @@ import {
 } from "../../../generated/graphql";
 import GqlApiHandler from "../../../services/GqlApiHandler";
 import { getMemberFullName } from "../../../utils/member";
+import PhoneInput from "react-phone-input-2";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",
@@ -51,9 +52,12 @@ const initialValues = {
   title: "",
   firstName: "",
   lastName: "",
+  middleName: "",
   active: true,
   isMember: true,
-  email: ""
+  email: "",
+  phoneMobile: "",
+  refugeName: ""
 };
 
 export default function MemberFormContainer(props: Props) {
@@ -191,7 +195,7 @@ export default function MemberFormContainer(props: Props) {
       <Grid item xs={12} md={6} lg={8}>
         <RootStyle elevation={1} sx={{ height: `${height}px` }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
               <TextField
                 value={formik.values.firstName}
                 onChange={(e) =>
@@ -201,7 +205,17 @@ export default function MemberFormContainer(props: Props) {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12} md={4}>
+              <TextField
+                value={formik.values.middleName}
+                onChange={(e) =>
+                  formik.setFieldValue("middleName", e.target.value)
+                }
+                label="Middle Name"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={12} md={4}>
               <TextField
                 value={formik.values.lastName}
                 onChange={(e) =>
@@ -211,7 +225,14 @@ export default function MemberFormContainer(props: Props) {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={5}>
+              <PhoneInput
+                value={formik.values.phoneMobile}
+                onChange={(phone) => formik.setFieldValue("phoneMobile", phone)}
+                inputStyle={{ width: "100%", height: "56px" }}
+              />
+            </Grid>
+            <Grid item xs={12} md={7}>
               <TextField
                 fullWidth
                 label="Email"
@@ -219,6 +240,17 @@ export default function MemberFormContainer(props: Props) {
                 onChange={(e) => formik.setFieldValue("email", e.target.value)}
               />
             </Grid>
+            <Grid item xs={12} md={7}>
+              <TextField
+                fullWidth
+                label="Refuge Name"
+                value={formik.values.refugeName || ""}
+                onChange={(e) =>
+                  formik.setFieldValue("refugeName", e.target.value)
+                }
+              />
+            </Grid>
+
             <Grid item xs={12} sm={6} display="flex" alignItems="center">
               <FormControlLabel
                 control={
