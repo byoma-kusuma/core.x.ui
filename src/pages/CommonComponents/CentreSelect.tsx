@@ -1,20 +1,29 @@
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import * as React from "react";
-import { useAddressesQuery } from "../../generated/graphql";
+import { useCentresQuery } from "../../generated/graphql";
 
-export default function AddressSelect() {
-  const [{ data, fetching }] = useAddressesQuery();
+interface Props {
+  value: number | null;
+  onChange: (v: number | null) => void;
+}
+
+export default function CentreSelect(props: Props) {
+  const { value, onChange } = props;
+
+  const [{ data, fetching }] = useCentresQuery();
 
   return (
     <Autocomplete
       id="asynchronous-demo"
-      getOptionLabel={(option) => option.city || ""}
-      options={data?.addresses || []}
+      getOptionLabel={(option) => option.displayText || ""}
+      options={data?.centres || []}
+      value={data?.centres.find((c) => c.id === value) || null}
+      onChange={(_, v) => onChange(v?.id || null)}
       loading={fetching}
       renderInput={(params) => (
         <TextField
           {...params}
-          label="Address"
+          label="Centre"
           fullWidth
           InputProps={{
             ...params.InputProps,
