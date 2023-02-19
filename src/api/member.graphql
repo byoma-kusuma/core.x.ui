@@ -3,10 +3,12 @@ query members {
     id
     firstName
     lastName
+    tempAddress
     middleName
     email
     firstName
     createdAt
+    yearOfBirth
     gender
     phoneLand
     phoneMobile
@@ -41,6 +43,7 @@ query member($id: Int!) {
     id
     firstName
     lastName
+    note
     middleName
     email
     firstName
@@ -48,6 +51,8 @@ query member($id: Int!) {
     insta
     isMember
     active
+    yearOfBirth
+    tempAddress
     phoneLand
     phoneMobile
     phoneOther
