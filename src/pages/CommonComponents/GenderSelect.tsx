@@ -2,10 +2,10 @@ import { Autocomplete, TextField } from "@mui/material";
 import * as React from "react";
 
 enum GenderType {
-  MALE = "Male",
-  FEMALE = "Female",
-  OTHER = "Other",
-  PREFER_NOT_TO_SAY = "Prefer not to say"
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHER = "OTHER",
+  PREFER_NOT_TO_SAY = "PREFER_NOT_TO_SAY"
 }
 
 interface Props {

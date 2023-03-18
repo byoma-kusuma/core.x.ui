@@ -5,6 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { Provider } from "urql";
 import { gqlClient } from "./config/gqlClient";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 let container = document.getElementById("root");
 
@@ -15,11 +16,15 @@ if (!container) {
 
 const root = createRoot(container);
 
+const queryClient = new QueryClient();
+
 root.render(
   <React.StrictMode>
-    <Provider value={gqlClient}>
-      <App />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider value={gqlClient}>
+        <App />
+      </Provider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
 
