@@ -3,7 +3,6 @@ query members {
     id
     firstName
     lastName
-    tempAddress
     middleName
     email
     firstName
@@ -23,6 +22,18 @@ query members {
     sanghaJoinDate
     title
     viber
+    currentAddress {
+      city
+      country
+      stateProvince
+      street 
+    }
+    permanentAddress {
+      city
+      country
+      stateProvince
+      street 
+    }
     user {
       id
       userName
@@ -52,7 +63,6 @@ query member($id: Int!) {
     isMember
     active
     yearOfBirth
-    tempAddress
     phoneLand
     phoneMobile
     phoneOther
@@ -63,6 +73,18 @@ query member($id: Int!) {
     sanghaJoinDate
     title
     viber
+    currentAddress {
+      city
+      country
+      stateProvince
+      street 
+    }
+    permanentAddress {
+      city
+      country
+      stateProvince
+      street 
+    }
     user {
       id
       userName

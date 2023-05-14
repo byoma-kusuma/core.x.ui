@@ -46,13 +46,13 @@ const PhotoHolder = styled("div")(({ theme }) => ({
 
 interface Props {
   children: React.ReactNode;
-  height: number;
+  height: number | string;
 }
 
 export default function PhotoUploader(props: Props) {
   const { children, height } = props;
   return (
-    <RootStyle elevation={1} sx={{ height: `${height}px` }}>
+    <RootStyle elevation={1} sx={{ height }}>
       <PhotoHolderContainer>
         <DottedWrapper>
           <PhotoHolder>

@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LoadingButton } from "@mui/lab";
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Box,
   FormControlLabel,
   Grid,
@@ -37,6 +40,9 @@ import { getMemberFullName } from "../../../utils/member";
 import PhoneInput from "react-phone-input-2";
 import * as Yup from "yup";
 import CentreSelect from "../../CommonComponents/CentreSelect";
+import { MembershipSelect } from "../../CommonComponents/MembershipSelect";
+import GenderSelect from "../../CommonComponents/GenderSelect";
+import CountrySelect from "../../CommonComponents/CountriesSelect";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",
@@ -55,7 +61,7 @@ interface Props {
 const schema = {
   title: {
     type: "text",
-    required: true,
+    required: false,
     initialValue: ""
   },
   firstName: {
@@ -112,9 +118,9 @@ const schema = {
     initialValue: null
   },
   yearOfBirth: {
-    type: "string",
+    type: "number",
     required: false,
-    initialValue: ""
+    initialValue: null
   },
   membershipType: {
     type: "text",
@@ -151,11 +157,53 @@ const schema = {
     required: false,
     initialValue: ""
   },
-  tempAddress: {
+  currentStreetAddress: {
     type: "text",
     required: false,
     initialValue: "",
-    label: "Address"
+    label: "Current Street Address"
+  },
+  permanentStreetAddress: {
+    type: "text",
+    required: false,
+    initialValue: "",
+    label: "Permanent Street Address"
+  },
+  currentCity: {
+    type: "text",
+    required: false,
+    initialValue: "",
+    label: "Current City"
+  },
+  permanentCity: {
+    type: "text",
+    required: false,
+    initialValue: "",
+    label: "Permanent City"
+  },
+  currentStateProvince: {
+    type: "text",
+    required: false,
+    initialValue: "",
+    label: "Current State/Province"
+  },
+  permanentStateProvince: {
+    type: "text",
+    required: false,
+    initialValue: "",
+    label: "Permanent State/Province"
+  },
+  currentCountry: {
+    type: "text",
+    required: true,
+    initialValue: "",
+    label: "Current Country"
+  },
+  permanentCountry: {
+    type: "text",
+    required: true,
+    initialValue: "",
+    label: "Permanent Country"
   },
   refugeName: {
     type: "text",
@@ -220,11 +268,11 @@ interface GenericTextFieldProps {
 
 function GenericTextField(props: GenericTextFieldProps & TextFieldProps) {
   const { schemaKey, formik, ...rest } = props;
-  return <TextField {...rest} {...getSchemaProps(schemaKey, formik)} />;
+  return <TextField {...getSchemaProps(schemaKey, formik)} {...rest} />;
 }
 
 export default function MemberFormContainer(props: Props) {
-  const { height, id } = props;
+  const { id } = props;
   const navigate = useNavigate();
   const confirm = useConfirm();
 
@@ -240,11 +288,22 @@ export default function MemberFormContainer(props: Props) {
 
   const formik = useFormik({
     initialValues: data
-      ? omit({ ...data?.member, centreId: data?.member.centre?.id }, [
-          "user",
-          "centre",
-          "__typename"
-        ])
+      ? omit(
+          {
+            ...data?.member,
+            centreId: data?.member.centre?.id,
+            currentStreetAddress: data?.member.currentAddress?.street,
+            currentCountry: data?.member.currentAddress?.country,
+            currentStateProvince: data?.member.currentAddress?.stateProvince,
+            currentCity: data?.member.currentAddress?.city,
+            permanentStreetAddress: data?.member.permanentAddress?.street,
+            permanentStateProvince:
+              data?.member.permanentAddress?.stateProvince,
+            permanentCity: data?.member.permanentAddress?.city,
+            permanentCountry: data?.member.permanentAddress?.country
+          },
+          ["user", "centre", "__typename", "permanentAddress", "currentAddress"]
+        )
       : initialValues,
     validationSchema,
     enableReinitialize: true,
@@ -310,7 +369,7 @@ export default function MemberFormContainer(props: Props) {
   return (
     <>
       <Grid item xs={12} md={6} lg={4}>
-        <PhotoUploader height={height}>
+        <PhotoUploader height={"calc(100vh - 200px)"}>
           {id && (
             <UserInfoItemStyle style={{ paddingBottom: "16px" }}>
               <Typography variant="subtitle1">User</Typography>
@@ -362,104 +421,212 @@ export default function MemberFormContainer(props: Props) {
       <Grid item xs={12} md={6} lg={8}>
         <RootStyle
           elevation={1}
-          sx={{ height: `${height}px`, overflowY: "auto" }}
+          sx={{ height: "calc(100vh - 200px)", overflowY: "auto" }}
         >
           <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="firstName" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="middleName" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="lastName" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={2}>
-              <GenericTextField schemaKey="title" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <PhoneInput
-                value={formik.values.phoneMobile as string}
-                onChange={(phone) => formik.setFieldValue("phoneMobile", phone)}
-                inputStyle={{ width: "100%", height: "56px" }}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="email" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="tempAddress" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <CentreSelect
-                value={formik.values.centreId}
-                onChange={(v) => formik.setFieldValue("centreId", v)}
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="refugeName" formik={formik} />
-            </Grid>
-            <Grid item xs={12} sm={6} display="flex" alignItems="center">
-              <FormControlLabel
-                control={
-                  <Switch
-                    data-testid="member-form-isMember"
-                    color="success"
-                    checked={formik.values.isMember}
-                    onChange={(e) => {
-                      formik.setFieldValue("isMember", e.target.checked);
-                    }}
-                  />
-                }
-                label="Is Member"
-              />
-              <InfoProvider info="Changing the member status to non-member will also remove the user associated with this member" />
-            </Grid>
-            <Grid item xs={12} sm={6} display="flex" alignItems="center">
-              <FormControlLabel
-                control={
-                  <Switch
-                    data-testid="member-form-active"
-                    checked={formik.values.active}
-                    onChange={(e) => {
-                      formik.setFieldValue("active", e.target.checked);
-                    }}
-                  />
-                }
-                label="Active"
-              />
-              <InfoProvider info="Changing the member status to in-active will also remove the user associated with this member" />
-            </Grid>
-            <Grid item xs={6}>
-              <GenericTextField schemaKey="phoneLand" formik={formik} />
-            </Grid>
-            <Grid item xs={6}>
-              <GenericTextField schemaKey="phoneOther" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField
-                schemaKey="yearOfBirth"
-                formik={formik}
-                type="number"
-              />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="viber" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="messenger" formik={formik} />
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <GenericTextField schemaKey="insta" formik={formik} />
-            </Grid>
-            <Grid item xs={12}>
-              <GenericTextField
-                schemaKey="note"
-                formik={formik}
-                multiline
-                rows={4}
-              />
-            </Grid>
+            <Accordion style={{ width: "100%" }} defaultExpanded>
+              <AccordionSummary
+                expandIcon={<Iconify icon="eva:arrow-forward-outline" />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Main Details</Typography>
+              </AccordionSummary>
+              <AccordionDetails style={{ width: "100%" }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="firstName" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="middleName" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="lastName" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="email" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="title" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <CentreSelect
+                      value={formik.values.centreId}
+                      onChange={(v) => formik.setFieldValue("centreId", v)}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <PhoneInput
+                      value={formik.values.phoneMobile as string}
+                      country="np"
+                      onChange={(phone) =>
+                        formik.setFieldValue("phoneMobile", phone)
+                      }
+                      inputStyle={{ width: "100%", height: "56px" }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <GenderSelect
+                      value={formik.values.gender}
+                      onChange={(v) => {
+                        formik.setFieldValue("gender", v);
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6} display="flex" alignItems="center">
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          data-testid="member-form-isMember"
+                          color="success"
+                          checked={formik.values.isMember}
+                          onChange={(e) => {
+                            formik.setFieldValue("isMember", e.target.checked);
+                          }}
+                        />
+                      }
+                      label="Is Member"
+                    />
+                    <InfoProvider info="Changing the member status to non-member will also remove the user associated with this member" />
+                  </Grid>
+                  <Grid item xs={12} sm={6} display="flex" alignItems="center">
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          data-testid="member-form-active"
+                          checked={formik.values.active}
+                          onChange={(e) => {
+                            formik.setFieldValue("active", e.target.checked);
+                          }}
+                        />
+                      }
+                      label="Active"
+                    />
+                    <InfoProvider info="Changing the member status to in-active will also remove the user associated with this member" />
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion style={{ width: "100%" }}>
+              <AccordionSummary
+                expandIcon={<Iconify icon="eva:arrow-forward-outline" />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <Typography>Address Details</Typography>
+              </AccordionSummary>
+              <AccordionDetails style={{ width: "100%" }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={3}>
+                    <CountrySelect
+                      value={formik.values.currentCountry}
+                      textFieldProps={{ label: "Current Country" }}
+                      onChange={(v) =>
+                        formik.setFieldValue("currentCountry", v)
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <GenericTextField
+                      schemaKey="currentStreetAddress"
+                      formik={formik}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <GenericTextField schemaKey="currentCity" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <GenericTextField
+                      schemaKey="currentStateProvince"
+                      formik={formik}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <CountrySelect
+                      value={formik.values.permanentCountry}
+                      textFieldProps={{ label: "Permanent Country" }}
+                      onChange={(v) =>
+                        formik.setFieldValue("permanentCountry", v)
+                      }
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <GenericTextField
+                      schemaKey="permanentStreetAddress"
+                      formik={formik}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <GenericTextField
+                      schemaKey="permanentCity"
+                      formik={formik}
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={3}>
+                    <GenericTextField
+                      schemaKey="permanentStateProvince"
+                      formik={formik}
+                    />
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion style={{ width: "100%" }}>
+              <AccordionSummary
+                expandIcon={<Iconify icon="eva:arrow-forward-outline" />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Other details</Typography>
+              </AccordionSummary>
+              <AccordionDetails style={{ width: "100%" }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="refugeName" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <MembershipSelect
+                      value={formik.values.membershipType}
+                      onChange={(v) => {
+                        formik.setFieldValue("membershipType", v);
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <GenericTextField schemaKey="phoneLand" formik={formik} />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <GenericTextField schemaKey="phoneOther" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField
+                      schemaKey="yearOfBirth"
+                      formik={formik}
+                      type="number"
+                    />
+                  </Grid>
+                  <Grid item xs={12} md={4}>
+                    <GenericTextField schemaKey="viber" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <GenericTextField schemaKey="messenger" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12} md={6}>
+                    <GenericTextField schemaKey="insta" formik={formik} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <GenericTextField
+                      schemaKey="note"
+                      formik={formik}
+                      multiline
+                      rows={4}
+                    />
+                  </Grid>
+                </Grid>
+              </AccordionDetails>
+            </Accordion>
             <Box display="flex" justifyContent="center" width="100%">
               <LoadingButton
                 disabled={!formik.dirty}
