@@ -279,7 +279,7 @@ export type Address = {
 export type AddressCreateInput = {
   Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
   city?: InputMaybe<Scalars["String"]>;
-  country: Scalars["String"];
+  country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
@@ -327,7 +327,7 @@ export type AddressCreateOrConnectWithoutMembersInput = {
 export type AddressCreateWithoutMemberCurrentAddressInput = {
   Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
   city?: InputMaybe<Scalars["String"]>;
-  country: Scalars["String"];
+  country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   memberPermanentAddress?: InputMaybe<MemberCreateNestedOneWithoutPermanentAddressInput>;
@@ -341,7 +341,7 @@ export type AddressCreateWithoutMemberCurrentAddressInput = {
 export type AddressCreateWithoutMemberPermanentAddressInput = {
   Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
   city?: InputMaybe<Scalars["String"]>;
-  country: Scalars["String"];
+  country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
@@ -354,7 +354,7 @@ export type AddressCreateWithoutMemberPermanentAddressInput = {
 
 export type AddressCreateWithoutMembersInput = {
   city?: InputMaybe<Scalars["String"]>;
-  country: Scalars["String"];
+  country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
@@ -513,7 +513,10 @@ export type CreateGroupInput = {
 export type CreateMemberInput = {
   active: Scalars["Boolean"];
   centreId?: InputMaybe<Scalars["Int"]>;
-  currentAddressId?: InputMaybe<Scalars["Int"]>;
+  currentCity?: InputMaybe<Scalars["String"]>;
+  currentCountry?: InputMaybe<Scalars["String"]>;
+  currentStateProvince?: InputMaybe<Scalars["String"]>;
+  currentStreetAddress?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
   gender?: InputMaybe<Scalars["String"]>;
@@ -526,7 +529,10 @@ export type CreateMemberInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
-  permanentAddressId?: InputMaybe<Scalars["Int"]>;
+  permanentCity?: InputMaybe<Scalars["String"]>;
+  permanentCountry?: InputMaybe<Scalars["String"]>;
+  permanentStateProvince?: InputMaybe<Scalars["String"]>;
+  permanentStreetAddress?: InputMaybe<Scalars["String"]>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
   phoneOther?: InputMaybe<Scalars["String"]>;
@@ -2684,7 +2690,10 @@ export type UpdateGroupInput = {
 export type UpdateMemberInput = {
   active?: InputMaybe<Scalars["Boolean"]>;
   centreId?: InputMaybe<Scalars["Int"]>;
-  currentAddressId?: InputMaybe<Scalars["Int"]>;
+  currentCity?: InputMaybe<Scalars["String"]>;
+  currentCountry?: InputMaybe<Scalars["String"]>;
+  currentStateProvince?: InputMaybe<Scalars["String"]>;
+  currentStreetAddress?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
   gender?: InputMaybe<Scalars["String"]>;
@@ -2698,7 +2707,10 @@ export type UpdateMemberInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
-  permanentAddressId?: InputMaybe<Scalars["Int"]>;
+  permanentCity?: InputMaybe<Scalars["String"]>;
+  permanentCountry?: InputMaybe<Scalars["String"]>;
+  permanentStateProvince?: InputMaybe<Scalars["String"]>;
+  permanentStreetAddress?: InputMaybe<Scalars["String"]>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
   phoneOther?: InputMaybe<Scalars["String"]>;
@@ -3123,6 +3135,20 @@ export type MembersQuery = {
     sanghaJoinDate?: any | null;
     title?: string | null;
     viber?: string | null;
+    currentAddress?: {
+      __typename?: "Address";
+      city?: string | null;
+      country?: string | null;
+      stateProvince?: string | null;
+      street?: string | null;
+    } | null;
+    permanentAddress?: {
+      __typename?: "Address";
+      city?: string | null;
+      country?: string | null;
+      stateProvince?: string | null;
+      street?: string | null;
+    } | null;
     user?: {
       __typename?: "User";
       id: number;
@@ -3157,7 +3183,6 @@ export type MemberQuery = {
     isMember: boolean;
     active: boolean;
     yearOfBirth?: number | null;
-    tempAddress?: string | null;
     phoneLand?: string | null;
     phoneMobile?: string | null;
     phoneOther?: string | null;
@@ -3168,6 +3193,20 @@ export type MemberQuery = {
     sanghaJoinDate?: any | null;
     title?: string | null;
     viber?: string | null;
+    currentAddress?: {
+      __typename?: "Address";
+      city?: string | null;
+      country?: string | null;
+      stateProvince?: string | null;
+      street?: string | null;
+    } | null;
+    permanentAddress?: {
+      __typename?: "Address";
+      city?: string | null;
+      country?: string | null;
+      stateProvince?: string | null;
+      street?: string | null;
+    } | null;
     user?: {
       __typename?: "User";
       id: number;
@@ -7429,6 +7468,18 @@ export const MembersDocument = gql`
       sanghaJoinDate
       title
       viber
+      currentAddress {
+        city
+        country
+        stateProvince
+        street
+      }
+      permanentAddress {
+        city
+        country
+        stateProvince
+        street
+      }
       user {
         id
         userName
@@ -7465,7 +7516,6 @@ export const MemberDocument = gql`
       isMember
       active
       yearOfBirth
-      tempAddress
       phoneLand
       phoneMobile
       phoneOther
@@ -7476,6 +7526,18 @@ export const MemberDocument = gql`
       sanghaJoinDate
       title
       viber
+      currentAddress {
+        city
+        country
+        stateProvince
+        street
+      }
+      permanentAddress {
+        city
+        country
+        stateProvince
+        street
+      }
       user {
         id
         userName
