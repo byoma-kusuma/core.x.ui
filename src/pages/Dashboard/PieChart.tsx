@@ -136,7 +136,7 @@ export default function PieChart({
             <AnimatedPie<GetMemberByCentresQueryResponse[0]>
               {...pie}
               animate={animate}
-              getKey={({ data: { centreName } }) => centreName.toString()}
+              getKey={({ data: { centreName } }) => centreName?.toString()}
               onClickDatum={() => ({})}
               getColor={({ data: { centreId } }) =>
                 getLetterFrequencyColor(centreId?.toString())
