@@ -5,17 +5,41 @@ import { BrowserRouter as Router } from "react-router-dom";
 import ThemeProvider from "../../theme";
 import { Box } from "@mui/material";
 
+const defaultArgs = {
+  photoUrl: "https://via.placeholder.com/150",
+  schema: [
+    {
+      label: "Menu Item 1",
+      linkTo: "/link1",
+      type: "menu" as const
+    },
+    {
+      type: "divider" as const
+    },
+    {
+      label: "Menu Item 2",
+      linkTo: "/link2",
+      type: "menu" as const
+    },
+    {
+      type: "custom" as const,
+      element: <div>Custom Component</div>
+    }
+  ]
+};
+
 export default {
   title: "AccountPopover",
   component: AccountPopover,
   argTypes: {
     photoUrl: {
       control: "text",
-      description: "URL of the photo"
+      description: "URL of the photo",
+      defaultValue: defaultArgs.photoUrl
     },
     schema: {
-      description: "Menu schema for the popover",
-      control: { disable: true }
+      description:
+        "Menu schema for the popover. The schema is an array of objects, where each object represents a menu item or a divider or a custom component."
     }
   }
 } as ComponentMeta<typeof AccountPopover>;
@@ -31,25 +55,4 @@ const Template: ComponentStory<typeof AccountPopover> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  photoUrl: "https://via.placeholder.com/150",
-  schema: [
-    {
-      label: "Menu Item 1",
-      linkTo: "/link1",
-      type: "menu"
-    },
-    {
-      type: "divider"
-    },
-    {
-      label: "Menu Item 2",
-      linkTo: "/link2",
-      type: "menu"
-    },
-    {
-      type: "custom",
-      element: <div>Custom Component</div>
-    }
-  ]
-};
+Default.args = defaultArgs;

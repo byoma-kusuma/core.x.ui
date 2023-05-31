@@ -53,7 +53,6 @@ export default function ActionPopoup(props: Props) {
           {actionItems.map((item, i) => (
             <ActionCard
               key={i}
-              /* elevation={6} */
               onClick={() => {
                 handleClose();
                 item.onClick();
