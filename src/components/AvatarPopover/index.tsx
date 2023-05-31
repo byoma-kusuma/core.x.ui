@@ -2,39 +2,40 @@ import * as React from "react";
 import { Link as RouterLink } from "react-router-dom";
 import { alpha } from "@mui/material/styles";
 import {
-  Box,
   Divider,
-  Typography,
-  Stack,
   MenuItem,
   Avatar,
-  IconButton
+  IconButton,
+  DividerProps
 } from "@mui/material";
-import MenuPopover from "../../components/MenuPopover";
+import MenuPopover from "../MenuPopover";
 
-const MENU_OPTIONS = [
-  {
-    label: "Home",
-    icon: "eva:home-fill",
-    linkTo: "/app/dashboard"
-  },
-  {
-    label: "Profile",
-    icon: "eva:person-fill",
-    linkTo: "#"
-  },
-  { label: "Settings", icon: "eva:settings-2-fill", linkTo: "#" }
-];
+interface SchemaTypeMenu {
+  label: string;
+  linkTo?: string;
+  icon?: string;
+  onClick?: () => void;
+  type: "menu";
+}
+
+interface DividerTypeMenu extends DividerProps {
+  type: "divider";
+}
+
+interface CustomNodeTypeMenu {
+  element: JSX.Element;
+  type: "custom";
+}
+
+type MenuSchema = SchemaTypeMenu | DividerTypeMenu | CustomNodeTypeMenu;
 
 interface AccountPopoverProps {
   photoUrl: string;
-  user: string;
-  userName: string;
-  onLogout: () => void;
+  schema: Array<MenuSchema>;
 }
 
 export default function AccountPopover(props: AccountPopoverProps) {
-  const { photoUrl, user, userName, onLogout } = props;
+  const { photoUrl, schema } = props;
 
   const [anchorEl, setAnchorlEl] =
     React.useState<HTMLButtonElement | null>(null);
@@ -88,41 +89,25 @@ export default function AccountPopover(props: AccountPopoverProps) {
           }
         }}
       >
-        <Box sx={{ my: 1.5, px: 2.5 }}>
-          <Typography variant="subtitle2" noWrap>
-            {user}
-          </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
-            {userName}
-          </Typography>
-        </Box>
-
-        <Divider sx={{ borderStyle: "dashed" }} />
-
-        <Stack sx={{ p: 1 }}>
-          {MENU_OPTIONS.map((option) => (
-            <MenuItem
-              key={option.label}
-              to={option.linkTo}
-              component={RouterLink}
-              onClick={handleClose}
-            >
-              {option.label}
-            </MenuItem>
-          ))}
-        </Stack>
-
-        <Divider sx={{ borderStyle: "dashed" }} />
-
-        <MenuItem
-          onClick={() => {
-            handleClose();
-            onLogout();
-          }}
-          sx={{ m: 1 }}
-        >
-          Logout
-        </MenuItem>
+        {schema.map((schemaItem, i) => (
+          <div key={i}>
+            {schemaItem.type === "custom" && schemaItem.element}
+            {schemaItem.type === "divider" && (
+              <Divider sx={{ borderStyle: "dashed" }} />
+            )}
+            {schemaItem.type === "menu" && (
+              <MenuItem
+                key={schemaItem.label}
+                {...(schemaItem.linkTo
+                  ? { component: RouterLink, to: schemaItem.linkTo }
+                  : {})}
+                onClick={handleClose}
+              >
+                {schemaItem.label}
+              </MenuItem>
+            )}
+          </div>
+        ))}
       </MenuPopover>
     </>
   );
