@@ -2,7 +2,7 @@ import { Chip, ChipProps } from "@mui/material";
 import { omit } from "lodash";
 import * as React from "react";
 
-interface Labelprops extends ChipProps {
+export interface Labelprops extends ChipProps {
   type: "rounded" | "squared" | "semi-rounded";
   vivid?: boolean;
 }
