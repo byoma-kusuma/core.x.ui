@@ -16,7 +16,7 @@ const defaultArgs = {
 };
 
 export default {
-  title: "ActionPopup",
+  title: "Components/ActionPopup",
   component: ActionPopup,
   argTypes: {
     handleClose: {

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Icon } from "@iconify/react";
 import { Box, BoxProps, SxProps } from "@mui/material";
 
-interface IconifyProps extends Partial<BoxProps> {
+export interface IconifyProps extends Partial<BoxProps> {
   icon: React.ReactElement | string;
   sx?: SxProps;
 }
