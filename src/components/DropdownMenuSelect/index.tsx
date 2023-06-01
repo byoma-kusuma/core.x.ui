@@ -1,35 +1,35 @@
 import * as React from "react";
 import { alpha } from "@mui/material/styles";
 import { Box, MenuItem, Stack, IconButton } from "@mui/material";
-import MenuPopover from "../../components/MenuPopover";
+import MenuPopover from "../MenuPopover";
 
-const LANGS = [
-  {
-    value: "en",
-    label: "English",
-    icon: "/static/icons/ic_flag_en.svg"
-  },
-  {
-    value: "de",
-    label: "German",
-    icon: "/static/icons/ic_flag_de.svg"
-  },
-  {
-    value: "fr",
-    label: "French",
-    icon: "/static/icons/ic_flag_fr.svg"
-  }
-];
+interface SelectItem {
+  label: string;
+  icon?: string;
+  onClick: () => void;
+}
 
-export default function LanguagePopover() {
+interface DropdownMenuSelectProps {
+  items: Array<SelectItem>;
+}
+
+export default function DropdownMenuSelect(props: DropdownMenuSelectProps) {
+  const { items } = props;
+
   const anchorRef = React.useRef(null);
   const [open, setOpen] = React.useState(false);
+  const [activeIndex, setActiveIndex] = React.useState(0);
 
   const handleOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleChange = (index: number) => {
+    setActiveIndex(index);
     setOpen(false);
   };
 
@@ -51,7 +51,7 @@ export default function LanguagePopover() {
           })
         }}
       >
-        <img src={LANGS[0].icon} alt={LANGS[0].label} />
+        <img src={items[activeIndex].icon} alt={items[activeIndex].label} />
       </IconButton>
 
       <MenuPopover
@@ -70,18 +70,20 @@ export default function LanguagePopover() {
         }}
       >
         <Stack spacing={0.75}>
-          {LANGS.map((option) => (
+          {items.map((option, idx) => (
             <MenuItem
-              key={option.value}
-              selected={option.value === LANGS[0].value}
-              onClick={() => handleClose()}
+              key={option.label}
+              selected={idx === activeIndex}
+              onClick={() => handleChange(idx)}
             >
-              <Box
-                component="img"
-                alt={option.label}
-                src={option.icon}
-                sx={{ width: 28, mr: 2 }}
-              />
+              {option.icon && (
+                <Box
+                  component="img"
+                  alt={option.label}
+                  src={option.icon}
+                  sx={{ width: 28, mr: 2 }}
+                />
+              )}
 
               {option.label}
             </MenuItem>
