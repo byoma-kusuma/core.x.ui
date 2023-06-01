@@ -9,7 +9,7 @@ interface SelectItem {
   onClick: () => void;
 }
 
-interface DropdownMenuSelectProps {
+export interface DropdownMenuSelectProps {
   items: Array<SelectItem>;
 }
 
@@ -28,8 +28,12 @@ export default function DropdownMenuSelect(props: DropdownMenuSelectProps) {
     setOpen(false);
   };
 
-  const handleChange = (index: number) => {
+  const handleChange = (
+    index: number,
+    items: DropdownMenuSelectProps["items"]
+  ) => {
     setActiveIndex(index);
+    items[index].onClick();
     setOpen(false);
   };
 
@@ -74,7 +78,7 @@ export default function DropdownMenuSelect(props: DropdownMenuSelectProps) {
             <MenuItem
               key={option.label}
               selected={idx === activeIndex}
-              onClick={() => handleChange(idx)}
+              onClick={() => handleChange(idx, items)}
             >
               {option.icon && (
                 <Box
