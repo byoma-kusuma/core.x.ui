@@ -1,6 +1,5 @@
 import * as React from "react";
 import AccountPopover from "../../../components/AvatarPopover";
-import ContactsPopover from "../../../components/ContactsPopover";
 import LanguagePopover from "../../../components/LanguagePopover";
 import NavigationBar from "../../../components/NavigationBar";
 import NotificationsPopover from "../../../components/NotificationsPopover";
@@ -45,7 +44,6 @@ export default function NavigationBarContainer(
           <>
             <LanguagePopover />
             <NotificationsPopover />
-            <ContactsPopover />
             {user && (
               <AccountPopover
                 photoUrl={user.me.avatar}
