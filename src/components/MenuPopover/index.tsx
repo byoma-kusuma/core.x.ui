@@ -19,7 +19,7 @@ const ArrowStyle = styled("span")(({ theme }) => ({
   }
 }));
 
-interface MenuPopoverProps extends PopoverProps {
+export interface MenuPopoverProps extends PopoverProps {
   children: React.ReactNode;
   sx?: SxProps;
   open: boolean;
