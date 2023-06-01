@@ -29,7 +29,7 @@ const defaultArgs = {
 };
 
 export default {
-  title: "AccountPopover",
+  title: "Components/AccountPopover",
   component: AccountPopover,
   argTypes: {
     photoUrl: {
