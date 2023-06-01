@@ -29,12 +29,12 @@ interface CustomNodeTypeMenu {
 
 type MenuSchema = SchemaTypeMenu | DividerTypeMenu | CustomNodeTypeMenu;
 
-interface AccountPopoverProps {
+interface AvatarPopoverProps {
   photoUrl: string;
   schema: Array<MenuSchema>;
 }
 
-export default function AccountPopover(props: AccountPopoverProps) {
+export default function AvatarPopover(props: AvatarPopoverProps) {
   const { photoUrl, schema } = props;
 
   const [anchorEl, setAnchorlEl] =
