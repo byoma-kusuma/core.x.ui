@@ -2,14 +2,20 @@ import { Tooltip, TooltipProps } from "@mui/material";
 import * as React from "react";
 import Iconify from "../Iconify";
 
-interface InfoProviderProps extends Omit<TooltipProps, "title" | "children"> {
+export interface InfoProviderProps
+  extends Omit<TooltipProps, "title" | "children"> {
   info: string;
 }
 
 export default function InfoProvider(props: InfoProviderProps) {
   const { info, ...rest } = props;
   return (
-    <Tooltip title={info} {...rest} style={{ cursor: "pointer" }}>
+    <Tooltip
+      title={info}
+      {...rest}
+      style={{ cursor: "pointer" }}
+      data-testid="info-icon-tooltip"
+    >
       <div>
         <Iconify
           icon="eva:info-outline"
