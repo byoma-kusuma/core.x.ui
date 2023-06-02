@@ -26,7 +26,7 @@ const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   }
 }));
 
-interface NavigationBarProps {
+export interface NavigationBarProps {
   onHamburgerClick: () => void;
   onSearch: (s: string) => void;
   stackItemsRenderer: () => React.ReactNode;
