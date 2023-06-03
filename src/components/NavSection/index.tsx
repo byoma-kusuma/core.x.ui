@@ -161,7 +161,7 @@ function NavItem(props: NavItemProps) {
   );
 }
 
-interface NavSectionProps extends BoxProps {
+export interface NavSectionProps extends BoxProps {
   navConfig: Array<NavigationItem>;
 }
 
