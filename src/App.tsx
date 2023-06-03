@@ -1,7 +1,7 @@
 import * as React from "react";
 import AppRoutes from "./routes/AppRoutes";
 import "simplebar/dist/simplebar.min.css";
-import ThemeProvider from "./theme";
+import ThemeProvider from "theme";
 import { closeSnackbar, SnackbarProvider } from "notistack";
 import { createBrowserHistory } from "history";
 import { unstable_HistoryRouter as HistoryRouter } from "react-router-dom";

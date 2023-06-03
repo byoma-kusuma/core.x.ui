@@ -8,7 +8,7 @@ import {
   InputAdornment,
   ClickAwayListener
 } from "@mui/material";
-import Iconify from "../../components/Iconify";
+import Iconify from "components/Iconify";
 
 const APPBAR_MOBILE = 64;
 const APPBAR_DESKTOP = 92;

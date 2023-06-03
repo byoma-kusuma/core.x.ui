@@ -7,23 +7,23 @@ import {
   Typography
 } from "@mui/material";
 import * as React from "react";
-import CoolTable from "../../components/CoolTable";
-import Iconify from "../../components/Iconify";
-import Label from "../../components/Label";
-import GqlApiHandler from "../../services/GqlApiHandler";
+import CoolTable from "components/CoolTable";
+import Iconify from "components/Iconify";
+import Label from "components/Label";
+import GqlApiHandler from "services/GqlApiHandler";
 import {
   GroupQuery,
   useGroupQuery,
   useUpdateGroupMutation
-} from "../../generated/graphql";
+} from "generated/graphql";
 import { useConfirm } from "material-ui-confirm";
 import { useNavigate, useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import GroupDetailMembersAddMemberContainer from "./GroupAddMemberContainer";
-import ActionPopoup from "../../components/ActionPopup";
-import { getMemberFullName } from "../../utils/member";
+import ActionPopoup from "components/ActionPopup";
+import { getMemberFullName } from "utils/member";
 import { omit } from "lodash";
-import SendEmailPane from "../../pages/CommonComponents/SendEmailPane";
+import SendEmailPane from "pages/CommonComponents/SendEmailPane";
 
 export function formatGroupMembersListData(data: GroupQuery | undefined) {
   if (!data) return [];

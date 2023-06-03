@@ -12,8 +12,8 @@ import {
   CreateAbhisekhaInput,
   useCreateAbhisekhaMutation,
   useUpdateAbhisekhaMutation
-} from "../../generated/graphql";
-import GqlApiHandler from "../../services/GqlApiHandler";
+} from "generated/graphql";
+import GqlApiHandler from "services/GqlApiHandler";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",

@@ -8,8 +8,8 @@ import {
 } from "@mui/material";
 import { omit } from "lodash";
 import * as React from "react";
-import { MembersQuery } from "../../generated/graphql";
-import { getMemberFullName } from "../../utils/member";
+import { MembersQuery } from "generated/graphql";
+import { getMemberFullName } from "utils/member";
 
 interface Props {
   value: Array<number>;

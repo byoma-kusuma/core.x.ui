@@ -1,6 +1,6 @@
 import * as React from "react";
 import { render, screen } from "@testing-library/react";
-import MenuPopover from "."; // replace with the path to your MenuPopover component
+import MenuPopover from ".";
 
 describe("MenuPopover", () => {
   test("renders correctly when open", () => {

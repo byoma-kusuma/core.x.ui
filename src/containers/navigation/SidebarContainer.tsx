@@ -1,7 +1,7 @@
 import * as React from "react";
-import Sidebar from "../../components/Sidebar";
-import { useMeQuery } from "../../generated/graphql";
-import navConfig from "../../schemas/navigation";
+import Sidebar from "components/Sidebar";
+import { useMeQuery } from "generated/graphql";
+import navConfig from "schemas/navigation";
 
 interface SidebarContainerProps {
   isOpenSidebar: boolean;

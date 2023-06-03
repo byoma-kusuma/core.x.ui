@@ -2,7 +2,7 @@ import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import Searchbar from ".";
 import "@testing-library/jest-dom";
-import ThemeProvider from "../../theme";
+import ThemeProvider from "theme";
 
 const mockOnSearch = jest.fn();
 

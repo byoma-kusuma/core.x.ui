@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 import * as React from "react";
+import TimelineChart from "./ClosedAreaGraph";
+import PieChart from "./PieChart";
 import {
   GetMemberActivitiesQueryResponse,
   useGetMemberActivities,
   useGetMemberCentres
-} from "../../api/rest/reports";
-import PageWithHeader from "../../components/PageWithHeader";
-import { MembersQuery, useMembersQuery } from "../../generated/graphql";
-import TimelineChart from "./ClosedAreaGraph";
-import PieChart from "./PieChart";
+} from "api/rest/reports";
+import PageWithHeader from "components/PageWithHeader";
+import { MembersQuery, useMembersQuery } from "generated/graphql";
 
 export function withHydradedMembers(
   memberActivitiesData: GetMemberActivitiesQueryResponse | undefined,

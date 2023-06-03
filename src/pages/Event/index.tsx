@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import PageWithHeader from "../../components/PageWithHeader";
+import PageWithHeader from "components/PageWithHeader";
 
 export default function Events() {
   const navigate = useNavigate();

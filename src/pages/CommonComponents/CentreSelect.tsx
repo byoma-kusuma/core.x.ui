@@ -1,6 +1,6 @@
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import * as React from "react";
-import { useCentresQuery } from "../../generated/graphql";
+import { useCentresQuery } from "generated/graphql";
 
 interface Props {
   value: number | null;

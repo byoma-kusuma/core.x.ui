@@ -5,16 +5,16 @@ import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import ReactSlidingPane from "react-sliding-pane";
-import CoolTable from "../../components/CoolTable";
+import CoolTable from "components/CoolTable";
 import {
   GroupQuery,
   MembersQuery,
   useGroupQuery,
   useMembersQuery,
   useUpdateGroupMutation
-} from "../../generated/graphql";
-import GqlApiHandler from "../../services/GqlApiHandler";
-import { getMemberFullName } from "../../utils/member";
+} from "generated/graphql";
+import GqlApiHandler from "services/GqlApiHandler";
+import { getMemberFullName } from "utils/member";
 
 interface Props {
   open: boolean;

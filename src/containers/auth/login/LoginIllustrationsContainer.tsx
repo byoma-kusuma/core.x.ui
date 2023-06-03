@@ -1,7 +1,7 @@
 import { Card, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
-import useResponsive from "../../../hooks/useResponsive";
+import useResponsive from "hooks/useResponsive";
 
 const HeaderStyle = styled("header")(({ theme }) => ({
   top: 0,

@@ -1,7 +1,7 @@
 import { Paper, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Iconify from "components/Iconify";
 import * as React from "react";
-import Iconify from "../Iconify";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",

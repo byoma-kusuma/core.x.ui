@@ -1,4 +1,4 @@
-import { completeTrim } from "../formatters/commonFormatters";
+import { completeTrim } from "utils/formatters/commonFormatters";
 
 export function getMemberFullName(member?: {
   firstName: string;

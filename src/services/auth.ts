@@ -2,7 +2,7 @@ import { makeOperation, gql } from "@urql/core";
 import { authExchange } from "@urql/exchange-auth";
 import { enqueueSnackbar } from "notistack";
 import { errorExchange } from "urql";
-import { history } from "../App";
+import { history } from "App";
 
 const LOCAL_TOKEN_KEY = "token";
 const REFRESH_TOKEN_KEY = "refreshToken";

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
-import PageWithHeader from "../../components/PageWithHeader";
-import AbhisekhaFormContainer from "../../containers/abhisekha/AbhisekhaFormContainer";
+import PageWithHeader from "components/PageWithHeader";
+import AbhisekhaFormContainer from "containers/abhisekha/AbhisekhaFormContainer";
 
 export default function CreateUpdateAbhisekhaPage() {
   const { id } = useParams();
