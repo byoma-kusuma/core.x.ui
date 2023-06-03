@@ -33,7 +33,7 @@ const SearchbarStyle = styled("div")(({ theme }) => ({
   }
 }));
 
-interface SearchbarProps {
+export interface SearchbarProps {
   onSearch: (s: string) => void;
 }
 

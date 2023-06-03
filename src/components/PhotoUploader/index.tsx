@@ -44,12 +44,12 @@ const PhotoHolder = styled("div")(({ theme }) => ({
   }
 }));
 
-interface Props {
+export interface PhotoUploaderProps {
   children: React.ReactNode;
   height: number | string;
 }
 
-export default function PhotoUploader(props: Props) {
+export default function PhotoUploader(props: PhotoUploaderProps) {
   const { children, height } = props;
   return (
     <RootStyle elevation={1} sx={{ height }}>
