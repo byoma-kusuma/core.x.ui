@@ -2,7 +2,7 @@ import { Tab, Tabs } from "@mui/material";
 import { Box } from "@mui/system";
 import * as React from "react";
 
-interface SchemaItem {
+export interface SchemaItem {
   label: string;
   key: string;
   component: React.ReactNode;
