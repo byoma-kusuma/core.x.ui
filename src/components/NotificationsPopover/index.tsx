@@ -17,10 +17,10 @@ import {
   ListItemAvatar,
   ListItemButton
 } from "@mui/material";
-import Iconify from "../../components/Iconify";
-import Scrollbar from "../../components/Scrollbar";
-import MenuPopover from "../../components/MenuPopover";
-import { fToNow } from "../../utils/formatters/commonFormatters";
+import Iconify from "components/Iconify";
+import Scrollbar from "components/Scrollbar";
+import MenuPopover from "components/MenuPopover";
+import { fToNow } from "utils/formatters/commonFormatters";
 
 const NOTIFICATIONS = [
   {

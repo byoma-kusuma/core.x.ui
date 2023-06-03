@@ -5,15 +5,15 @@ import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useParams } from "react-router-dom";
 import ReactSlidingPane from "react-sliding-pane";
-import CoolTable from "../../components/CoolTable";
+import CoolTable from "components/CoolTable";
 import {
   AbhisekhaQuery,
   ResourcesQuery,
   useAbhisekhaQuery,
   useResourcesQuery,
   useUpdateAbhisekhaMutation
-} from "../../generated/graphql";
-import GqlApiHandler from "../../services/GqlApiHandler";
+} from "generated/graphql";
+import GqlApiHandler from "services/GqlApiHandler";
 
 interface Props {
   open: boolean;

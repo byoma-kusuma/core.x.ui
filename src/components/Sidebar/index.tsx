@@ -2,10 +2,10 @@ import * as React from "react";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import { Box, Link, Drawer, Typography, Avatar } from "@mui/material";
-import useResponsive from "../../hooks/useResponsive";
-import Scrollbar from "../../components/Scrollbar";
-import NavSection from "../NavSection";
-import { NavigationItem } from "../../schemas/navigation";
+import { NavigationItem } from "schemas/navigation";
+import useResponsive from "hooks/useResponsive";
+import Scrollbar from "components/Scrollbar";
+import NavSection from "components/NavSection";
 
 const DRAWER_WIDTH = 280;
 

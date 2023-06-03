@@ -1,8 +1,8 @@
 import * as React from "react";
 import { alpha, styled } from "@mui/material/styles";
 import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
-import Iconify from "../../components/Iconify";
-import Searchbar from "../SearchBar";
+import Iconify from "components/Iconify";
+import Searchbar from "components/SearchBar";
 
 const DRAWER_WIDTH = 280;
 export const APPBAR_MOBILE = 64;

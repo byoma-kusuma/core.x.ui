@@ -1,8 +1,8 @@
 import { Button } from "@mui/material";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import PageWithHeader from "../../components/PageWithHeader";
-import GroupsListContainer from "../../containers/group/GroupsListContainer";
+import PageWithHeader from "components/PageWithHeader";
+import GroupsListContainer from "containers/group/GroupsListContainer";
 
 export default function Groups() {
   const navigate = useNavigate();

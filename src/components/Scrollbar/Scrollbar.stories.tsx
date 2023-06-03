@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
-import Scrollbar, { ScrollbarProps } from "."; // Adjust the path as needed
+import Scrollbar, { ScrollbarProps } from ".";
 
 export default {
   title: "Components/Scrollbar",

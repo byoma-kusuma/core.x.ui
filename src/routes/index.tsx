@@ -1,32 +1,30 @@
 import { exact } from "prop-types";
 import * as React from "react";
 import { Navigate, RouteObject } from "react-router-dom";
-import CommonLayout from "../layouts/CommonLayout";
-import Abhisekhas from "../pages/Abhisekha";
-import AbhisekhaDetailPage from "../pages/Abhisekha/AbhisekhaDetailPage";
-import CreateUpdateAbhisekhaPage from "../pages/Abhisekha/CreateUpdateAbhisekhaPage";
-import Events from "../pages/Event";
-import Groups from "../pages/Groups";
-import Group from "../pages/Groups/CreateUpdateGroupPage";
-import GroupDetail from "../pages/Groups/GroupDetailPage";
-import Login from "../pages/Login";
-import NotFound404 from "../pages/NotFound404";
-import ResetPassword from "../pages/ResetPassword";
-import RequestResetPassword from "../pages/ResetPassword/RequestResetPasswordPage";
-import Resources from "../pages/Resource";
-import CreateUpdateResourcePage from "../pages/Resource/CreateUpdateResourcePage";
-import ResourceDetailPage from "../pages/Resource/ResourceDetailPage";
-import Users from "../pages/Users";
-import User from "../pages/Users/UserDetailPage";
+import CommonLayout from "layouts/CommonLayout";
+import Abhisekhas from "pages/Abhisekha";
+import AbhisekhaDetailPage from "pages/Abhisekha/AbhisekhaDetailPage";
+import CreateUpdateAbhisekhaPage from "pages/Abhisekha/CreateUpdateAbhisekhaPage";
+import Events from "pages/Event";
+import Groups from "pages/Groups";
+import Group from "pages/Groups/CreateUpdateGroupPage";
+import GroupDetail from "pages/Groups/GroupDetailPage";
+import Login from "pages/Login";
+import NotFound404 from "pages/NotFound404";
+import ResetPassword from "pages/ResetPassword";
+import RequestResetPassword from "pages/ResetPassword/RequestResetPasswordPage";
+import Resources from "pages/Resource";
+import CreateUpdateResourcePage from "pages/Resource/CreateUpdateResourcePage";
+import ResourceDetailPage from "pages/Resource/ResourceDetailPage";
+import Users from "pages/Users";
+import User from "pages/Users/UserDetailPage";
 import Private from "./PrivateRoute";
 
 // use lazy imports for routes under app
-const AppLayout = React.lazy(() => import("../layouts/AppLayout"));
-const Dashboard = React.lazy(() => import("../pages/Dashboard"));
-const Members = React.lazy(() => import("../pages/Members"));
-const CreateMember = React.lazy(
-  () => import("../pages/Members/CreateMemberPage")
-);
+const AppLayout = React.lazy(() => import("layouts/AppLayout"));
+const Dashboard = React.lazy(() => import("pages/Dashboard"));
+const Members = React.lazy(() => import("pages/Members"));
+const CreateMember = React.lazy(() => import("pages/Members/CreateMemberPage"));
 
 export default [
   {

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import PageWithHeader from "../../components/PageWithHeader";
-import UserFormContainer from "../../containers/user/UserFormContainer";
+import PageWithHeader from "components/PageWithHeader";
+import UserFormContainer from "containers/user/UserFormContainer";
 
 export default function Member() {
   const { id } = useParams();

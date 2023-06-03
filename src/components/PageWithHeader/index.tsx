@@ -1,10 +1,10 @@
 import { Box, Breadcrumbs, Link } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+import Spinner from "components/Spinner";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import symbols from "../../utils/symbols/commonSymbols";
-import Spinner from "../Spinner";
+import symbols from "utils/symbols/commonSymbols";
 
 const RootStyle = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2, 1, 2),

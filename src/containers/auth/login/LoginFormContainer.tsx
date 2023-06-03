@@ -12,11 +12,11 @@ import {
   Typography
 } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import Iconify from "../../../components/Iconify";
-import useResponsive from "../../../hooks/useResponsive";
-import { useLoginMutation } from "../../../generated/graphql";
-import { setLocalToken, setRefreshToken } from "../../../services/auth";
-import GqlApiHandler from "../../../services/GqlApiHandler";
+import Iconify from "components/Iconify";
+import useResponsive from "hooks/useResponsive";
+import { useLoginMutation } from "generated/graphql";
+import { setLocalToken, setRefreshToken } from "services/auth";
+import GqlApiHandler from "services/GqlApiHandler";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string().required("Username is required"),

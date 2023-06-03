@@ -2,8 +2,8 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import AccountPopover from ".";
 import * as React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import ThemeProvider from "../../theme";
 import { Box } from "@mui/material";
+import ThemeProvider from "theme";
 
 const defaultArgs = {
   photoUrl: "https://via.placeholder.com/150",

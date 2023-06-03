@@ -1,14 +1,14 @@
 import { Avatar, Stack, Typography } from "@mui/material";
 import * as React from "react";
-import CoolTable from "../../components/CoolTable";
-import Label from "../../components/Label";
-import GqlApiHandler from "../../services/GqlApiHandler";
-import { ResourceQuery, useResourceQuery } from "../../generated/graphql";
+import CoolTable from "components/CoolTable";
+import Label from "components/Label";
+import GqlApiHandler from "services/GqlApiHandler";
+import { ResourceQuery, useResourceQuery } from "generated/graphql";
 import { useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import ActionPopoup from "../../components/ActionPopup";
-import { getMemberFullName } from "../../utils/member";
-import SendEmailPane from "../../pages/CommonComponents/SendEmailPane";
+import ActionPopoup from "components/ActionPopup";
+import { getMemberFullName } from "utils/member";
+import SendEmailPane from "pages/CommonComponents/SendEmailPane";
 
 export function formatResourceMembersListData(data: ResourceQuery | undefined) {
   if (!data) return [];

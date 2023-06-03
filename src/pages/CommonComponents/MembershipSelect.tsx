@@ -1,7 +1,7 @@
 import { Autocomplete, TextField } from "@mui/material";
 import { startCase } from "lodash";
 import * as React from "react";
-import { MembershipType } from "../../generated/graphql";
+import { MembershipType } from "generated/graphql";
 
 interface MembershipSelectProps {
   value: MembershipType | null;

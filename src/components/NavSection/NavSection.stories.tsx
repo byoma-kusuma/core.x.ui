@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import NavSection, { NavSectionProps } from ".";
-import ThemeProvider from "../../theme";
 import { Box } from "@mui/material";
-import { NavigationItem } from "../../schemas/navigation";
 import { BrowserRouter } from "react-router-dom";
+import { NavigationItem } from "schemas/navigation";
+import ThemeProvider from "theme";
 
 export default {
   title: "Components/NavSection",

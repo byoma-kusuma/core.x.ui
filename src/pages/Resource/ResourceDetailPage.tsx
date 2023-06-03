@@ -1,12 +1,12 @@
 import { Box, Typography } from "@mui/material";
+import PageWithHeader from "components/PageWithHeader";
+import TabComponentRenderer from "components/TabComponentRenderer";
+import ResourceDetailsAbhisekhaContainer from "containers/resource/ResourceAbhisekhasContainer";
+import ResourceDetailsEventContainer from "containers/resource/ResourceEventsContainer";
+import ResourceDetailsMemberContainer from "containers/resource/ResourceMembersContainer";
+import { useResourceQuery } from "generated/graphql";
 import * as React from "react";
 import { useParams } from "react-router-dom";
-import PageWithHeader from "../../components/PageWithHeader";
-import TabComponentRenderer from "../../components/TabComponentRenderer";
-import { useResourceQuery } from "../../generated/graphql";
-import ResourceDetailsMemberContainer from "../../containers/resource/ResourceMembersContainer";
-import ResourceDetailsAbhisekhaContainer from "../../containers/resource/ResourceAbhisekhasContainer";
-import ResourceDetailsEventContainer from "../../containers/resource/ResourceEventsContainer";
 
 export default function ResourceDetailPage() {
   const { id } = useParams();

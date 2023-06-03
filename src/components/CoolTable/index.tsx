@@ -11,11 +11,11 @@ import {
   TableRow,
   TableSortLabel
 } from "@mui/material";
-import Scrollbar from "../Scrollbar";
 import { pick } from "lodash";
 import DataNotFound from "./CoolTableNoData";
 import CoolTableToolbar from "./CoolTableToolbar";
 import CoolTableFns from "./CoolTableFns";
+import Scrollbar from "components/Scrollbar";
 
 export interface DataSchema<T> {
   id: keyof T | "opt1" | "opt2";
