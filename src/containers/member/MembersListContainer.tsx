@@ -9,17 +9,17 @@ import {
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
-import Label from "../../../components/Label";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
+import Label from "../../components/Label";
 import {
   MembersQuery,
-  Status,
+  useMembersQuery,
   useDeleteMemberMutation,
-  useMembersQuery
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
-import { getMemberFullName } from "../../../utils/member";
+  Status
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
+import { getMemberFullName } from "../../utils/member";
 
 export function formatMemberListData(data: MembersQuery | undefined) {
   if (!data) return [];

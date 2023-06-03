@@ -7,24 +7,24 @@ import {
   Typography
 } from "@mui/material";
 import * as React from "react";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
-import Label from "../../../components/Label";
-import GqlApiHandler from "../../../services/GqlApiHandler";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
+import Label from "../../components/Label";
+import GqlApiHandler from "../../services/GqlApiHandler";
 import {
   AbhisekhaMemberDetails,
   AbhisekhaQuery,
   useAbhisekhaQuery,
   useUpdateAbhisekhaMutation
-} from "../../../generated/graphql";
+} from "../../generated/graphql";
 import { useConfirm } from "material-ui-confirm";
 import { useNavigate, useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
-import ActionPopoup from "../../../components/ActionPopup";
-import SendEmailPane from "../../CommonComponents/SendEmailPane";
-import { getMemberFullName } from "../../../utils/member";
+import ActionPopoup from "../../components/ActionPopup";
+import { getMemberFullName } from "../../utils/member";
 import { omit } from "lodash";
-import AbhisekhaDetailMembersAddMemberContainer from "./AbhisekhaDetailMembersAddMemberContainer";
+import AbhisekhaDetailMembersAddMemberContainer from "./AddMemberToAbhisekhaContainer";
+import SendEmailPane from "../../pages/CommonComponents/SendEmailPane";
 
 export function formatAbhisekhaMembersListData(
   data: AbhisekhaQuery | undefined

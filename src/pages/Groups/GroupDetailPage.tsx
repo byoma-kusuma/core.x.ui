@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
 import TabComponentRenderer from "../../components/TabComponentRenderer";
 import { useGroupQuery } from "../../generated/graphql";
-import GroupDetailMembersContainer from "./containers/GroupDetailMembersContainer";
+import GroupDetailMembersContainer from "../../containers/group/GroupMembersContainer";
 
 export default function GroupDetail() {
   const { id } = useParams();

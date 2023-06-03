@@ -1,5 +1,5 @@
 import * as React from "react";
-import DropdownMenuSelect from "../../../components/DropdownMenuSelect";
+import DropdownMenuSelect from "../../components/DropdownMenuSelect";
 
 const LANGS = [
   {

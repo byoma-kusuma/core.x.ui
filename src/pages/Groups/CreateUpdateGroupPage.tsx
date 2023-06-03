@@ -2,7 +2,7 @@ import * as React from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
-import GroupFormContainer from "./containers/GroupFormContainer";
+import GroupFormContainer from "../../containers/group/GroupFormContainer";
 
 export default function CreateUpdateGroup() {
   const { id } = useParams();

@@ -2,14 +2,14 @@ import { Box, IconButton, Typography } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
 import {
   ResourcesQuery,
   useResourcesQuery,
   useDeleteResourceMutation
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
 
 export function formatResourceListData(
   data: ResourcesQuery | undefined
