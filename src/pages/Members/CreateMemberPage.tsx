@@ -2,7 +2,7 @@ import * as React from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
-import MemberFormContainer from "./containers/MemberFormContainer";
+import MemberFormContainer from "../../containers/member/MemberFormContainer";
 
 const PAGE_ELEMENTS_HEIGHT = 520;
 

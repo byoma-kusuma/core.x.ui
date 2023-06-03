@@ -15,7 +15,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import ReactSlidingPane from "react-sliding-pane";
 import { useQuery } from "urql";
-import InfoProvider from "../../../components/InfoProvider";
+import InfoProvider from "../../components/InfoProvider";
 import {
   CreateGroupInput,
   GroupDocument,
@@ -23,9 +23,9 @@ import {
   useCreateGroupMutation,
   useMembersQuery,
   useUpdateGroupMutation
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
-import MembersSelectAutocomplete from "../../CommonComponents/MembersSelectAutocomplete";
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
+import MembersSelectAutocomplete from "../../pages/CommonComponents/MembersSelectAutocomplete";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",

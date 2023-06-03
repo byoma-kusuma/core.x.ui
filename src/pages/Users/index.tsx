@@ -1,6 +1,6 @@
 import * as React from "react";
 import PageWithHeader from "../../components/PageWithHeader";
-import UsersListContainer from "./containers/UsersListContainer";
+import UsersListContainer from "../../containers/user/UsersListContainer";
 
 export default function Users() {
   return (

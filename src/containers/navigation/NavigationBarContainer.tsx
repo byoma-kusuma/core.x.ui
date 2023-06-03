@@ -1,8 +1,8 @@
 import * as React from "react";
-import NavigationBar from "../../../components/NavigationBar";
-import NotificationsPopover from "../../../components/NotificationsPopover";
 import LanguagePopoverContainer from "./LanguagePopoverContainer";
 import AccountPopoverContainer from "./AccountPopoverContainer";
+import NavigationBar from "../../components/NavigationBar";
+import NotificationsPopover from "../../components/NotificationsPopover";
 
 interface NavigationBarContainerProps {
   onHamburgerClick: () => void;

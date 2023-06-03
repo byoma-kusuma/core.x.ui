@@ -23,9 +23,9 @@ import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "urql";
-import Iconify from "../../../components/Iconify";
-import InfoProvider from "../../../components/InfoProvider";
-import PhotoUploader from "../../../components/PhotoUploader";
+import Iconify from "../../components/Iconify";
+import InfoProvider from "../../components/InfoProvider";
+import PhotoUploader from "../../components/PhotoUploader";
 import {
   CreateMemberInput,
   MemberDocument,
@@ -34,15 +34,15 @@ import {
   useCreateMemberMutation,
   useCreateUserMutation,
   useUpdateMemberMutation
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
-import { getMemberFullName } from "../../../utils/member";
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
+import { getMemberFullName } from "../../utils/member";
 import PhoneInput from "react-phone-input-2";
 import * as Yup from "yup";
-import CentreSelect from "../../CommonComponents/CentreSelect";
-import { MembershipSelect } from "../../CommonComponents/MembershipSelect";
-import GenderSelect from "../../CommonComponents/GenderSelect";
-import CountrySelect from "../../CommonComponents/CountriesSelect";
+import CentreSelect from "../../pages/CommonComponents/CentreSelect";
+import { MembershipSelect } from "../../pages/CommonComponents/MembershipSelect";
+import GenderSelect from "../../pages/CommonComponents/GenderSelect";
+import CountrySelect from "../../pages/CommonComponents/CountriesSelect";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",

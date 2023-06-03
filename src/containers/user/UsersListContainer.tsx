@@ -2,17 +2,17 @@ import { Stack, Avatar, Typography, Box, IconButton } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
-import Label from "../../../components/Label";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
+import Label from "../../components/Label";
 import {
   Status,
   useDeleteUserMutation,
   UsersQuery,
   useUsersQuery
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
-import { getMemberFullName } from "../../../utils/member";
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
+import { getMemberFullName } from "../../utils/member";
 
 export function formatUserListData(data: UsersQuery | undefined) {
   if (!data) return [];

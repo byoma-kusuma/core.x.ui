@@ -1,7 +1,7 @@
 import * as React from "react";
-import Sidebar from "../../../components/Sidebar";
-import NavigationSchema from "../../../schemas/navigation";
-import { useMeQuery } from "../../../generated/graphql";
+import Sidebar from "../../components/Sidebar";
+import { useMeQuery } from "../../generated/graphql";
+import navConfig from "../../schemas/navigation";
 
 interface SidebarContainerProps {
   isOpenSidebar: boolean;
@@ -27,7 +27,7 @@ export default function SidebarContainer(props: SidebarContainerProps) {
           role: "TBD",
           link: "/app"
         }}
-        navigationSchema={NavigationSchema}
+        navigationSchema={navConfig}
       />
     </div>
   );

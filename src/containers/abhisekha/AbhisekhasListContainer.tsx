@@ -3,14 +3,14 @@ import { format } from "date-fns";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
 import {
   useAbhisekhasQuery,
   useDeleteAbhisekhaMutation,
   AbhisekhasQuery
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
 
 export function formatAbhisekhaListData(
   data: AbhisekhasQuery | undefined

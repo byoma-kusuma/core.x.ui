@@ -1,7 +1,7 @@
 import { Paper, styled } from "@mui/material";
 import * as React from "react";
 import { useQuery } from "urql";
-import { UserDocument, UserQuery } from "../../../generated/graphql";
+import { UserDocument, UserQuery } from "../../generated/graphql";
 
 const RootStyle = styled(Paper)(({ theme }) => ({
   backdropFilter: "blur(6px)",

@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
 import TabComponentRenderer from "../../components/TabComponentRenderer";
 import { useAbhisekhaQuery } from "../../generated/graphql";
-import AbhisekhaDetailsMemberContainer from "./containers/AbhisekhaDetailsMemberContainer";
-import AbhisekhaDetailsResourceContainer from "./containers/AbhisekhaDetailsResourceContainer";
+import AbhisekhaDetailsMemberContainer from "../../containers/abhisekha/AbhisekhaMembersContainer";
+import AbhisekhaDetailsResourceContainer from "../../containers/abhisekha/AbhisekhaResourceContainer";
 
 export default function AbhisekhaDetailPage() {
   const { id } = useParams();
