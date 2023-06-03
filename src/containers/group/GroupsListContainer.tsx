@@ -3,15 +3,15 @@ import { format } from "date-fns";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
-import Label from "../../../components/Label";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
+import Label from "../../components/Label";
 import {
   useGroupsQuery,
   useDeleteGroupMutation,
   GroupsQuery
-} from "../../../generated/graphql";
-import GqlApiHandler from "../../../services/GqlApiHandler";
+} from "../../generated/graphql";
+import GqlApiHandler from "../../services/GqlApiHandler";
 
 export function formatGroupListData(
   data: GroupsQuery | undefined

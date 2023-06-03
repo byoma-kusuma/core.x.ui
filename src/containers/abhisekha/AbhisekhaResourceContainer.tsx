@@ -1,18 +1,18 @@
 import { Box, Button, IconButton, Typography } from "@mui/material";
 import * as React from "react";
-import CoolTable from "../../../components/CoolTable";
-import Iconify from "../../../components/Iconify";
-import GqlApiHandler from "../../../services/GqlApiHandler";
+import CoolTable from "../../components/CoolTable";
+import Iconify from "../../components/Iconify";
+import GqlApiHandler from "../../services/GqlApiHandler";
 import {
   AbhisekhaQuery,
   useAbhisekhaQuery,
   useUpdateAbhisekhaMutation
-} from "../../../generated/graphql";
+} from "../../generated/graphql";
 import { useConfirm } from "material-ui-confirm";
 import { useNavigate, useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 import { omit } from "lodash";
-import AbhisekhaDetailResourceAddResourceContainer from "./AbhisekhaDetailResourceAddResourceContainer";
+import AbhisekhaDetailResourceAddResourceContainer from "./AbhisekhaAddResourceContainer";
 
 export function formatAbhisekhaResourceListData(
   data: AbhisekhaQuery | undefined

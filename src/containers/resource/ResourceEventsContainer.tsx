@@ -1,18 +1,16 @@
 import * as React from "react";
-import CoolTable from "../../../components/CoolTable";
-import GqlApiHandler from "../../../services/GqlApiHandler";
-import { ResourceQuery, useResourceQuery } from "../../../generated/graphql";
+import CoolTable from "../../components/CoolTable";
+import GqlApiHandler from "../../services/GqlApiHandler";
+import { ResourceQuery, useResourceQuery } from "../../generated/graphql";
 import { useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 
-export function formatResourceAbhisekhaListData(
-  data: ResourceQuery | undefined
-) {
+export function formatResourceEventListData(data: ResourceQuery | undefined) {
   if (!data) return [];
-  return data.resource.resourceAbhisekhas.map((r) => r.abhisekha);
+  return data.resource.resourceEvents.map((r) => r.event);
 }
 
-export default function ResourceDetailsAbhisekhaContainer() {
+export default function ResourceDetailsEventContainer() {
   const { id } = useParams();
 
   const [{ data, fetching, error }] = useResourceQuery({
@@ -36,17 +34,17 @@ export default function ResourceDetailsAbhisekhaContainer() {
           setShowActions(true);
           setSelectedMemberIds(dataIds);
         }}
-        data={formatResourceAbhisekhaListData(data)}
+        data={formatResourceEventListData(data)}
         filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
         dataSchema={[
           {
             id: "name",
             headerLabel: "Name"
           },
-          { id: "teacher", headerLabel: "Teacher" },
+          { id: "startDate", headerLabel: "Start Date" },
           {
-            id: "description",
-            headerLabel: "Description"
+            id: "endDate",
+            headerLabel: "End Date"
           }
         ]}
       />

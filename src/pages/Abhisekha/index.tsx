@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
-import AbhisekhasListContainer from "./containers/AbhisekhasListContainer";
+import AbhisekhasListContainer from "../../containers/abhisekha/AbhisekhasListContainer";
 
 export default function Abhisekhas() {
   const navigate = useNavigate();

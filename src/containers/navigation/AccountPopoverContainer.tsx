@@ -1,9 +1,9 @@
 import * as React from "react";
-import AvatarPopover from "../../../components/AvatarPopover";
-import { useMeQuery } from "../../../generated/graphql";
+import AvatarPopover from "../../components/AvatarPopover";
+import { useMeQuery } from "../../generated/graphql";
 import { Box, Typography } from "@mui/material";
-import { hardLogout } from "../../../services/auth";
-import { getMemberFullName } from "../../../utils/member";
+import { hardLogout } from "../../services/auth";
+import { getMemberFullName } from "../../utils/member";
 
 const MENU_OPTIONS = [
   {

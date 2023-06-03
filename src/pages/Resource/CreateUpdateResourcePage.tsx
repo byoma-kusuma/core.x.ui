@@ -2,7 +2,7 @@ import * as React from "react";
 import { Grid } from "@mui/material";
 import { useParams } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
-import ResourceFormContainer from "./containers/ResourceFormContainer";
+import ResourceFormContainer from "../../containers/resource/ResourceFormContainer";
 
 export default function CreateUpdateResourcePage() {
   const { id } = useParams();

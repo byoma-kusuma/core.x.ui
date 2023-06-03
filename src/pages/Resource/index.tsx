@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import PageWithHeader from "../../components/PageWithHeader";
-import ResourcesListContainer from "./containers/ResourceListContainer";
+import ResourcesListContainer from "../../containers/resource/ResourceListContainer";
 
 export default function Resources() {
   const navigate = useNavigate();
