@@ -1,15 +1,15 @@
 import { LoadingButton } from "@mui/lab";
 import { Box, FormHelperText, TextField } from "@mui/material";
+import HtmlEditor from "components/HtmlEditor";
+import Spinner from "components/Spinner";
+import {
+  useMembersQuery,
+  MembersQuery,
+  useSendEmailMutation
+} from "generated/graphql";
 import * as React from "react";
 import ReactSlidingPane from "react-sliding-pane";
-import HtmlEditor from "../../components/HtmlEditor";
-import Spinner from "../../components/Spinner";
-import {
-  MembersQuery,
-  useMembersQuery,
-  useSendEmailMutation
-} from "../../generated/graphql";
-import GqlApiHandler from "../../services/GqlApiHandler";
+import GqlApiHandler from "services/GqlApiHandler";
 import MembersSelectAutocomplete from "./MembersSelectAutocomplete";
 
 interface Props {

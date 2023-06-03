@@ -1,8 +1,8 @@
 import { Box, styled, Typography } from "@mui/material";
 import React from "react";
-import Spinner from "../components/Spinner";
-import { useMeQuery } from "../generated/graphql";
-import { hardLogout } from "../services/auth";
+import Spinner from "components/Spinner";
+import { useMeQuery } from "generated/graphql";
+import { hardLogout } from "services/auth";
 
 const Errored = styled("div")(() => ({
   display: "flex",

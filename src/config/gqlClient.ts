@@ -8,7 +8,7 @@ import {
 import {
   authExcConfig as authExchange,
   errorExcConfig as errorExchange
-} from "../services/auth";
+} from "services/auth";
 
 export const gqlClient = createClient({
   url: process.env.REACT_APP_BASE_URL as string,

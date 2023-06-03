@@ -1,8 +1,8 @@
 import * as React from "react";
 import { styled } from "@mui/material/styles";
 import { Box, Container, TextField, Typography } from "@mui/material";
-import { useRequestPasswordResetMutation } from "../../generated/graphql";
-import GqlApiHandler from "../../services/GqlApiHandler";
+import { useRequestPasswordResetMutation } from "generated/graphql";
+import GqlApiHandler from "services/GqlApiHandler";
 import { LoadingButton } from "@mui/lab";
 
 const RootStyle = styled("div")(({ theme }) => ({

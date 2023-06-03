@@ -1,6 +1,6 @@
 import { Tooltip, TooltipProps } from "@mui/material";
+import Iconify from "components/Iconify";
 import * as React from "react";
-import Iconify from "../Iconify";
 
 export interface InfoProviderProps
   extends Omit<TooltipProps, "title" | "children"> {

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import NavigationBar, { NavigationBarProps } from ".";
-import ThemeProvider from "../../theme";
 import { Box } from "@mui/material";
+import ThemeProvider from "theme";
 
 export default {
   title: "Components/NavigationBar",

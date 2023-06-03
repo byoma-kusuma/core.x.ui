@@ -1,6 +1,6 @@
 import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import * as React from "react";
-import { useAddressesQuery } from "../../generated/graphql";
+import { useAddressesQuery } from "generated/graphql";
 
 export default function AddressSelect() {
   const [{ data, fetching }] = useAddressesQuery();

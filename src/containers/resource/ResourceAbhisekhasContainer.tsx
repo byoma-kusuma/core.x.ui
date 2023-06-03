@@ -1,7 +1,7 @@
 import * as React from "react";
-import CoolTable from "../../components/CoolTable";
-import GqlApiHandler from "../../services/GqlApiHandler";
-import { ResourceQuery, useResourceQuery } from "../../generated/graphql";
+import CoolTable from "components/CoolTable";
+import GqlApiHandler from "services/GqlApiHandler";
+import { ResourceQuery, useResourceQuery } from "generated/graphql";
 import { useParams } from "react-router-dom";
 import "react-sliding-pane/dist/react-sliding-pane.css";
 

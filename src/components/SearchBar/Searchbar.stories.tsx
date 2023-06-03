@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react/types-6-0";
 import Searchbar, { SearchbarProps } from "."; // Adjust the path as needed
-import ThemeProvider from "../../theme";
+import ThemeProvider from "theme";
 
 export default {
   title: "Components/Searchbar",

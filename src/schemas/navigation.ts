@@ -1,4 +1,4 @@
-import { getIcon } from "../components/Iconify";
+import { getIcon } from "components/Iconify";
 
 export interface NavigationItem {
   title: string;

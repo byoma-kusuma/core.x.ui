@@ -2,14 +2,18 @@ import * as React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import NavigationBar from ".";
-// eslint-disable-next-line react/display-name
-jest.mock("../SearchBar", () => (props: { onSearch: (v: string) => void }) => (
-  <input
-    type="text"
-    onChange={(e) => props.onSearch(e.target.value)}
-    placeholder="Search"
-  />
-));
+jest.mock(
+  "components/SearchBar",
+  // eslint-disable-next-line react/display-name
+  () => (props: { onSearch: (v: string) => void }) =>
+    (
+      <input
+        type="text"
+        onChange={(e) => props.onSearch(e.target.value)}
+        placeholder="Search"
+      />
+    )
+);
 
 describe("<NavigationBar />", () => {
   const setup = () => {
