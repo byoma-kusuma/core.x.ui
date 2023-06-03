@@ -24,7 +24,7 @@ const AccountStyle = styled("div")(({ theme }) => ({
   backgroundColor: theme.palette.grey[500_12]
 }));
 
-interface SidebarProps {
+export interface SidebarProps {
   isOpenSidebar: boolean;
   onCloseSidebar: () => void;
   navigationSchema: Array<NavigationItem>;

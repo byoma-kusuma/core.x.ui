@@ -26,7 +26,7 @@ interface Crumb {
   key: string;
 }
 
-interface PageWithHeaderProps {
+export interface PageWithHeaderProps {
   children: React.ReactNode;
   header?: string;
   crumbs?: Array<Crumb>;

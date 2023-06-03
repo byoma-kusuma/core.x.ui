@@ -36,7 +36,7 @@ Scrollbar.propTypes = {
   sx: PropTypes.object
 };
 
-interface ScrollbarProps extends BoxProps {
+export interface ScrollbarProps extends BoxProps {
   children: React.ReactNode;
   sx?: SxProps;
 }
