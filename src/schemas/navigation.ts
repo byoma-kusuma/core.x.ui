@@ -3,7 +3,7 @@ import { getIcon } from "../components/Iconify";
 export interface NavigationItem {
   title: string;
   path: string;
-  icon: JSX.Element | "";
+  icon?: JSX.Element | "";
   info?: string;
   children?: Array<NavigationItem>;
   type?: "grouper";
