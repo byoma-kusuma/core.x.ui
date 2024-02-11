@@ -11,11 +11,11 @@ export interface NavigationItem {
 
 const navConfig: Array<NavigationItem> = [
   { title: "General", path: "", icon: "", type: "grouper" },
-  {
-    title: "dashboard",
-    path: "/app/dashboard",
-    icon: getIcon("eva:pie-chart-2-fill")
-  },
+  // {
+  //   title: "dashboard",
+  //   path: "/app/dashboard",
+  //   icon: getIcon("eva:pie-chart-2-fill")
+  // },
   {
     title: "members",
     path: "/app/members",
@@ -30,28 +30,28 @@ const navConfig: Array<NavigationItem> = [
     title: "groups",
     path: "/app/groups",
     icon: getIcon("eva:keypad-fill")
-  },
-  {
-    title: "abhisekhas",
-    path: "/app/abhisekhas",
-    icon: getIcon("eva:award-outline")
-  },
-  {
-    title: "resources",
-    path: "/app/resources",
-    icon: getIcon("eva:file-add-fill")
-  },
-  {
-    title: "events",
-    path: "/app/events",
-    icon: getIcon("eva:activity-fill")
-  },
-  { title: "New Section", path: "", icon: "", type: "grouper" },
-  {
-    title: "New Page",
-    path: "/app/newpage",
-    icon: getIcon("eva:people-fill")
   }
+  // {
+  //   title: "abhisekhas",
+  //   path: "/app/abhisekhas",
+  //   icon: getIcon("eva:award-outline")
+  // },
+  // {
+  //   title: "resources",
+  //   path: "/app/resources",
+  //   icon: getIcon("eva:file-add-fill")
+  // },
+  // {
+  //   title: "events",
+  //   path: "/app/events",
+  //   icon: getIcon("eva:activity-fill")
+  // },
+  // { title: "New Section", path: "", icon: "", type: "grouper" },
+  // {
+  //   title: "New Page",
+  //   path: "/app/newpage",
+  //   icon: getIcon("eva:people-fill")
+  // }
 ];
 
 export default navConfig;

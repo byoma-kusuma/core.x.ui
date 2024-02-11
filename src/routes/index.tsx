@@ -35,7 +35,7 @@ export default [
       </Private>
     ),
     children: [
-      { path: "/app", element: <Navigate to="/app/dashboard" replace /> },
+      { path: "/app", element: <Navigate to="/app/members" replace /> },
       { path: "dashboard", element: <Dashboard /> },
 
       // members routes

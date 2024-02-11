@@ -18,7 +18,7 @@ export default function Member() {
         { label: crumbTitle, route: "/", key: "2" }
       ]}
     >
-      <UserFormContainer id={id} />
+      <UserFormContainer id={id ? Number(id) : undefined} />
     </PageWithHeader>
   );
 }

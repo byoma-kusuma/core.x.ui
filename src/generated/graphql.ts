@@ -277,7 +277,6 @@ export type Address = {
 };
 
 export type AddressCreateInput = {
-  Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
   city?: InputMaybe<Scalars["String"]>;
   country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
@@ -303,12 +302,6 @@ export type AddressCreateNestedOneWithoutMemberPermanentAddressInput = {
   create?: InputMaybe<AddressCreateWithoutMemberPermanentAddressInput>;
 };
 
-export type AddressCreateNestedOneWithoutMembersInput = {
-  connect?: InputMaybe<AddressWhereUniqueInput>;
-  connectOrCreate?: InputMaybe<AddressCreateOrConnectWithoutMembersInput>;
-  create?: InputMaybe<AddressCreateWithoutMembersInput>;
-};
-
 export type AddressCreateOrConnectWithoutMemberCurrentAddressInput = {
   create: AddressCreateWithoutMemberCurrentAddressInput;
   where: AddressWhereUniqueInput;
@@ -319,13 +312,7 @@ export type AddressCreateOrConnectWithoutMemberPermanentAddressInput = {
   where: AddressWhereUniqueInput;
 };
 
-export type AddressCreateOrConnectWithoutMembersInput = {
-  create: AddressCreateWithoutMembersInput;
-  where: AddressWhereUniqueInput;
-};
-
 export type AddressCreateWithoutMemberCurrentAddressInput = {
-  Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
   city?: InputMaybe<Scalars["String"]>;
   country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
@@ -339,26 +326,11 @@ export type AddressCreateWithoutMemberCurrentAddressInput = {
 };
 
 export type AddressCreateWithoutMemberPermanentAddressInput = {
-  Members?: InputMaybe<MemberCreateNestedManyWithoutAddressInput>;
   city?: InputMaybe<Scalars["String"]>;
   country?: InputMaybe<Scalars["String"]>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
-  stateProvince?: InputMaybe<Scalars["String"]>;
-  street?: InputMaybe<Scalars["String"]>;
-  uniqueKey?: InputMaybe<Scalars["String"]>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]>;
-  updatedBy?: InputMaybe<Scalars["String"]>;
-};
-
-export type AddressCreateWithoutMembersInput = {
-  city?: InputMaybe<Scalars["String"]>;
-  country?: InputMaybe<Scalars["String"]>;
-  createdAt?: InputMaybe<Scalars["DateTime"]>;
-  createdBy?: InputMaybe<Scalars["String"]>;
-  memberCurrentAddress?: InputMaybe<MemberCreateNestedOneWithoutCurrentAddressInput>;
-  memberPermanentAddress?: InputMaybe<MemberCreateNestedOneWithoutPermanentAddressInput>;
   stateProvince?: InputMaybe<Scalars["String"]>;
   street?: InputMaybe<Scalars["String"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
@@ -373,7 +345,6 @@ export type AddressRelationFilter = {
 
 export type AddressWhereInput = {
   AND?: InputMaybe<Array<AddressWhereInput>>;
-  Members?: InputMaybe<MemberListRelationFilter>;
   NOT?: InputMaybe<Array<AddressWhereInput>>;
   OR?: InputMaybe<Array<AddressWhereInput>>;
   city?: InputMaybe<StringFilter>;
@@ -382,6 +353,8 @@ export type AddressWhereInput = {
   createdBy?: InputMaybe<StringFilter>;
   id?: InputMaybe<IntFilter>;
   memberCurrentAddress?: InputMaybe<MemberRelationFilter>;
+  memberIdCurrentAddress?: InputMaybe<IntFilter>;
+  memberIdPermanentAddress?: InputMaybe<IntFilter>;
   memberPermanentAddress?: InputMaybe<MemberRelationFilter>;
   stateProvince?: InputMaybe<StringFilter>;
   street?: InputMaybe<StringFilter>;
@@ -392,6 +365,8 @@ export type AddressWhereInput = {
 
 export type AddressWhereUniqueInput = {
   id?: InputMaybe<Scalars["Int"]>;
+  memberIdCurrentAddress?: InputMaybe<Scalars["Int"]>;
+  memberIdPermanentAddress?: InputMaybe<Scalars["Int"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
 };
 
@@ -1446,51 +1421,6 @@ export type MemberAbhisekhaWithoutMember = {
   type: Scalars["String"];
 };
 
-export type MemberCreateManyAddressInput = {
-  active?: InputMaybe<Scalars["Boolean"]>;
-  centreId?: InputMaybe<Scalars["Int"]>;
-  createdAt?: InputMaybe<Scalars["DateTime"]>;
-  createdBy?: InputMaybe<Scalars["String"]>;
-  currentAddressId?: InputMaybe<Scalars["Int"]>;
-  email?: InputMaybe<Scalars["String"]>;
-  firstName: Scalars["String"];
-  gender?: InputMaybe<GenderType>;
-  id?: InputMaybe<Scalars["Int"]>;
-  insta?: InputMaybe<Scalars["String"]>;
-  isDeleted?: InputMaybe<Scalars["Boolean"]>;
-  isMember?: InputMaybe<Scalars["Boolean"]>;
-  lastName: Scalars["String"];
-  membershipType?: InputMaybe<MembershipType>;
-  messenger?: InputMaybe<Scalars["String"]>;
-  middleName?: InputMaybe<Scalars["String"]>;
-  note?: InputMaybe<Scalars["String"]>;
-  permanentAddressId?: InputMaybe<Scalars["Int"]>;
-  phoneLand?: InputMaybe<Scalars["String"]>;
-  phoneMobile?: InputMaybe<Scalars["String"]>;
-  phoneOther?: InputMaybe<Scalars["String"]>;
-  photo?: InputMaybe<Scalars["String"]>;
-  refugeName?: InputMaybe<Scalars["String"]>;
-  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  title?: InputMaybe<Scalars["String"]>;
-  uniqueKey?: InputMaybe<Scalars["String"]>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]>;
-  updatedBy?: InputMaybe<Scalars["String"]>;
-  viber?: InputMaybe<Scalars["String"]>;
-  yearOfBirth?: InputMaybe<Scalars["Int"]>;
-};
-
-export type MemberCreateManyAddressInputEnvelope = {
-  data: Array<MemberCreateManyAddressInput>;
-  skipDuplicates?: InputMaybe<Scalars["Boolean"]>;
-};
-
-export type MemberCreateNestedManyWithoutAddressInput = {
-  connect?: InputMaybe<Array<MemberWhereUniqueInput>>;
-  connectOrCreate?: InputMaybe<Array<MemberCreateOrConnectWithoutAddressInput>>;
-  create?: InputMaybe<Array<MemberCreateWithoutAddressInput>>;
-  createMany?: InputMaybe<MemberCreateManyAddressInputEnvelope>;
-};
-
 export type MemberCreateNestedOneWithoutCurrentAddressInput = {
   connect?: InputMaybe<MemberWhereUniqueInput>;
   connectOrCreate?: InputMaybe<MemberCreateOrConnectWithoutCurrentAddressInput>;
@@ -1521,11 +1451,6 @@ export type MemberCreateNestedOneWithoutPermanentAddressInput = {
   create?: InputMaybe<MemberCreateWithoutPermanentAddressInput>;
 };
 
-export type MemberCreateOrConnectWithoutAddressInput = {
-  create: MemberCreateWithoutAddressInput;
-  where: MemberWhereUniqueInput;
-};
-
 export type MemberCreateOrConnectWithoutCurrentAddressInput = {
   create: MemberCreateWithoutCurrentAddressInput;
   where: MemberWhereUniqueInput;
@@ -1551,46 +1476,8 @@ export type MemberCreateOrConnectWithoutPermanentAddressInput = {
   where: MemberWhereUniqueInput;
 };
 
-export type MemberCreateWithoutAddressInput = {
-  active?: InputMaybe<Scalars["Boolean"]>;
-  centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
-  createdAt?: InputMaybe<Scalars["DateTime"]>;
-  createdBy?: InputMaybe<Scalars["String"]>;
-  currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
-  email?: InputMaybe<Scalars["String"]>;
-  eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
-  firstName: Scalars["String"];
-  gender?: InputMaybe<GenderType>;
-  insta?: InputMaybe<Scalars["String"]>;
-  isDeleted?: InputMaybe<Scalars["Boolean"]>;
-  isMember?: InputMaybe<Scalars["Boolean"]>;
-  lastName: Scalars["String"];
-  memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
-  memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
-  memberResource?: InputMaybe<MemberResourceCreateNestedManyWithoutMemberInput>;
-  membershipType?: InputMaybe<MembershipType>;
-  messenger?: InputMaybe<Scalars["String"]>;
-  middleName?: InputMaybe<Scalars["String"]>;
-  note?: InputMaybe<Scalars["String"]>;
-  permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
-  phoneLand?: InputMaybe<Scalars["String"]>;
-  phoneMobile?: InputMaybe<Scalars["String"]>;
-  phoneOther?: InputMaybe<Scalars["String"]>;
-  photo?: InputMaybe<Scalars["String"]>;
-  refugeName?: InputMaybe<Scalars["String"]>;
-  sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  title?: InputMaybe<Scalars["String"]>;
-  uniqueKey?: InputMaybe<Scalars["String"]>;
-  updatedAt?: InputMaybe<Scalars["DateTime"]>;
-  updatedBy?: InputMaybe<Scalars["String"]>;
-  user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
-  viber?: InputMaybe<Scalars["String"]>;
-  yearOfBirth?: InputMaybe<Scalars["Int"]>;
-};
-
 export type MemberCreateWithoutCurrentAddressInput = {
   active?: InputMaybe<Scalars["Boolean"]>;
-  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
   centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
@@ -1627,7 +1514,6 @@ export type MemberCreateWithoutCurrentAddressInput = {
 
 export type MemberCreateWithoutEventMemberInput = {
   active?: InputMaybe<Scalars["Boolean"]>;
-  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
   centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
@@ -1664,7 +1550,6 @@ export type MemberCreateWithoutEventMemberInput = {
 
 export type MemberCreateWithoutMemberAbhisekhaInput = {
   active?: InputMaybe<Scalars["Boolean"]>;
-  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
   centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
@@ -1701,7 +1586,6 @@ export type MemberCreateWithoutMemberAbhisekhaInput = {
 
 export type MemberCreateWithoutMemberResourceInput = {
   active?: InputMaybe<Scalars["Boolean"]>;
-  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
   centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
@@ -1738,7 +1622,6 @@ export type MemberCreateWithoutMemberResourceInput = {
 
 export type MemberCreateWithoutPermanentAddressInput = {
   active?: InputMaybe<Scalars["Boolean"]>;
-  address?: InputMaybe<AddressCreateNestedOneWithoutMembersInput>;
   centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
@@ -1965,14 +1848,11 @@ export type MemberWhereInput = {
   NOT?: InputMaybe<Array<MemberWhereInput>>;
   OR?: InputMaybe<Array<MemberWhereInput>>;
   active?: InputMaybe<BoolFilter>;
-  address?: InputMaybe<AddressRelationFilter>;
-  addressid?: InputMaybe<IntFilter>;
   centre?: InputMaybe<CentreRelationFilter>;
   centreId?: InputMaybe<IntFilter>;
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
   currentAddress?: InputMaybe<AddressRelationFilter>;
-  currentAddressId?: InputMaybe<IntFilter>;
   email?: InputMaybe<StringFilter>;
   eventMember?: InputMaybe<EventMemberListRelationFilter>;
   firstName?: InputMaybe<StringFilter>;
@@ -1990,7 +1870,6 @@ export type MemberWhereInput = {
   middleName?: InputMaybe<StringFilter>;
   note?: InputMaybe<StringFilter>;
   permanentAddress?: InputMaybe<AddressRelationFilter>;
-  permanentAddressId?: InputMaybe<IntFilter>;
   phoneLand?: InputMaybe<StringFilter>;
   phoneMobile?: InputMaybe<StringFilter>;
   phoneOther?: InputMaybe<StringFilter>;
@@ -2007,9 +1886,7 @@ export type MemberWhereInput = {
 };
 
 export type MemberWhereUniqueInput = {
-  currentAddressId?: InputMaybe<Scalars["Int"]>;
   id?: InputMaybe<Scalars["Int"]>;
-  permanentAddressId?: InputMaybe<Scalars["Int"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
 };
 
@@ -2342,6 +2219,11 @@ export type QueryUserArgs = {
   id: Scalars["Int"];
 };
 
+export enum QueryMode {
+  Default = "default",
+  Insensitive = "insensitive"
+}
+
 export type ResetPasswordInitiateInput = {
   userName: Scalars["String"];
 };
@@ -2589,6 +2471,7 @@ export type StringFilter = {
   in?: InputMaybe<Array<Scalars["String"]>>;
   lt?: InputMaybe<Scalars["String"]>;
   lte?: InputMaybe<Scalars["String"]>;
+  mode?: InputMaybe<QueryMode>;
   not?: InputMaybe<StringFilter>;
   notIn?: InputMaybe<Array<Scalars["String"]>>;
   startsWith?: InputMaybe<Scalars["String"]>;
