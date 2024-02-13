@@ -3,6 +3,7 @@
 UI for BKBDS related projects.
 
 ## Features and major tools
+
 - Typescript
 - SPA approach with React
 - Client state management with Redux Toolkit & server state with React-Query
@@ -16,7 +17,7 @@ UI for BKBDS related projects.
 ## Overview
 
 - [Instructions](#instructions)
-  - [Features](#features-and-major-tools)
+  - [Features and major tools](#features-and-major-tools)
   - [Overview](#overview)
   - [Project Setup and Execution](#project-setup-and-execution)
     - [1. Install Dependencies](#1-install-dependencies)
@@ -48,10 +49,10 @@ Setup the environment variables properly in your project root directory.
 Run UI server in development mode (runs in localhost:3000 by default)
 
 ```bash
-npm run start
+npm run start:dev
 ```
 
-Build UI 
+Build UI
 
 ```bash
 npm run build
@@ -79,7 +80,6 @@ npm run test
 
 > **Note**: Cypress testing to be added soon
 
-
 ### 5. Linting
 
 Fix all auto-fixable eslint problems
@@ -99,8 +99,6 @@ Open up the [example GraphQL queries](graphql/auth.graphql) and copy them to the
 ```
 
 ## Style and Structure Guidelines
+
 - Typescript guideline https://google.github.io/styleguide/tsguide.html
 - Folder and files naming should be small unless they are a react component or an interface file.
-
-
-
