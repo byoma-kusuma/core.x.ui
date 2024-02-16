@@ -19,6 +19,10 @@ interface Props {
 export default function MemberFormContainer(props: Props) {
   const { id } = props;
 
+  if (!id) {
+    return <></>;
+  }
+
   const [{ data }] = useQuery<MemberQuery>({
     query: MemberDocument,
     pause: !id,
@@ -26,7 +30,7 @@ export default function MemberFormContainer(props: Props) {
   });
 
   const memberFormUserSectionProps: MemberUserSectionProps = {
-    id: id!,
+    memberId: id,
     doesMemberHasUser: Boolean(data?.member.user),
     memberName: data ? getMemberFullName(data?.member) : null,
     memberUserRoleName: data?.member.user?.role.name,

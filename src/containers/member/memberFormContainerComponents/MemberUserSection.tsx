@@ -12,7 +12,7 @@ import React from "react";
 import GqlApiHandler from "services/GqlApiHandler";
 
 export interface MemberUserSectionProps {
-  id: number;
+  memberId: number;
   doesMemberHasUser: boolean;
   memberUserName?: string;
   memberUserRoleName?: string;
@@ -76,7 +76,7 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
     }).then(async () => {
       new GqlApiHandler(
         await passwordResetMut({
-          userName: passwordResetProps.memberUserName!
+          userName: passwordResetProps.memberUserName ?? ""
         })
       )
         .onSuccess(({ notiSuccess }) => {
@@ -91,7 +91,7 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
     <>
       <Grid item xs={12} md={6} lg={4}>
         <PhotoUploader height={"calc(100vh - 200px)"}>
-          {props.id && (
+          {props.memberId && (
             <UserInfoItemStyle style={{ paddingBottom: "16px" }}>
               <Typography variant="subtitle1">User</Typography>
               {props.doesMemberHasUser ? (
@@ -133,7 +133,10 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
                       sx={{ ml: "8px" }}
                       loading={creatingUser}
                       onClick={() => {
-                        handleUserCreate(props.id, props.memberName as string);
+                        handleUserCreate(
+                          props.memberId,
+                          props.memberName as string
+                        );
                       }}
                     >
                       Create
