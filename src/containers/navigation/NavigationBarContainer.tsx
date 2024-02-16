@@ -1,8 +1,8 @@
-import * as React from "react";
-import LanguagePopoverContainer from "./LanguagePopoverContainer";
-import AccountPopoverContainer from "./AccountPopoverContainer";
 import NavigationBar from "components/NavigationBar";
-import NotificationsPopover from "components/NotificationsPopover";
+import AccountPopoverContainer from "./AccountPopoverContainer";
+// import LanguagePopoverContainer from "./LanguagePopoverContainer";
+// import NotificationsPopover from "components/NotificationsPopover";
+import * as React from "react";
 
 interface NavigationBarContainerProps {
   onHamburgerClick: () => void;
@@ -20,8 +20,8 @@ export default function NavigationBarContainer(
         onSearch={(s) => console.log(s)}
         stackItemsRenderer={() => (
           <>
-            <LanguagePopoverContainer />
-            <NotificationsPopover />
+            {/* <LanguagePopoverContainer />
+            <NotificationsPopover /> */}
             <AccountPopoverContainer />
           </>
         )}

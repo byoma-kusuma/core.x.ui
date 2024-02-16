@@ -1,25 +1,25 @@
 import {
-  Stack,
   Avatar,
-  Typography,
-  Tooltip,
   Box,
-  IconButton
+  IconButton,
+  Stack,
+  Tooltip,
+  Typography
 } from "@mui/material";
-import { useConfirm } from "material-ui-confirm";
-import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import CoolTable from "components/CoolTable";
 import Iconify from "components/Iconify";
 import Label from "components/Label";
 import {
   MembersQuery,
-  useMembersQuery,
+  Status,
   useDeleteMemberMutation,
-  Status
+  useMembersQuery
 } from "generated/graphql";
+import { useConfirm } from "material-ui-confirm";
+import { useNavigate } from "react-router-dom";
 import GqlApiHandler from "services/GqlApiHandler";
 import { getMemberFullName } from "utils/member";
+import * as React from "react";
 
 export function formatMemberListData(data: MembersQuery | undefined) {
   if (!data) return [];
