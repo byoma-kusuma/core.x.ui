@@ -11,7 +11,7 @@ import Iconify from "components/Iconify";
 import Label from "components/Label";
 import {
   MembersQuery,
-  useMembersQuery,
+  Status,
   useDeleteMemberMutation,
   useMembersQuery
 } from "generated/graphql";
