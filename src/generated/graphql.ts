@@ -494,13 +494,13 @@ export type CreateMemberInput = {
   currentStreetAddress?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
-  gender?: InputMaybe<Scalars["String"]>;
+  gender?: InputMaybe<Gender_Type>;
   groupIds?: InputMaybe<Array<Scalars["Int"]>>;
   insta?: InputMaybe<Scalars["String"]>;
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
   memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
-  membershipType?: InputMaybe<Scalars["String"]>;
+  membershipType?: InputMaybe<Membership_Type>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
@@ -514,7 +514,6 @@ export type CreateMemberInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
@@ -1285,7 +1284,6 @@ export type Member = {
   photo?: Maybe<Scalars["String"]>;
   refugeName?: Maybe<Scalars["String"]>;
   sanghaJoinDate?: Maybe<Scalars["DateTime"]>;
-  tempAddress?: Maybe<Scalars["String"]>;
   title?: Maybe<Scalars["String"]>;
   /** Unique key associated with the object. */
   uniqueKey?: Maybe<Scalars["String"]>;
@@ -1505,7 +1503,6 @@ export type MemberCreateWithoutCurrentAddressInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
   updatedAt?: InputMaybe<Scalars["DateTime"]>;
@@ -1542,7 +1539,6 @@ export type MemberCreateWithoutEventMemberInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
   updatedAt?: InputMaybe<Scalars["DateTime"]>;
@@ -1579,7 +1575,6 @@ export type MemberCreateWithoutMemberAbhisekhaInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
   updatedAt?: InputMaybe<Scalars["DateTime"]>;
@@ -1616,7 +1611,6 @@ export type MemberCreateWithoutMemberResourceInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
   updatedAt?: InputMaybe<Scalars["DateTime"]>;
@@ -1653,7 +1647,6 @@ export type MemberCreateWithoutPermanentAddressInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   uniqueKey?: InputMaybe<Scalars["String"]>;
   updatedAt?: InputMaybe<Scalars["DateTime"]>;
@@ -1883,7 +1876,6 @@ export type MemberWhereInput = {
   photo?: InputMaybe<StringFilter>;
   refugeName?: InputMaybe<StringFilter>;
   sanghaJoinDate?: InputMaybe<DateTimeFilter>;
-  tempAddress?: InputMaybe<StringFilter>;
   title?: InputMaybe<StringFilter>;
   uniqueKey?: InputMaybe<StringFilter>;
   updatedAt?: InputMaybe<DateTimeFilter>;
@@ -2577,14 +2569,14 @@ export type UpdateMemberInput = {
   currentStreetAddress?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
-  gender?: InputMaybe<Scalars["String"]>;
+  gender?: InputMaybe<Gender_Type>;
   groupIds?: InputMaybe<Array<Scalars["Int"]>>;
   id: Scalars["Int"];
   insta?: InputMaybe<Scalars["String"]>;
   isMember?: InputMaybe<Scalars["Boolean"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
-  membershipType?: InputMaybe<Scalars["String"]>;
+  membershipType?: InputMaybe<Membership_Type>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
@@ -2598,7 +2590,6 @@ export type UpdateMemberInput = {
   photo?: InputMaybe<Scalars["String"]>;
   refugeName?: InputMaybe<Scalars["String"]>;
   sanghaJoinDate?: InputMaybe<Scalars["DateTime"]>;
-  tempAddress?: InputMaybe<Scalars["String"]>;
   title?: InputMaybe<Scalars["String"]>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
@@ -2997,7 +2988,6 @@ export type MembersQuery = {
     id: number;
     firstName: string;
     lastName: string;
-    tempAddress?: string | null;
     middleName?: string | null;
     email?: string | null;
     createdAt: any;
@@ -4920,14 +4910,6 @@ export default {
           },
           {
             name: "sanghaJoinDate",
-            type: {
-              kind: "SCALAR",
-              name: "Any"
-            },
-            args: []
-          },
-          {
-            name: "tempAddress",
             type: {
               kind: "SCALAR",
               name: "Any"
@@ -7329,7 +7311,6 @@ export const MembersDocument = gql`
       id
       firstName
       lastName
-      tempAddress
       middleName
       email
       firstName
