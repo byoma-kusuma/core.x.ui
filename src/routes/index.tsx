@@ -1,6 +1,3 @@
-import { exact } from "prop-types";
-import * as React from "react";
-import { Navigate, RouteObject } from "react-router-dom";
 import CommonLayout from "layouts/CommonLayout";
 import Abhisekhas from "pages/Abhisekha";
 import AbhisekhaDetailPage from "pages/Abhisekha/AbhisekhaDetailPage";
@@ -18,6 +15,9 @@ import CreateUpdateResourcePage from "pages/Resource/CreateUpdateResourcePage";
 import ResourceDetailPage from "pages/Resource/ResourceDetailPage";
 import Users from "pages/Users";
 import User from "pages/Users/UserDetailPage";
+import { exact } from "prop-types";
+import * as React from "react";
+import { Navigate, RouteObject } from "react-router-dom";
 import Private from "./PrivateRoute";
 
 // use lazy imports for routes under app
@@ -35,7 +35,7 @@ export default [
       </Private>
     ),
     children: [
-      { path: "/app", element: <Navigate to="/app/dashboard" replace /> },
+      { path: "/app", element: <Navigate to="/app/members" replace /> },
       { path: "dashboard", element: <Dashboard /> },
 
       // members routes
@@ -88,7 +88,7 @@ export default [
     path: "/",
     element: <CommonLayout />,
     children: [
-      { path: "/", element: <Navigate to="/app/dashboard" replace /> },
+      { path: "/", element: <Navigate to="/app/members" replace /> },
       { path: "login", element: <Login /> },
       { path: "password-reset/request", element: <RequestResetPassword /> },
       { path: "password-reset/verify", element: <ResetPassword /> },

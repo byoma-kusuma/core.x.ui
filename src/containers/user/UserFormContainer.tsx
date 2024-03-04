@@ -10,7 +10,7 @@ const RootStyle = styled(Paper)(({ theme }) => ({
 }));
 
 interface UserFormContainerProps {
-  id?: string;
+  id?: number;
 }
 
 export default function UserFormContainer(props: UserFormContainerProps) {

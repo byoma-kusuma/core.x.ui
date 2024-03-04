@@ -53,7 +53,7 @@ export default function LoginFormContainer() {
         .onSuccess(({ res }) => {
           setLocalToken(res.data?.login.accessToken);
           setRefreshToken(res.data?.login.refreshToken);
-          navigate("/app/dashboard", { replace: true });
+          navigate("/app/", { replace: true });
         });
     }
   });

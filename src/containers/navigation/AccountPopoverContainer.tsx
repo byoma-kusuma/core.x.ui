@@ -1,22 +1,23 @@
-import * as React from "react";
+import { Box, Typography } from "@mui/material";
 import AvatarPopover from "components/AvatarPopover";
 import { useMeQuery } from "generated/graphql";
-import { Box, Typography } from "@mui/material";
 import { hardLogout } from "services/auth";
 import { getMemberFullName } from "utils/member";
+
+import * as React from "react";
 
 const MENU_OPTIONS = [
   {
     label: "Home",
     icon: "eva:home-fill",
-    linkTo: "/app/dashboard"
-  },
-  {
-    label: "Profile",
-    icon: "eva:person-fill",
-    linkTo: "#"
-  },
-  { label: "Settings", icon: "eva:settings-2-fill", linkTo: "#" }
+    linkTo: "/app"
+  }
+  // {
+  //   label: "Profile",
+  //   icon: "eva:person-fill",
+  //   linkTo: "#"
+  // },
+  // { label: "Settings", icon: "eva:settings-2-fill", linkTo: "#" }
 ];
 
 export default function AccountPopoverContainer() {
