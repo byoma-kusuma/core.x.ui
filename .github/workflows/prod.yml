@@ -3,15 +3,11 @@ name: PROD Site CI/CD
 on:
   push:
     branches:
-      - infra/pulumi-setup
       - main
-      - master
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - infra/pulumi-setup
       - main
-      - master
 
 env:
   NODE_OPTIONS: "--max_old_space_size=4096"

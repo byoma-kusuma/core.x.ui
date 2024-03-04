@@ -3,12 +3,10 @@ name: QA Site CI/CD
 on:
   push:
     branches:
-      - infra/pulumi-setup
       - qa
   pull_request:
     types: [opened, synchronize, reopened, closed]
     branches:
-      - infra/pulumi-setup
       - qa
 
 env:
