@@ -12,7 +12,7 @@ import React from "react";
 import GqlApiHandler from "services/GqlApiHandler";
 
 export interface MemberUserSectionProps {
-  memberId: number;
+  memberId?: number;
   doesMemberHasUser: boolean;
   memberUserName?: string;
   memberUserRoleName?: string;
@@ -30,7 +30,9 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
 
   const confirm = useConfirm();
 
-  const handleUserCreate = (memberId: number, memberName: string) => {
+  const handleUserCreate = (memberName: string, memberId?: number) => {
+    if (!memberId) return;
+
     confirm({
       description: (
         <Typography>
@@ -134,8 +136,8 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
                       loading={creatingUser}
                       onClick={() => {
                         handleUserCreate(
-                          props.memberId,
-                          props.memberName as string
+                          props.memberName as string,
+                          props.memberId
                         );
                       }}
                     >

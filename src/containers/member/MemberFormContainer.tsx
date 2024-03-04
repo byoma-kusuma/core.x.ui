@@ -19,10 +19,6 @@ interface Props {
 export default function MemberFormContainer(props: Props) {
   const { id } = props;
 
-  if (!id) {
-    return <></>;
-  }
-
   const [{ data }] = useQuery<MemberQuery>({
     query: MemberDocument,
     pause: !id,
