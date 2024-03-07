@@ -101,7 +101,10 @@ export default function AvatarPopover(props: AvatarPopoverProps) {
                 {...(schemaItem.linkTo
                   ? { component: RouterLink, to: schemaItem.linkTo }
                   : {})}
-                onClick={handleClose}
+                onClick={() => {
+                  handleClose();
+                  if (schemaItem?.onClick) schemaItem?.onClick();
+                }}
               >
                 {schemaItem.label}
               </MenuItem>
