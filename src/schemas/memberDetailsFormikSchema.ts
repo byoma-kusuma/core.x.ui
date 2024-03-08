@@ -153,5 +153,40 @@ export const memberDetailsFormikSchema = {
     type: "text",
     required: false,
     initialValue: ""
+  },
+  yearOfRefuge: {
+    type: "number",
+    required: false,
+    initialValue: null
+  },
+  yearOfRefugeCalendarType: {
+    type: "text",
+    required: false,
+    initialValue: null
+  },
+  dateOfApplication: {
+    type: "date",
+    required: false,
+    initialValue: null
+  },
+  dateOfApplicationCalendarType: {
+    type: "text",
+    required: false,
+    initialValue: null
+  },
+  dharmaInstructor: {
+    type: "text",
+    required: false,
+    initialValue: ""
+  },
+  education: {
+    type: "text",
+    required: false,
+    initialValue: ""
+  },
+  occupation: {
+    type: "text",
+    required: false,
+    initialValue: ""
   }
 } as FormikSchema;

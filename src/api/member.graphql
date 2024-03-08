@@ -21,18 +21,24 @@ query members {
     refugeName
     sanghaJoinDate
     title
-    viber
+    yearOfRefuge
+    yearOfRefugeCalendarType
+    dateOfApplication
+    dateOfApplicationCalendarType
+    dharmaInstructor
+    education
+    occupation
     currentAddress {
       city
       country
       stateProvince
-      street 
+      street
     }
     permanentAddress {
       city
       country
       stateProvince
-      street 
+      street
     }
     user {
       id
@@ -73,17 +79,24 @@ query member($id: Int!) {
     sanghaJoinDate
     title
     viber
+    yearOfRefuge
+    yearOfRefugeCalendarType
+    dateOfApplication
+    dateOfApplicationCalendarType
+    dharmaInstructor
+    education
+    occupation
     currentAddress {
       city
       country
       stateProvince
-      street 
+      street
     }
     permanentAddress {
       city
       country
       stateProvince
-      street 
+      street
     }
     user {
       id
