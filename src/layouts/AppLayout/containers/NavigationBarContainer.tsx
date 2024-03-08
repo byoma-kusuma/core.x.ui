@@ -25,7 +25,6 @@ export default function NavigationBarContainer(
     <div>
       <NavigationBar
         onHamburgerClick={onHamburgerClick}
-        onSearch={(s) => console.log(s)}
         stackItemsRenderer={() => (
           <>
             <LanguagePopover />

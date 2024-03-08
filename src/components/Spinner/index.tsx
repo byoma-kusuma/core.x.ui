@@ -38,7 +38,7 @@ export default function Spinner(props: SpinnerProps) {
         ))}
       {isModuleLoader && (
         <img
-          src="/static/bk.png"
+          src="/static/bk-logo-small.png"
           height="80px"
           width="80px"
           style={{ marginTop: "16px" }}

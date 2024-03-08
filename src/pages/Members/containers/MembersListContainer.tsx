@@ -1,11 +1,4 @@
-import {
-  Stack,
-  Avatar,
-  Typography,
-  Tooltip,
-  Box,
-  IconButton
-} from "@mui/material";
+import { Stack, Avatar, Typography, Box, IconButton } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +7,6 @@ import Iconify from "../../../components/Iconify";
 import Label from "../../../components/Label";
 import {
   MembersQuery,
-  Status,
   useDeleteMemberMutation,
   useMembersQuery
 } from "../../../generated/graphql";
@@ -85,7 +77,7 @@ export default function MembersListContainer() {
     <CoolTable
       error={GqlApiHandler.getErrorMessage(error)}
       loading={fetching}
-      tableHeight="calc(100vh - 400px)"
+      tableHeight="calc(100vh - 280px)"
       defaultOrderKey="fullName"
       defaultOrderDirection="asc"
       onSelectActionButtonClick={(data) => console.log(data)}
@@ -93,37 +85,35 @@ export default function MembersListContainer() {
       filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
       dataSchema={[
         {
-          id: "fullName",
-          headerLabel: "Name",
-          formatter({ fullName, photo }) {
+          id: "firstName",
+          headerLabel: "First Name",
+          formatter({ firstName, photo, id }) {
             return (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Avatar src={photo || ""} />
-                <Typography variant="subtitle2">{fullName}</Typography>
+              <Stack direction="row" alignItems="center" spacing={1}>
+                <Avatar
+                  src={photo || ""}
+                  onClick={() => handleMemberEdit(id)}
+                />
+                <Typography
+                  variant="subtitle2"
+                  minWidth={100}
+                  onClick={() => handleMemberEdit(id)}
+                >
+                  {firstName}
+                </Typography>
               </Stack>
             );
           }
         },
         {
-          id: "userName",
-          headerLabel: "Username",
-          formatter({ userName, userStatus }) {
-            if (!userName) return "-";
+          id: "lastName",
+          headerLabel: "Last Name",
+          formatter({ lastName }) {
             return (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Typography variant="body2">{userName}</Typography>
-                <Tooltip title={"This user is validated"} placement="top">
-                  <div>
-                    <Iconify
-                      icon={
-                        userStatus === Status.Validated
-                          ? "eva:checkmark-circle-2-fill"
-                          : "eva:close-circle-fill"
-                      }
-                      sx={{ color: "success.dark", width: 20, height: 20 }}
-                    />
-                  </div>
-                </Tooltip>
+              <Stack direction="row" alignItems="center">
+                <Typography variant="subtitle2" minWidth={100}>
+                  {lastName}
+                </Typography>
               </Stack>
             );
           }
@@ -144,8 +134,8 @@ export default function MembersListContainer() {
           }
         },
         {
-          id: "combinedPhone",
-          headerLabel: "Phone",
+          id: "phoneMobile",
+          headerLabel: "Mobile Phone",
           placeholder: "-"
         },
         {

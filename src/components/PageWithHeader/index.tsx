@@ -7,7 +7,7 @@ import symbols from "../../utils/symbols/commonSymbols";
 import Spinner from "../Spinner";
 
 const RootStyle = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2, 1, 2),
+  padding: theme.spacing(0, 1, 0, 1),
   [theme.breakpoints.down("sm")]: {
     padding: theme.spacing(1)
   }
@@ -17,7 +17,7 @@ const HeaderRoot = styled("div")(({ theme }) => ({
   display: "flex",
   justifyContent: "space-between",
   alignItems: "center",
-  paddingBottom: theme.spacing(2)
+  paddingBottom: theme.spacing(0)
 }));
 
 interface Crumb {
@@ -51,7 +51,7 @@ export default function PageWithHeader(props: PageWithHeaderProps) {
           <Box>
             {header && (
               <Typography
-                variant="h4"
+                variant="h6"
                 sx={(theme) => ({ paddingBottom: theme.spacing(1) })}
               >
                 {header}

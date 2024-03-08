@@ -18,7 +18,7 @@ export default function LogoOnlyLayout() {
   return (
     <>
       <HeaderStyle>
-        <img src="/static/bk.png" height="40px" width="40px" />
+        <img src="/static/bk-logo-small.png" height="151px" width="120px" />
       </HeaderStyle>
       <Outlet />
     </>
