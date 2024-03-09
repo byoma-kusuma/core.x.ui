@@ -1,17 +1,9 @@
-import {
-  Avatar,
-  Box,
-  IconButton,
-  Stack,
-  Tooltip,
-  Typography
-} from "@mui/material";
+import { Avatar, Box, IconButton, Stack, Typography } from "@mui/material";
 import CoolTable from "components/CoolTable";
 import Iconify from "components/Iconify";
 import Label from "components/Label";
 import {
   MembersQuery,
-  Status,
   useDeleteMemberMutation,
   useMembersQuery
 } from "generated/graphql";
@@ -85,45 +77,39 @@ export default function MembersListContainer() {
     <CoolTable
       error={GqlApiHandler.getErrorMessage(error)}
       loading={fetching}
-      tableHeight="calc(100vh - 400px)"
-      defaultOrderKey="fullName"
+      tableHeight="calc(100vh - 280px)"
+      defaultOrderKey="firstName"
       defaultOrderDirection="asc"
       onSelectActionButtonClick={(data) => console.log(data)}
       data={formatMemberListData(data)}
-      filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
+      // filterSchema={[{ id: 1, label: "All", filterFn: (data) => data }]}
       dataSchema={[
         {
-          id: "fullName",
-          headerLabel: "Name",
-          formatter({ fullName, photo }) {
+          id: "firstName",
+          headerLabel: "First Name",
+          formatter({ firstName, lastName, id }) {
             return (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Avatar src={photo || ""} />
-                <Typography variant="subtitle2">{fullName}</Typography>
+              <Stack
+                direction="row"
+                alignItems="center"
+                spacing={1}
+                onClick={() => handleMemberEdit(id)}
+              >
+                <Avatar sx={{ width: 35, height: 35 }}>
+                  {firstName[0].toUpperCase() + lastName[0].toUpperCase()}
+                </Avatar>
+                <Typography variant="subtitle2">{firstName}</Typography>
               </Stack>
             );
           }
         },
         {
-          id: "userName",
-          headerLabel: "Username",
-          formatter({ userName, userStatus }) {
-            if (!userName) return "-";
+          id: "lastName",
+          headerLabel: "Last Name",
+          formatter({ lastName }) {
             return (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Typography variant="body2">{userName}</Typography>
-                <Tooltip title={"This user is validated"} placement="top">
-                  <div>
-                    <Iconify
-                      icon={
-                        userStatus === Status.Validated
-                          ? "eva:checkmark-circle-2-fill"
-                          : "eva:close-circle-fill"
-                      }
-                      sx={{ color: "success.dark", width: 20, height: 20 }}
-                    />
-                  </div>
-                </Tooltip>
+              <Stack direction="row" alignItems="center">
+                <Typography variant="subtitle2">{lastName}</Typography>
               </Stack>
             );
           }
@@ -144,8 +130,8 @@ export default function MembersListContainer() {
           }
         },
         {
-          id: "combinedPhone",
-          headerLabel: "Phone",
+          id: "phoneMobile",
+          headerLabel: "Mobile Phone",
           placeholder: "-"
         },
         {

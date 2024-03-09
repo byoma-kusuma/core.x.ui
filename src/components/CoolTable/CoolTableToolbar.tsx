@@ -11,7 +11,8 @@ import {
   FormControlLabel,
   Checkbox,
   Tabs,
-  Tab
+  Tab,
+  Button
 } from "@mui/material";
 import Iconify from "../Iconify";
 import { FilterSchema } from ".";
@@ -58,6 +59,11 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
   }
 }));
 
+export interface CoolTableToolbarCustomActionProps {
+  buttonText: string;
+  fn: () => any;
+}
+
 interface CoolTableToolbarProps<T> {
   selectedCount: number;
   searchQuery: string;
@@ -74,6 +80,7 @@ interface CoolTableToolbarProps<T> {
   };
   onSelectActionButtonClick: () => void;
   dense: boolean;
+  toolbarCustomActions?: Array<CoolTableToolbarCustomActionProps>;
 }
 
 function a11yProps(index: number) {
@@ -91,6 +98,7 @@ export default function CoolTableToolbar<T>(props: CoolTableToolbarProps<T>) {
     onSelectToggle,
     filterSchema,
     onSelectActionButtonClick,
+    toolbarCustomActions,
     dense
   } = props;
 
@@ -174,6 +182,21 @@ export default function CoolTableToolbar<T>(props: CoolTableToolbarProps<T>) {
             </Tooltip>
           )}
         </Box>
+
+        {toolbarCustomActions?.map((c) => {
+          return (
+            <Button
+              variant="outlined"
+              color="primary"
+              size="small"
+              onClick={() => c.fn()}
+              data-testid={c.buttonText + "Id"}
+              key={c.buttonText + "key"}
+            >
+              {c.buttonText}
+            </Button>
+          );
+        })}
 
         <Tooltip title="Filter list">
           <IconButton onClick={() => setShowFilter((p) => !p)}>

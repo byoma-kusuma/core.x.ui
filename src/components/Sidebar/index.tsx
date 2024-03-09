@@ -33,13 +33,8 @@ export interface SidebarProps {
 }
 
 export default function Sidebar(props: SidebarProps) {
-  const {
-    isOpenSidebar,
-    onCloseSidebar,
-    navigationSchema,
-    currentUser,
-    menuLogoUrl
-  } = props;
+  const { isOpenSidebar, onCloseSidebar, navigationSchema, currentUser } =
+    props;
 
   const { pathname } = useLocation();
 
@@ -62,11 +57,11 @@ export default function Sidebar(props: SidebarProps) {
         }
       }}
     >
-      <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
+      {/* <Box sx={{ px: 2.5, py: 3, display: "inline-flex" }}>
         <img src={menuLogoUrl} height="40px" width="40px" />
-      </Box>
+      </Box> */}
 
-      <Box sx={{ mb: 4, mx: 2.5 }}>
+      <Box sx={{ py: 1, mx: 2.5 }}>
         <Link underline="none" component={RouterLink} to="#">
           <AccountStyle>
             <Avatar src={currentUser.avatar} alt="photoURL" />

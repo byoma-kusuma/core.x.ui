@@ -298,7 +298,7 @@ function MemberOtherDetailsSection(
               formik={formik}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <PhoneInput
               specialLabel="Phone LandLine"
               value={formik.values.phoneLand as string}
@@ -307,7 +307,7 @@ function MemberOtherDetailsSection(
               inputStyle={{ width: "100%", height: "56px" }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <PhoneInput
               specialLabel="Phone Other"
               value={formik.values.phoneOther as string}
@@ -316,7 +316,7 @@ function MemberOtherDetailsSection(
               inputStyle={{ width: "100%", height: "56px" }}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={8} md={3}>
             <GenericTextField
               value={formik.values.yearOfRefuge}
               formikSchema={memberDetailsFormikSchema}
@@ -324,7 +324,7 @@ function MemberOtherDetailsSection(
               formik={formik}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4} md={3}>
             <CalendarTypeSelect
               value={formik.values.yearOfRefugeCalendarType}
               onChange={(v) => {
@@ -332,7 +332,7 @@ function MemberOtherDetailsSection(
               }}
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <PhoneInput
               specialLabel="Viber"
               value={formik.values.viber as string}
@@ -341,7 +341,7 @@ function MemberOtherDetailsSection(
               inputStyle={{ width: "100%", height: "56px" }}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={8} md={3}>
             <GenericTextField
               formikSchema={memberDetailsFormikSchema}
               schemaKey="dateOfApplication"
@@ -349,7 +349,7 @@ function MemberOtherDetailsSection(
               value={formik.values.dateOfApplication}
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={4} md={3}>
             <CalendarTypeSelect
               value={formik.values.dateOfApplicationCalendarType}
               onChange={(v) => {
@@ -358,7 +358,7 @@ function MemberOtherDetailsSection(
             />
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} md={6}>
             <GenericTextField
               formikSchema={memberDetailsFormikSchema}
               schemaKey="messenger"
@@ -465,32 +465,30 @@ export default function MemberDetailsSection(props: Props) {
 
   return (
     <>
-      <Grid item xs={12} md={6} lg={8}>
-        <RootStyle
-          elevation={1}
-          sx={{ height: "calc(100vh - 200px)", overflowY: "auto" }}
-        >
-          <Grid container spacing={2}>
-            <MemberMainDetailsSection {...formik} />
-            <MemberAddressDetailsSection {...formik} />
-            <MemberOtherDetailsSection {...formik} />
-            <Box display="flex" justifyContent="center" width="100%">
-              <LoadingButton
-                disabled={!formik.dirty}
-                variant="contained"
-                sx={{ mt: 2 }}
-                size="large"
-                type="submit"
-                loading={creating || updating}
-                data-testid="member-form-submit"
-                onClick={() => formik.handleSubmit()}
-              >
-                {id ? "Update Member" : "Create Member"}
-              </LoadingButton>
-            </Box>
-          </Grid>
-        </RootStyle>
-      </Grid>
+      <RootStyle
+        elevation={1}
+        sx={{ height: "calc(100vh - 200px)", overflowY: "auto" }}
+      >
+        <Grid container spacing={2}>
+          <MemberMainDetailsSection {...formik} />
+          <MemberAddressDetailsSection {...formik} />
+          <MemberOtherDetailsSection {...formik} />
+          <Box display="flex" justifyContent="center" width="100%">
+            <LoadingButton
+              disabled={!formik.dirty}
+              variant="contained"
+              sx={{ mt: 2 }}
+              size="large"
+              type="submit"
+              loading={creating || updating}
+              data-testid="member-form-submit"
+              onClick={() => formik.handleSubmit()}
+            >
+              {id ? "Update Member" : "Create Member"}
+            </LoadingButton>
+          </Box>
+        </Grid>
+      </RootStyle>
     </>
   );
 }

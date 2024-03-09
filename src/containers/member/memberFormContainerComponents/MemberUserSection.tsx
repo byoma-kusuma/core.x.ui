@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { LoadingButton } from "@mui/lab";
-import { Box, Grid, Link, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import PhotoUploader from "components/PhotoUploader";
 import {
@@ -91,65 +91,63 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
   };
   return (
     <>
-      <Grid item xs={12} md={6} lg={4}>
-        <PhotoUploader height={"calc(100vh - 200px)"}>
-          {props.memberId && (
-            <UserInfoItemStyle style={{ paddingBottom: "16px" }}>
-              <Typography variant="subtitle1">User</Typography>
-              {props.doesMemberHasUser ? (
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="flex-start"
+      <PhotoUploader height={"100%"}>
+        {props.memberId && (
+          <UserInfoItemStyle>
+            <Typography variant="subtitle1">User</Typography>
+            {props.doesMemberHasUser ? (
+              <Box
+                display="flex"
+                justifyContent="space-between"
+                alignItems="flex-start"
+              >
+                <Box>
+                  <Link component="button" variant="subtitle2">
+                    {props.doesMemberHasUser}
+                  </Link>
+                  <br />
+                  <Typography variant="body2" fontSize={12}>
+                    {props.memberUserRoleName}
+                  </Typography>
+                </Box>
+                <LoadingButton
+                  variant="contained"
+                  size="small"
+                  sx={{ ml: "8px" }}
+                  loading={resettingPassword}
+                  onClick={() => {
+                    handleUserPasswordReset(props);
+                  }}
                 >
-                  <Box>
-                    <Link component="button" variant="subtitle2">
-                      {props.doesMemberHasUser}
-                    </Link>
-                    <br />
-                    <Typography variant="body2" fontSize={12}>
-                      {props.memberUserRoleName}
-                    </Typography>
-                  </Box>
+                  Reset Password
+                </LoadingButton>
+              </Box>
+            ) : (
+              <Box display="flex" justifyContent="space-between">
+                <Typography variant="body2" color="GrayText">
+                  No user has been created for this member.
+                </Typography>
+                <Box>
                   <LoadingButton
                     variant="contained"
                     size="small"
                     sx={{ ml: "8px" }}
-                    loading={resettingPassword}
+                    loading={creatingUser}
                     onClick={() => {
-                      handleUserPasswordReset(props);
+                      handleUserCreate(
+                        props.memberName as string,
+                        props.memberId
+                      );
                     }}
                   >
-                    Reset Password
+                    Create
                   </LoadingButton>
                 </Box>
-              ) : (
-                <Box display="flex" justifyContent="space-between">
-                  <Typography variant="body2" color="GrayText">
-                    No user has been created for this member.
-                  </Typography>
-                  <Box>
-                    <LoadingButton
-                      variant="contained"
-                      size="small"
-                      sx={{ ml: "8px" }}
-                      loading={creatingUser}
-                      onClick={() => {
-                        handleUserCreate(
-                          props.memberName as string,
-                          props.memberId
-                        );
-                      }}
-                    >
-                      Create
-                    </LoadingButton>
-                  </Box>
-                </Box>
-              )}
-            </UserInfoItemStyle>
-          )}
-        </PhotoUploader>
-      </Grid>
+              </Box>
+            )}
+          </UserInfoItemStyle>
+        )}
+      </PhotoUploader>
     </>
   );
 };

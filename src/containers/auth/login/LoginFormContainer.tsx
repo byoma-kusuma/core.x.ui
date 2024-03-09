@@ -67,7 +67,7 @@ export default function LoginFormContainer() {
   return (
     <>
       <Typography variant="h4" gutterBottom>
-        Sign in to BK Administrative Portal
+        Sign In
       </Typography>
 
       <Typography sx={{ color: "text.secondary", mb: 5 }}>

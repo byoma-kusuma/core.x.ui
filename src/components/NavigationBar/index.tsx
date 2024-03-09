@@ -2,11 +2,10 @@ import * as React from "react";
 import { alpha, styled } from "@mui/material/styles";
 import { Box, Stack, AppBar, Toolbar, IconButton } from "@mui/material";
 import Iconify from "components/Iconify";
-import Searchbar from "components/SearchBar";
 
-const DRAWER_WIDTH = 280;
-export const APPBAR_MOBILE = 64;
-export const APPBAR_DESKTOP = 72;
+const DRAWER_WIDTH = 200;
+export const APPBAR_MOBILE = 0;
+export const APPBAR_DESKTOP = 0;
 
 const RootStyle = styled(AppBar)(({ theme }) => ({
   boxShadow: "none",
@@ -20,20 +19,20 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
 
 const ToolbarStyle = styled(Toolbar)(({ theme }) => ({
   minHeight: APPBAR_MOBILE,
-  [theme.breakpoints.up("lg")]: {
-    minHeight: APPBAR_DESKTOP,
+  margin: theme.spacing(0, 1, 0, 1),
+  padding: theme.spacing(0, 1, 0, 1),
+  [theme.breakpoints.only("sm")]: {
     padding: theme.spacing(0, 5)
   }
 }));
 
 export interface NavigationBarProps {
   onHamburgerClick: () => void;
-  onSearch: (s: string) => void;
   stackItemsRenderer: () => React.ReactNode;
 }
 
 export default function NavigationBar(props: NavigationBarProps) {
-  const { onHamburgerClick, onSearch, stackItemsRenderer } = props;
+  const { onHamburgerClick, stackItemsRenderer } = props;
   return (
     <RootStyle>
       <ToolbarStyle>
@@ -44,7 +43,6 @@ export default function NavigationBar(props: NavigationBarProps) {
           <Iconify icon="eva:menu-2-fill" />
         </IconButton>
 
-        <Searchbar onSearch={onSearch} />
         <Box sx={{ flexGrow: 1 }} />
 
         <Stack
