@@ -61,7 +61,7 @@ const SearchStyle = styled(OutlinedInput)(({ theme }) => ({
 
 export interface CoolTableToolbarCustomActionProps {
   buttonText: string;
-  fn: () => any;
+  fn: () => void;
 }
 
 interface CoolTableToolbarProps<T> {
