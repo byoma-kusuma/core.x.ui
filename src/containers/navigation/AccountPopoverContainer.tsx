@@ -25,14 +25,15 @@ export default function AccountPopoverContainer() {
     requestPolicy: "cache-only"
   });
   if (!user) return null;
+
   return (
     <AvatarPopover
-      photoUrl={user.me.avatar}
+      photoUrl="/static/bk-logo-small.png"
       schema={[
         {
           type: "custom",
           element: (
-            <Box sx={{ my: 1.5, px: 2.5 }}>
+            <Box sx={{ my: 2, px: 2.5 }}>
               <Typography variant="subtitle2" noWrap>
                 {getMemberFullName(user.me.member)}
               </Typography>

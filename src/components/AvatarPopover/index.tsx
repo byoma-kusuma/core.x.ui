@@ -56,7 +56,8 @@ export default function AvatarPopover(props: AvatarPopoverProps) {
         onClick={handleOpen}
         data-testid="navigation-profilePicture-menu"
         sx={{
-          p: 0,
+          p: 0.4,
+          m: 0.4,
           ...(open
             ? {
                 "&:before": {
@@ -66,10 +67,10 @@ export default function AvatarPopover(props: AvatarPopoverProps) {
                   height: "100%",
                   borderRadius: "50%",
                   position: "absolute",
-                  bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8)
+                  bgcolor: (theme) => alpha(theme.palette.primary.light, 0.3)
                 }
               }
-            : {})
+            : { bgcolor: (theme) => alpha(theme.palette.grey[500], 0.5) })
         }}
       >
         <Avatar src={photoUrl} alt="photoURL" />
@@ -101,7 +102,10 @@ export default function AvatarPopover(props: AvatarPopoverProps) {
                 {...(schemaItem.linkTo
                   ? { component: RouterLink, to: schemaItem.linkTo }
                   : {})}
-                onClick={handleClose}
+                onClick={() => {
+                  handleClose();
+                  if (schemaItem?.onClick) schemaItem?.onClick();
+                }}
               >
                 {schemaItem.label}
               </MenuItem>

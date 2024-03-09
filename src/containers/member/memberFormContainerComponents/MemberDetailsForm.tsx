@@ -38,6 +38,7 @@ import GenericTextField, {
 } from "utils/formik/formikUtils";
 import { memberDetailsFormikSchema } from "schemas/memberDetailsFormikSchema";
 import React from "react";
+import { CalendarTypeSelect } from "pages/CommonComponents/CalendarTypeSelect";
 
 interface Props {
   height: number;
@@ -186,6 +187,7 @@ function MemberMainDetailsSection(
           </Grid>
           <Grid item xs={12} md={6}>
             <PhoneInput
+              specialLabel="Phone Mobile"
               value={formik.values.phoneMobile as string}
               country="np"
               onChange={(phone) => formik.setFieldValue("phoneMobile", phone)}
@@ -266,20 +268,6 @@ function MemberOtherDetailsSection(
               }}
             />
           </Grid>
-          <Grid item xs={4}>
-            <GenericTextField
-              formikSchema={memberDetailsFormikSchema}
-              schemaKey="phoneLand"
-              formik={formik}
-            />
-          </Grid>
-          <Grid item xs={4}>
-            <GenericTextField
-              formikSchema={memberDetailsFormikSchema}
-              schemaKey="phoneOther"
-              formik={formik}
-            />
-          </Grid>
           <Grid item xs={12} md={4}>
             <GenericTextField
               formikSchema={memberDetailsFormikSchema}
@@ -288,13 +276,88 @@ function MemberOtherDetailsSection(
               type="number"
             />
           </Grid>
+          {/*  */}
           <Grid item xs={12} md={4}>
             <GenericTextField
               formikSchema={memberDetailsFormikSchema}
-              schemaKey="viber"
+              schemaKey="dharmaInstructor"
               formik={formik}
             />
           </Grid>
+          <Grid item xs={12} md={4}>
+            <GenericTextField
+              formikSchema={memberDetailsFormikSchema}
+              schemaKey="education"
+              formik={formik}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <GenericTextField
+              formikSchema={memberDetailsFormikSchema}
+              schemaKey="occupation"
+              formik={formik}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PhoneInput
+              specialLabel="Phone LandLine"
+              value={formik.values.phoneLand as string}
+              country="np"
+              onChange={(phone) => formik.setFieldValue("phoneLand", phone)}
+              inputStyle={{ width: "100%", height: "56px" }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PhoneInput
+              specialLabel="Phone Other"
+              value={formik.values.phoneOther as string}
+              country="np"
+              onChange={(phone) => formik.setFieldValue("phoneOther", phone)}
+              inputStyle={{ width: "100%", height: "56px" }}
+            />
+          </Grid>
+          <Grid item xs={8} md={3}>
+            <GenericTextField
+              value={formik.values.yearOfRefuge}
+              formikSchema={memberDetailsFormikSchema}
+              schemaKey="yearOfRefuge"
+              formik={formik}
+            />
+          </Grid>
+          <Grid item xs={4} md={3}>
+            <CalendarTypeSelect
+              value={formik.values.yearOfRefugeCalendarType}
+              onChange={(v) => {
+                formik.setFieldValue("yearOfRefugeCalendarType", v);
+              }}
+            />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <PhoneInput
+              specialLabel="Viber"
+              value={formik.values.viber as string}
+              country="np"
+              onChange={(phone) => formik.setFieldValue("viber", phone)}
+              inputStyle={{ width: "100%", height: "56px" }}
+            />
+          </Grid>
+          <Grid item xs={8} md={3}>
+            <GenericTextField
+              formikSchema={memberDetailsFormikSchema}
+              schemaKey="dateOfApplication"
+              formik={formik}
+              value={formik.values.dateOfApplication}
+            />
+          </Grid>
+          <Grid item xs={4} md={3}>
+            <CalendarTypeSelect
+              value={formik.values.dateOfApplicationCalendarType}
+              onChange={(v) => {
+                formik.setFieldValue("dateOfApplicationCalendarType", v);
+              }}
+            />
+          </Grid>
+
           <Grid item xs={12} md={6}>
             <GenericTextField
               formikSchema={memberDetailsFormikSchema}
@@ -302,7 +365,7 @@ function MemberOtherDetailsSection(
               formik={formik}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12}>
             <GenericTextField
               formikSchema={memberDetailsFormikSchema}
               schemaKey="insta"
@@ -402,32 +465,30 @@ export default function MemberDetailsSection(props: Props) {
 
   return (
     <>
-      <Grid item xs={12} md={6} lg={8}>
-        <RootStyle
-          elevation={1}
-          sx={{ height: "calc(100vh - 200px)", overflowY: "auto" }}
-        >
-          <Grid container spacing={2}>
-            <MemberMainDetailsSection {...formik} />
-            <MemberAddressDetailsSection {...formik} />
-            <MemberOtherDetailsSection {...formik} />
-            <Box display="flex" justifyContent="center" width="100%">
-              <LoadingButton
-                disabled={!formik.dirty}
-                variant="contained"
-                sx={{ mt: 2 }}
-                size="large"
-                type="submit"
-                loading={creating || updating}
-                data-testid="member-form-submit"
-                onClick={() => formik.handleSubmit()}
-              >
-                {id ? "Update Member" : "Create Member"}
-              </LoadingButton>
-            </Box>
-          </Grid>
-        </RootStyle>
-      </Grid>
+      <RootStyle
+        elevation={1}
+        sx={{ height: "calc(100vh - 200px)", overflowY: "auto" }}
+      >
+        <Grid container spacing={2}>
+          <MemberMainDetailsSection {...formik} />
+          <MemberAddressDetailsSection {...formik} />
+          <MemberOtherDetailsSection {...formik} />
+          <Box display="flex" justifyContent="center" width="100%">
+            <LoadingButton
+              disabled={!formik.dirty}
+              variant="contained"
+              sx={{ mt: 2 }}
+              size="large"
+              type="submit"
+              loading={creating || updating}
+              data-testid="member-form-submit"
+              onClick={() => formik.handleSubmit()}
+            >
+              {id ? "Update Member" : "Create Member"}
+            </LoadingButton>
+          </Box>
+        </Grid>
+      </RootStyle>
     </>
   );
 }

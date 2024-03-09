@@ -384,6 +384,17 @@ export type BoolFilter = {
   not?: InputMaybe<BoolFilter>;
 };
 
+export enum CalendarType {
+  Ad = "AD",
+  Bs = "BS"
+}
+
+/** Types of Calender */
+export enum Calender_Type {
+  Ad = "AD",
+  Bs = "BS"
+}
+
 export type Centre = {
   __typename?: "Centre";
   city?: Maybe<Scalars["String"]>;
@@ -492,18 +503,23 @@ export type CreateMemberInput = {
   currentCountry?: InputMaybe<Scalars["String"]>;
   currentStateProvince?: InputMaybe<Scalars["String"]>;
   currentStreetAddress?: InputMaybe<Scalars["String"]>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<Calender_Type>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
-  gender?: InputMaybe<Scalars["String"]>;
+  gender?: InputMaybe<Gender_Type>;
   groupIds?: InputMaybe<Array<Scalars["Int"]>>;
   insta?: InputMaybe<Scalars["String"]>;
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
   memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
-  membershipType?: InputMaybe<Scalars["String"]>;
+  membershipType?: InputMaybe<Membership_Type>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   permanentCity?: InputMaybe<Scalars["String"]>;
   permanentCountry?: InputMaybe<Scalars["String"]>;
   permanentStateProvince?: InputMaybe<Scalars["String"]>;
@@ -517,6 +533,8 @@ export type CreateMemberInput = {
   title?: InputMaybe<Scalars["String"]>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<Calender_Type>;
 };
 
 export type CreateResourceInput = {
@@ -543,6 +561,13 @@ export type DateTimeFilter = {
   lte?: InputMaybe<Scalars["DateTime"]>;
   not?: InputMaybe<DateTimeFilter>;
   notIn?: InputMaybe<Array<Scalars["DateTime"]>>;
+};
+
+export type EnumCalendarTypeFilter = {
+  equals?: InputMaybe<CalendarType>;
+  in?: InputMaybe<Array<CalendarType>>;
+  not?: InputMaybe<EnumCalendarTypeFilter>;
+  notIn?: InputMaybe<Array<CalendarType>>;
 };
 
 export type EnumGenderTypeFilter = {
@@ -1257,6 +1282,10 @@ export type Member = {
   createdBy?: Maybe<Scalars["String"]>;
   currentAddress?: Maybe<Address>;
   currentAddressId?: Maybe<Scalars["Int"]>;
+  dateOfApplication?: Maybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: Maybe<Calender_Type>;
+  dharmaInstructor?: Maybe<Scalars["String"]>;
+  education?: Maybe<Scalars["String"]>;
   email?: Maybe<Scalars["String"]>;
   events?: Maybe<Array<Event>>;
   firstName: Scalars["String"];
@@ -1276,6 +1305,7 @@ export type Member = {
   middleName?: Maybe<Scalars["String"]>;
   note?: Maybe<Scalars["String"]>;
   notes?: Maybe<Scalars["String"]>;
+  occupation?: Maybe<Scalars["String"]>;
   permanentAddress?: Maybe<Address>;
   permanentAddressId?: Maybe<Scalars["Int"]>;
   phoneLand?: Maybe<Scalars["String"]>;
@@ -1294,6 +1324,8 @@ export type Member = {
   user?: Maybe<User>;
   viber?: Maybe<Scalars["String"]>;
   yearOfBirth?: Maybe<Scalars["Int"]>;
+  yearOfRefuge?: Maybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: Maybe<Calender_Type>;
 };
 
 export type MemberAbhisekhaCreateManyAbhisekhaInput = {
@@ -1481,6 +1513,10 @@ export type MemberCreateWithoutCurrentAddressInput = {
   centre?: InputMaybe<CentreCreateNestedOneWithoutMembersInput>;
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<CalendarType>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
   firstName: Scalars["String"];
@@ -1496,6 +1532,7 @@ export type MemberCreateWithoutCurrentAddressInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
@@ -1510,6 +1547,8 @@ export type MemberCreateWithoutCurrentAddressInput = {
   user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<CalendarType>;
 };
 
 export type MemberCreateWithoutEventMemberInput = {
@@ -1518,6 +1557,10 @@ export type MemberCreateWithoutEventMemberInput = {
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<CalendarType>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName: Scalars["String"];
   gender?: InputMaybe<GenderType>;
@@ -1532,6 +1575,7 @@ export type MemberCreateWithoutEventMemberInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
@@ -1546,6 +1590,8 @@ export type MemberCreateWithoutEventMemberInput = {
   user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<CalendarType>;
 };
 
 export type MemberCreateWithoutMemberAbhisekhaInput = {
@@ -1554,6 +1600,10 @@ export type MemberCreateWithoutMemberAbhisekhaInput = {
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<CalendarType>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
   firstName: Scalars["String"];
@@ -1568,6 +1618,7 @@ export type MemberCreateWithoutMemberAbhisekhaInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
@@ -1582,6 +1633,8 @@ export type MemberCreateWithoutMemberAbhisekhaInput = {
   user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<CalendarType>;
 };
 
 export type MemberCreateWithoutMemberResourceInput = {
@@ -1590,6 +1643,10 @@ export type MemberCreateWithoutMemberResourceInput = {
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<CalendarType>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
   firstName: Scalars["String"];
@@ -1604,6 +1661,7 @@ export type MemberCreateWithoutMemberResourceInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   permanentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberPermanentAddressInput>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
@@ -1618,6 +1676,8 @@ export type MemberCreateWithoutMemberResourceInput = {
   user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<CalendarType>;
 };
 
 export type MemberCreateWithoutPermanentAddressInput = {
@@ -1626,6 +1686,10 @@ export type MemberCreateWithoutPermanentAddressInput = {
   createdAt?: InputMaybe<Scalars["DateTime"]>;
   createdBy?: InputMaybe<Scalars["String"]>;
   currentAddress?: InputMaybe<AddressCreateNestedOneWithoutMemberCurrentAddressInput>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<CalendarType>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   eventMember?: InputMaybe<EventMemberCreateNestedManyWithoutMemberInput>;
   firstName: Scalars["String"];
@@ -1641,6 +1705,7 @@ export type MemberCreateWithoutPermanentAddressInput = {
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   phoneLand?: InputMaybe<Scalars["String"]>;
   phoneMobile?: InputMaybe<Scalars["String"]>;
   phoneOther?: InputMaybe<Scalars["String"]>;
@@ -1654,6 +1719,8 @@ export type MemberCreateWithoutPermanentAddressInput = {
   user?: InputMaybe<UserCreateNestedOneWithoutMemberInput>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<CalendarType>;
 };
 
 export type MemberGroupCreateManyMemberInput = {
@@ -1853,6 +1920,10 @@ export type MemberWhereInput = {
   createdAt?: InputMaybe<DateTimeFilter>;
   createdBy?: InputMaybe<StringFilter>;
   currentAddress?: InputMaybe<AddressRelationFilter>;
+  dateOfApplication?: InputMaybe<DateTimeFilter>;
+  dateOfApplicationCalendarType?: InputMaybe<EnumCalendarTypeFilter>;
+  dharmaInstructor?: InputMaybe<StringFilter>;
+  education?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
   eventMember?: InputMaybe<EventMemberListRelationFilter>;
   firstName?: InputMaybe<StringFilter>;
@@ -1869,6 +1940,7 @@ export type MemberWhereInput = {
   messenger?: InputMaybe<StringFilter>;
   middleName?: InputMaybe<StringFilter>;
   note?: InputMaybe<StringFilter>;
+  occupation?: InputMaybe<StringFilter>;
   permanentAddress?: InputMaybe<AddressRelationFilter>;
   phoneLand?: InputMaybe<StringFilter>;
   phoneMobile?: InputMaybe<StringFilter>;
@@ -1883,6 +1955,8 @@ export type MemberWhereInput = {
   user?: InputMaybe<UserRelationFilter>;
   viber?: InputMaybe<StringFilter>;
   yearOfBirth?: InputMaybe<IntFilter>;
+  yearOfRefuge?: InputMaybe<IntFilter>;
+  yearOfRefugeCalendarType?: InputMaybe<EnumCalendarTypeFilter>;
 };
 
 export type MemberWhereUniqueInput = {
@@ -2567,19 +2641,24 @@ export type UpdateMemberInput = {
   currentCountry?: InputMaybe<Scalars["String"]>;
   currentStateProvince?: InputMaybe<Scalars["String"]>;
   currentStreetAddress?: InputMaybe<Scalars["String"]>;
+  dateOfApplication?: InputMaybe<Scalars["DateTime"]>;
+  dateOfApplicationCalendarType?: InputMaybe<Calender_Type>;
+  dharmaInstructor?: InputMaybe<Scalars["String"]>;
+  education?: InputMaybe<Scalars["String"]>;
   email?: InputMaybe<Scalars["String"]>;
   firstName?: InputMaybe<Scalars["String"]>;
-  gender?: InputMaybe<Scalars["String"]>;
+  gender?: InputMaybe<Gender_Type>;
   groupIds?: InputMaybe<Array<Scalars["Int"]>>;
   id: Scalars["Int"];
   insta?: InputMaybe<Scalars["String"]>;
   isMember?: InputMaybe<Scalars["Boolean"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
-  membershipType?: InputMaybe<Scalars["String"]>;
+  membershipType?: InputMaybe<Membership_Type>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
   note?: InputMaybe<Scalars["String"]>;
+  occupation?: InputMaybe<Scalars["String"]>;
   permanentCity?: InputMaybe<Scalars["String"]>;
   permanentCountry?: InputMaybe<Scalars["String"]>;
   permanentStateProvince?: InputMaybe<Scalars["String"]>;
@@ -2593,6 +2672,8 @@ export type UpdateMemberInput = {
   title?: InputMaybe<Scalars["String"]>;
   viber?: InputMaybe<Scalars["String"]>;
   yearOfBirth?: InputMaybe<Scalars["Int"]>;
+  yearOfRefuge?: InputMaybe<Scalars["Int"]>;
+  yearOfRefugeCalendarType?: InputMaybe<Calender_Type>;
 };
 
 export type UpdateResourceInput = {
@@ -3005,7 +3086,13 @@ export type MembersQuery = {
     refugeName?: string | null;
     sanghaJoinDate?: any | null;
     title?: string | null;
-    viber?: string | null;
+    yearOfRefuge?: number | null;
+    yearOfRefugeCalendarType?: Calender_Type | null;
+    dateOfApplication?: any | null;
+    dateOfApplicationCalendarType?: Calender_Type | null;
+    dharmaInstructor?: string | null;
+    education?: string | null;
+    occupation?: string | null;
     currentAddress?: {
       __typename?: "Address";
       city?: string | null;
@@ -3064,6 +3151,13 @@ export type MemberQuery = {
     sanghaJoinDate?: any | null;
     title?: string | null;
     viber?: string | null;
+    yearOfRefuge?: number | null;
+    yearOfRefugeCalendarType?: Calender_Type | null;
+    dateOfApplication?: any | null;
+    dateOfApplicationCalendarType?: Calender_Type | null;
+    dharmaInstructor?: string | null;
+    education?: string | null;
+    occupation?: string | null;
     currentAddress?: {
       __typename?: "Address";
       city?: string | null;
@@ -4646,6 +4740,38 @@ export default {
             args: []
           },
           {
+            name: "dateOfApplication",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "dateOfApplicationCalendarType",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "dharmaInstructor",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "education",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "email",
             type: {
               kind: "SCALAR",
@@ -4852,6 +4978,14 @@ export default {
             args: []
           },
           {
+            name: "occupation",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
             name: "permanentAddress",
             type: {
               kind: "OBJECT",
@@ -4970,6 +5104,22 @@ export default {
           },
           {
             name: "yearOfBirth",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "yearOfRefuge",
+            type: {
+              kind: "SCALAR",
+              name: "Any"
+            },
+            args: []
+          },
+          {
+            name: "yearOfRefugeCalendarType",
             type: {
               kind: "SCALAR",
               name: "Any"
@@ -7329,7 +7479,13 @@ export const MembersDocument = gql`
       refugeName
       sanghaJoinDate
       title
-      viber
+      yearOfRefuge
+      yearOfRefugeCalendarType
+      dateOfApplication
+      dateOfApplicationCalendarType
+      dharmaInstructor
+      education
+      occupation
       currentAddress {
         city
         country
@@ -7388,6 +7544,13 @@ export const MemberDocument = gql`
       sanghaJoinDate
       title
       viber
+      yearOfRefuge
+      yearOfRefugeCalendarType
+      dateOfApplication
+      dateOfApplicationCalendarType
+      dharmaInstructor
+      education
+      occupation
       currentAddress {
         city
         country

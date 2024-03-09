@@ -13,7 +13,9 @@ import {
 } from "@mui/material";
 import { pick } from "lodash";
 import DataNotFound from "./CoolTableNoData";
-import CoolTableToolbar from "./CoolTableToolbar";
+import CoolTableToolbar, {
+  CoolTableToolbarCustomActionProps
+} from "./CoolTableToolbar";
 import CoolTableFns from "./CoolTableFns";
 import Scrollbar from "components/Scrollbar";
 
@@ -56,6 +58,7 @@ interface CoolTableProps<T, K> {
   tableHeight?: string;
   minWidth?: string;
   dense?: boolean;
+  toolbarCustomActions?: Array<CoolTableToolbarCustomActionProps>;
 }
 
 function CoolTable<T extends { id: K }, K extends number | string = number>(
@@ -66,6 +69,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
     onRequestSelection = () => undefined,
     onRequestSearch = () => undefined,
     onSelectActionButtonClick,
+    toolbarCustomActions,
     defaultOrderDirection,
     defaultOrderKey,
     loading,
@@ -75,7 +79,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
     dataSchema,
     tableHeight,
     minWidth,
-    dense = false
+    dense = true
   } = props;
 
   const headers = React.useMemo(
@@ -89,7 +93,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
   );
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedRows, setSelectedRows] = React.useState<Array<K>>([]);
-  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  const [rowsPerPage, setRowsPerPage] = React.useState(100);
   const [page, setPage] = React.useState(0);
   const [filterTab, setFilterTab] = React.useState<number | null>(
     (filterSchema || []).length ? 0 : null
@@ -170,7 +174,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
     [unpaginatedTableData, page, rowsPerPage]
   );
 
-  const tableSpacing = dense ? 0.2 : 1;
+  const tableSpacing = dense ? 0.1 : 1;
 
   return (
     <Card
@@ -192,6 +196,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
           setPage(0);
           onRequestSearch(e, v);
         }}
+        toolbarCustomActions={toolbarCustomActions}
         onSelectToggle={createSelectionHandler(
           "_allFiltered",
           tableData,
@@ -319,7 +324,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
         </TableContainer>
       </Scrollbar>
       <TablePagination
-        rowsPerPageOptions={[5, 25, 50]}
+        rowsPerPageOptions={[25, 50, 100]}
         component="div"
         count={unpaginatedTableData.length}
         rowsPerPage={rowsPerPage}

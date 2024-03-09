@@ -46,7 +46,7 @@ const PhotoHolder = styled("div")(({ theme }) => ({
 
 export interface PhotoUploaderProps {
   children: React.ReactNode;
-  height: number | string;
+  height?: number | string;
 }
 
 export default function PhotoUploader(props: PhotoUploaderProps) {

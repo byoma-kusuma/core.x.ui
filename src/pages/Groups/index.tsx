@@ -15,11 +15,11 @@ export default function Groups() {
       ]}
       actionButton={
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
           onClick={() => navigate("/app/groups/new")}
         >
-          New Group
+          Add Group
         </Button>
       }
     >

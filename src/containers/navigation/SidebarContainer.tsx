@@ -19,12 +19,13 @@ export default function SidebarContainer(props: SidebarContainerProps) {
       <Sidebar
         isOpenSidebar={isOpenSidebar}
         onCloseSidebar={onCloseSidebar}
-        menuLogoUrl="/static/bk_t.png"
+        menuLogoUrl="/static/bk-logo-small.png"
         currentUser={{
-          fullName: user?.me.userName || "User",
-          avatar:
-            user?.me.avatar || "/static/mock-images/avatars/avatar_default.jpg",
-          role: "TBD",
+          fullName:
+            user?.me.member.firstName + " " + user?.me.member.lastName ||
+            "User",
+          avatar: "/static/bk-logo-small.png",
+          role: "Member",
           link: "/app"
         }}
         navigationSchema={navConfig}

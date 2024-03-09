@@ -16,12 +16,13 @@ export default function Members() {
       ]}
       actionButton={
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
+          size="small"
           onClick={() => navigate("/app/members/new")}
           data-testid="memberList-newMemberCreate"
         >
-          New Member
+          Add member
         </Button>
       }
     >

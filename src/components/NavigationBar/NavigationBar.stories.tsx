@@ -27,9 +27,6 @@ Default.args = {
   onHamburgerClick: () => {
     console.log("haha");
   },
-  onSearch: (s) => {
-    console.log(s);
-  },
   stackItemsRenderer: () => <div>Default Item</div>
 };
 

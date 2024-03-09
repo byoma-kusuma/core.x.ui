@@ -10,8 +10,8 @@ import {
 } from "@mui/material";
 import Iconify from "components/Iconify";
 
-const APPBAR_MOBILE = 64;
-const APPBAR_DESKTOP = 92;
+const APPBAR_MOBILE = 32;
+const APPBAR_DESKTOP = 46;
 
 const SearchbarStyle = styled("div")(({ theme }) => ({
   top: 0,

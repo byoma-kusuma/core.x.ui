@@ -23,7 +23,6 @@ describe("<NavigationBar />", () => {
     render(
       <NavigationBar
         onHamburgerClick={onHamburgerClick}
-        onSearch={onSearch}
         stackItemsRenderer={stackItemsRenderer}
       />
     );

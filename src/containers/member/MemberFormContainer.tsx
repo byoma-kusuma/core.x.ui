@@ -10,6 +10,7 @@ import MemberDetailForm from "./memberFormContainerComponents/MemberDetailsForm"
 import MemberUserSection, {
   MemberUserSectionProps
 } from "./memberFormContainerComponents/MemberUserSection";
+import { Grid } from "@mui/material";
 
 interface Props {
   height: number;
@@ -35,8 +36,12 @@ export default function MemberFormContainer(props: Props) {
 
   return (
     <>
-      <MemberUserSection {...memberFormUserSectionProps} />
-      <MemberDetailForm {...props} />
+      <Grid item xs={12} md={3} lg={3}>
+        <MemberUserSection {...memberFormUserSectionProps} />
+      </Grid>
+      <Grid item xs={12} md={9} lg={9}>
+        <MemberDetailForm {...props} />
+      </Grid>
     </>
   );
 }
