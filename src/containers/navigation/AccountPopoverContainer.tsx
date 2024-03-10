@@ -24,11 +24,12 @@ export default function AccountPopoverContainer() {
   const [{ data: user }] = useMeQuery({
     requestPolicy: "cache-only"
   });
+
   if (!user) return null;
 
   return (
     <AvatarPopover
-      photoUrl="/static/bk-logo-small.png"
+      photoUrl={user.me.member.photo ?? "/static/bk-logo-small.png"}
       schema={[
         {
           type: "custom",
