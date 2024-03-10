@@ -3364,6 +3364,7 @@ export type UsersQuery = {
       middleName?: string | null;
       lastName: string;
       email?: string | null;
+      photo?: string | null;
     };
   }>;
 };
@@ -3386,6 +3387,7 @@ export type UserQuery = {
       firstName: string;
       middleName?: string | null;
       lastName: string;
+      photo?: string | null;
     };
   };
 };
@@ -7791,6 +7793,7 @@ export const UsersDocument = gql`
         middleName
         lastName
         email
+        photo
       }
     }
   }
@@ -7815,6 +7818,7 @@ export const UserDocument = gql`
         firstName
         middleName
         lastName
+        photo
       }
     }
   }

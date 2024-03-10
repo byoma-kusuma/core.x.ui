@@ -1,7 +1,6 @@
 import { Stack, Avatar, Typography, Box, IconButton } from "@mui/material";
 import { useConfirm } from "material-ui-confirm";
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
 import CoolTable from "components/CoolTable";
 import Iconify from "components/Iconify";
 import Label from "components/Label";
@@ -28,7 +27,6 @@ export default function UsersListContainer() {
   const [, deleteUserMut] = useDeleteUserMutation();
 
   const confirm = useConfirm();
-  const navigate = useNavigate();
 
   const handleUserDelete = (id: number, name: string) => {
     confirm({
@@ -58,10 +56,6 @@ export default function UsersListContainer() {
     });
   };
 
-  const handleUserEdit = (id: number) => {
-    navigate(`/app/users/${id}`);
-  };
-
   return (
     <CoolTable
       error={GqlApiHandler.getErrorMessage(error)}
@@ -76,11 +70,12 @@ export default function UsersListContainer() {
         {
           id: "fullName",
           headerLabel: "Name",
-          formatter({ fullName, avatar }) {
+          formatter({ fullName, member }) {
             return (
               <Stack direction="row" alignItems="center" spacing={2}>
-                {" "}
-                <Avatar src={avatar || ""} />{" "}
+                <Avatar src={member.photo ?? "/static/bk-logo-small.png"}>
+                  {fullName}
+                </Avatar>
                 <Typography variant="subtitle2">{fullName}</Typography>{" "}
               </Stack>
             );
@@ -112,12 +107,12 @@ export default function UsersListContainer() {
           formatter(r) {
             return (
               <Box display="flex" justifyContent="flex-end">
-                <IconButton onClick={() => handleUserEdit(r.id)}>
+                {/* <IconButton onClick={() => handleUserEdit(r.id)}>
                   <Iconify
                     icon="eva:edit-2-outline"
                     sx={{ color: "text.disabled", width: 20, height: 20 }}
                   />
-                </IconButton>
+                </IconButton> */}
                 <IconButton onClick={() => handleUserDelete(r.id, r.userName)}>
                   <Iconify
                     icon="eva:trash-2-outline"
