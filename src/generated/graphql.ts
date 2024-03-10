@@ -2921,6 +2921,7 @@ export type MeQuery = {
       id: number;
       firstName: string;
       lastName: string;
+      photo?: string | null;
     };
   };
 };
@@ -7276,6 +7277,7 @@ export const MeDocument = gql`
         id
         firstName
         lastName
+        photo
       }
     }
   }

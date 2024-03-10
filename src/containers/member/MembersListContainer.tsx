@@ -87,7 +87,7 @@ export default function MembersListContainer() {
         {
           id: "firstName",
           headerLabel: "First Name",
-          formatter({ firstName, lastName, id }) {
+          formatter({ firstName, lastName, id, photo }) {
             return (
               <Stack
                 direction="row"
@@ -95,7 +95,7 @@ export default function MembersListContainer() {
                 spacing={1}
                 onClick={() => handleMemberEdit(id)}
               >
-                <Avatar sx={{ width: 35, height: 35 }}>
+                <Avatar sx={{ width: 35, height: 35 }} src={photo ?? undefined}>
                   {firstName[0].toUpperCase() + lastName[0].toUpperCase()}
                 </Avatar>
                 <Typography variant="subtitle2">{firstName}</Typography>
