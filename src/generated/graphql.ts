@@ -515,6 +515,7 @@ export type CreateMemberInput = {
   isMember: Scalars["Boolean"];
   lastName: Scalars["String"];
   memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
+  memberNumber: Scalars["String"];
   membershipType?: InputMaybe<Membership_Type>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
@@ -1299,6 +1300,7 @@ export type Member = {
   memberAbhisekhas: Array<MemberAbhisekhaWithoutMember>;
   memberEvents: Array<EventMemberWithoutMember>;
   memberGroups: Array<MemberGroupWithoutMember>;
+  memberNumber: Scalars["String"];
   memberResources: Array<MemberResourceWithoutMember>;
   membershipType?: Maybe<Membership_Type>;
   messenger?: Maybe<Scalars["String"]>;
@@ -1527,6 +1529,7 @@ export type MemberCreateWithoutCurrentAddressInput = {
   lastName: Scalars["String"];
   memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
   memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  memberNumber?: InputMaybe<Scalars["String"]>;
   memberResource?: InputMaybe<MemberResourceCreateNestedManyWithoutMemberInput>;
   membershipType?: InputMaybe<MembershipType>;
   messenger?: InputMaybe<Scalars["String"]>;
@@ -1570,6 +1573,7 @@ export type MemberCreateWithoutEventMemberInput = {
   lastName: Scalars["String"];
   memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
   memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  memberNumber?: InputMaybe<Scalars["String"]>;
   memberResource?: InputMaybe<MemberResourceCreateNestedManyWithoutMemberInput>;
   membershipType?: InputMaybe<MembershipType>;
   messenger?: InputMaybe<Scalars["String"]>;
@@ -1613,6 +1617,7 @@ export type MemberCreateWithoutMemberAbhisekhaInput = {
   isMember?: InputMaybe<Scalars["Boolean"]>;
   lastName: Scalars["String"];
   memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  memberNumber?: InputMaybe<Scalars["String"]>;
   memberResource?: InputMaybe<MemberResourceCreateNestedManyWithoutMemberInput>;
   membershipType?: InputMaybe<MembershipType>;
   messenger?: InputMaybe<Scalars["String"]>;
@@ -1657,6 +1662,7 @@ export type MemberCreateWithoutMemberResourceInput = {
   lastName: Scalars["String"];
   memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
   memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  memberNumber?: InputMaybe<Scalars["String"]>;
   membershipType?: InputMaybe<MembershipType>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
@@ -1700,6 +1706,7 @@ export type MemberCreateWithoutPermanentAddressInput = {
   lastName: Scalars["String"];
   memberAbhisekha?: InputMaybe<MemberAbhisekhaCreateNestedManyWithoutMemberInput>;
   memberGroup?: InputMaybe<MemberGroupCreateNestedManyWithoutMemberInput>;
+  memberNumber?: InputMaybe<Scalars["String"]>;
   memberResource?: InputMaybe<MemberResourceCreateNestedManyWithoutMemberInput>;
   membershipType?: InputMaybe<MembershipType>;
   messenger?: InputMaybe<Scalars["String"]>;
@@ -1935,6 +1942,7 @@ export type MemberWhereInput = {
   lastName?: InputMaybe<StringFilter>;
   memberAbhisekha?: InputMaybe<MemberAbhisekhaListRelationFilter>;
   memberGroup?: InputMaybe<MemberGroupListRelationFilter>;
+  memberNumber?: InputMaybe<StringFilter>;
   memberResource?: InputMaybe<MemberResourceListRelationFilter>;
   membershipType?: InputMaybe<EnumMembershipTypeFilter>;
   messenger?: InputMaybe<StringFilter>;
@@ -2654,6 +2662,7 @@ export type UpdateMemberInput = {
   isMember?: InputMaybe<Scalars["Boolean"]>;
   lastName?: InputMaybe<Scalars["String"]>;
   memberAbhisekhaDetails?: InputMaybe<Array<MemberAbhisekhaDetails>>;
+  memberNumber?: InputMaybe<Scalars["String"]>;
   membershipType?: InputMaybe<Membership_Type>;
   messenger?: InputMaybe<Scalars["String"]>;
   middleName?: InputMaybe<Scalars["String"]>;
@@ -3094,6 +3103,7 @@ export type MembersQuery = {
     dharmaInstructor?: string | null;
     education?: string | null;
     occupation?: string | null;
+    memberNumber: string;
     currentAddress?: {
       __typename?: "Address";
       city?: string | null;
@@ -3159,6 +3169,7 @@ export type MemberQuery = {
     dharmaInstructor?: string | null;
     education?: string | null;
     occupation?: string | null;
+    memberNumber: string;
     currentAddress?: {
       __typename?: "Address";
       city?: string | null;
@@ -4918,6 +4929,17 @@ export default {
                     ofType: null
                   }
                 }
+              }
+            },
+            args: []
+          },
+          {
+            name: "memberNumber",
+            type: {
+              kind: "NON_NULL",
+              ofType: {
+                kind: "SCALAR",
+                name: "Any"
               }
             },
             args: []
@@ -7490,6 +7512,7 @@ export const MembersDocument = gql`
       dharmaInstructor
       education
       occupation
+      memberNumber
       currentAddress {
         city
         country
@@ -7555,6 +7578,7 @@ export const MemberDocument = gql`
       dharmaInstructor
       education
       occupation
+      memberNumber
       currentAddress {
         city
         country

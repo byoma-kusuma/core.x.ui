@@ -188,5 +188,10 @@ export const memberDetailsFormikSchema = {
     type: "text",
     required: false,
     initialValue: ""
+  },
+  memberNumber: {
+    type: "text",
+    required: false,
+    initialValue: ""
   }
 } as FormikSchema;

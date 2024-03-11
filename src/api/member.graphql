@@ -28,6 +28,7 @@ query members {
     dharmaInstructor
     education
     occupation
+    memberNumber
     currentAddress {
       city
       country
@@ -86,6 +87,7 @@ query member($id: Int!) {
     dharmaInstructor
     education
     occupation
+    memberNumber
     currentAddress {
       city
       country

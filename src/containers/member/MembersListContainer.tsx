@@ -115,6 +115,7 @@ export default function MembersListContainer() {
           }
         },
         { id: "email", headerLabel: "Email", placeholder: "-" },
+        { id: "memberNumber", headerLabel: "Member Number", placeholder: "-" },
         {
           id: "centre",
           headerLabel: "Centre",

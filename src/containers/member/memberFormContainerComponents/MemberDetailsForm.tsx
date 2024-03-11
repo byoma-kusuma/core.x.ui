@@ -185,7 +185,7 @@ function MemberMainDetailsSection(
               onChange={(v) => formik.setFieldValue("centreId", v)}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <PhoneInput
               specialLabel="Phone Mobile"
               value={formik.values.phoneMobile as string}
@@ -194,12 +194,19 @@ function MemberMainDetailsSection(
               inputStyle={{ width: "100%", height: "56px" }}
             />
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} md={4}>
             <GenderSelect
               value={formik.values.gender}
               onChange={(v) => {
                 formik.setFieldValue("gender", v);
               }}
+            />
+          </Grid>
+          <Grid item xs={12} md={4}>
+            <GenericTextField
+              formikSchema={memberDetailsFormikSchema}
+              schemaKey="memberNumber"
+              formik={formik}
             />
           </Grid>
           <Grid item xs={12} sm={6} display="flex" alignItems="center">
