@@ -47,28 +47,45 @@ const PhotoHolder = styled("div")(({ theme }) => ({
 export interface PhotoUploaderProps {
   children: React.ReactNode;
   height?: number | string;
+  photo?: string;
 }
 
 export default function PhotoUploader(props: PhotoUploaderProps) {
-  const { children, height } = props;
+  const { children, height, photo } = props;
   return (
     <RootStyle elevation={1} sx={{ height }}>
       <PhotoHolderContainer>
         <DottedWrapper>
-          <PhotoHolder>
-            <Iconify
-              icon="eva:camera-outline"
-              sx={{ height: 24, width: 24, color: "GrayText" }}
-            />
-            <Typography variant="body2" sx={{ color: "GrayText", mt: "8px" }}>
-              Upload photo
-            </Typography>
-          </PhotoHolder>
+          {photo ? (
+            <a href={photo} target="_blank" rel="noopener noreferrer">
+              <img
+                src={photo}
+                alt="Uploaded Photo"
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                  borderRadius: "50%",
+                  objectFit: "cover"
+                }}
+              />
+            </a>
+          ) : (
+            <div>
+              <PhotoHolder>
+                <Iconify
+                  icon="eva:camera-outline"
+                  sx={{ height: 24, width: 24, color: "GrayText" }}
+                />
+                <Typography
+                  variant="body2"
+                  sx={{ color: "GrayText", mt: "8px" }}
+                >
+                  Upload photo (*.jpeg, *.jpg, *.png, *.gif)
+                </Typography>
+              </PhotoHolder>
+            </div>
+          )}
         </DottedWrapper>
-
-        <Typography variant="body2" sx={{ color: "GrayText" }}>
-          Allowed *.jpeg, *.jpg, *.png, *.gif max size of 3.1 MB
-        </Typography>
       </PhotoHolderContainer>
       {children}
     </RootStyle>

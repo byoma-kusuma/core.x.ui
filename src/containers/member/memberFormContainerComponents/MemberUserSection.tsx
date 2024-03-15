@@ -17,6 +17,7 @@ export interface MemberUserSectionProps {
   memberUserName?: string;
   memberUserRoleName?: string;
   memberName: string | null;
+  photo?: string | null;
 }
 
 const UserInfoItemStyle = styled("div")(() => ({
@@ -91,7 +92,7 @@ const MemberUserSection: React.FC<MemberUserSectionProps> = (props) => {
   };
   return (
     <>
-      <PhotoUploader height={"100%"}>
+      <PhotoUploader height={"100%"} photo={props.photo ?? ""}>
         {props.memberId && (
           <UserInfoItemStyle>
             <Typography variant="subtitle1">User</Typography>

@@ -31,7 +31,8 @@ export default function MemberFormContainer(props: Props) {
     doesMemberHasUser: Boolean(data?.member.user),
     memberName: data ? getMemberFullName(data?.member) : null,
     memberUserRoleName: data?.member.user?.role.name,
-    memberUserName: data?.member.user?.userName
+    memberUserName: data?.member.user?.userName,
+    photo: data?.member.photo
   };
 
   return (

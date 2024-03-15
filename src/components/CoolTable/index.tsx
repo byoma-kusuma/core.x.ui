@@ -93,7 +93,7 @@ function CoolTable<T extends { id: K }, K extends number | string = number>(
   );
   const [searchQuery, setSearchQuery] = React.useState("");
   const [selectedRows, setSelectedRows] = React.useState<Array<K>>([]);
-  const [rowsPerPage, setRowsPerPage] = React.useState(100);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
   const [page, setPage] = React.useState(0);
   const [filterTab, setFilterTab] = React.useState<number | null>(
     (filterSchema || []).length ? 0 : null
